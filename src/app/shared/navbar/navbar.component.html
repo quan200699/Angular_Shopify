@@ -21,15 +21,15 @@
     <div class="my-2 my-lg-0">
       <ul class="navbar-nav mr-auto" *ngIf="!currentUser">
         <li class="nav-item">
-          <a class="nav-link" routerLink="login"><i class="fa fa-sign-in fa-lg"></i> Đăng nhập</a>
+          <a class="nav-link" routerLink="login"><i class="fas fa-sign-in-alt fa-lg"></i> Đăng nhập</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="register"><i class="fa fa-user-plus fa-lg"></i> Đăng ký</a>
+          <a class="nav-link" routerLink="register"><i class="fas fa-user-plus fa-lg"></i> Đăng ký</a>
         </li>
       </ul>
       <ul class="navbar-nav mr-auto" *ngIf="currentUser">
         <li class="nav-item">
-          <a class="nav-link" routerLink="#" (click)="logout()"><i class="fa fa-sign-out"></i> Đăng xuất</a>
+          <a class="nav-link" routerLink="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
         </li>
       </ul>
     </div>
