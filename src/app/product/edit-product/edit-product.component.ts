@@ -29,10 +29,6 @@ export class EditProductComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute) {
-    this.sub = this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      const id = +paramMap.get('id');
-      this.getProduct(id);
-    })
   }
 
   ngOnInit() {
@@ -100,56 +96,55 @@ export class EditProductComponent implements OnInit {
         }
       });
     });
+    this.sub = this.activatedRoute.paramMap.subscribe(async (paramMap: ParamMap) => {
+      this.id = +paramMap.get('id');
+      this.currentProduct = await this.getProduct(this.id);
+    })
   }
 
-  getProduct(id: number) {
-    this.productService.getProduct(id).subscribe(product => {
-      this.currentProduct = product;
-    })
+  async getProduct(id: number) {
+    return this.productService.getProduct(id).toPromise();
   }
 
   updateProduct(id: number) {
     const product: Product = {
-      name: this.productForm.value.name,
-      price: this.productForm.value.price,
+      name: this.productForm.value.name === "" ? this.currentProduct.name : this.productForm.value.name,
+      price: this.productForm.value.price === "" ? this.currentProduct.price : this.productForm.value.price,
       status: true,
-      mass: this.productForm.value.mass,
-      ingredient: this.productForm.value.ingredient,
-      instructional: this.productForm.value.instructional,
-      preservation: this.productForm.value.preservation,
-      description: this.productForm.value.description
+      mass: this.productForm.value.mass === "" ? this.currentProduct.mass : this.productForm.value.mass,
+      ingredient: this.productForm.value.ingredient === "" ? this.currentProduct.ingredient : this.productForm.value.ingredient,
+      instructional: this.productForm.value.instructional === "" ? this.currentProduct.instructional : this.productForm.value.instructional,
+      preservation: this.productForm.value.preservation === "" ? this.currentProduct.preservation : this.productForm.value.preservation,
+      description: $('.textarea').val()
     };
-    if (product.name !== "" && product.preservation !== "" && product.instructional !== "") {
-      this.productService.createProduct(product).subscribe(() => {
-        $(function () {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-          });
-
-          Toast.fire({
-            type: 'success',
-            title: 'Tạo mới thành công'
-          });
+    this.productService.updateProduct(id, product).subscribe(() => {
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
         });
-        this.productForm.reset();
-      }, () => {
-        $(function () {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-          });
 
-          Toast.fire({
-            type: 'error',
-            title: 'Tạo mới thất bại'
-          });
+        Toast.fire({
+          type: 'success',
+          title: 'Cập nhật thành công'
         });
       });
-    }
+    }, () => {
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'error',
+          title: 'Cập nhật thất bại'
+        });
+      });
+    });
   }
 }
