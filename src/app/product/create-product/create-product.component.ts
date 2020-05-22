@@ -5,6 +5,7 @@ import {Product} from "../../model/product";
 
 declare var $: any;
 declare var Swal: any;
+let description: string;
 
 @Component({
   selector: 'app-create-product',
@@ -26,10 +27,10 @@ export class CreateProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    $(function () {
-      $('.textarea').summernote()
-    })
     $(document).ready(function () {
+      $(function () {
+        $('.textarea').summernote();
+      })
       $('#product-form').validate({
         rules: {
           name: {
@@ -101,7 +102,7 @@ export class CreateProductComponent implements OnInit {
       ingredient: this.productForm.value.ingredient,
       instructional: this.productForm.value.instructional,
       preservation: this.productForm.value.preservation,
-      description: this.productForm.value.description
+      description: $('.textarea').val()
     };
     if (product.name !== "" && product.preservation !== "" && product.instructional !== "") {
       this.productService.createProduct(product).subscribe(() => {
