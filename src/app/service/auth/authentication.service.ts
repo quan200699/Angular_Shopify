@@ -16,7 +16,7 @@ export class AuthenticationService {
   update = new EventEmitter<string>();
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<UserToken>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject = new BehaviorSubject<UserToken>(JSON.parse(localStorage.getItem('user')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
