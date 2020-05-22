@@ -102,7 +102,7 @@ export class EditProductComponent implements OnInit {
     })
   }
 
-  async getProduct(id: number) {
+  getProduct(id: number) {
     return this.productService.getProduct(id).toPromise();
   }
 
