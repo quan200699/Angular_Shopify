@@ -31,6 +31,7 @@
           <th style="width: 10px">#</th>
           <th>Tên sản phẩm</th>
           <th>Giá bán</th>
+          <th>Khối lượng</th>
           <th style="width: 160px" *ngIf="hasRoleAdmin"></th>
         </tr>
         </thead>
@@ -40,7 +41,8 @@
           <td>
             <a [routerLink]="['info',product.id]">{{product.name}}</a>
           </td>
-          <td>{{product.price}}</td>
+          <td>{{product.price}} đồng</td>
+          <td>{{product.mass}} gram</td>
           <td *ngIf="hasRoleAdmin">
             <div class="row">
               <div class="col-6">
@@ -49,9 +51,10 @@
                 </a>
               </div>
               <div class="col-6">
-                <a [routerLink]="['delete',product.id]" class="btn btn-block btn-danger" style="color: white">
+                <button type="button" class="btn btn-block btn-danger" style="color: white" data-toggle="modal"
+                        data-target="#modal-delete" (click)="getProductId(product.id)">
                   <i class="fas fa-trash"></i>
-                </a>
+                </button>
               </div>
             </div>
           </td>
@@ -59,5 +62,26 @@
         </tbody>
       </table>
     </div>
+  </div>
+  <div class="modal fade" id="modal-delete">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Xóa sản phẩm</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Bạn có chắc muốn xóa sản phẩm này</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+          <button type="button" class="btn btn-danger" (click)="deleteProduct()">Xóa</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
   </div>
 </section>

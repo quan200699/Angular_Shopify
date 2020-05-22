@@ -5,7 +5,6 @@ import {Product} from "../../model/product";
 
 declare var $: any;
 declare var Swal: any;
-let description: string;
 
 @Component({
   selector: 'app-create-product',

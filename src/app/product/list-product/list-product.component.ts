@@ -5,6 +5,7 @@ import {ProductService} from "../../service/product/product.service";
 import {AuthenticationService} from "../../service/auth/authentication.service";
 
 declare var $: any;
+declare var Swal: any;
 
 @Component({
   selector: 'app-list-product',
@@ -15,6 +16,7 @@ export class ListProductComponent implements OnInit {
   listProduct: Product[];
   currentUser: UserToken;
   hasRoleAdmin = false;
+  id: number;
 
   constructor(private productService: ProductService,
               private authenticationService: AuthenticationService) {
@@ -31,6 +33,42 @@ export class ListProductComponent implements OnInit {
 
   ngOnInit() {
     this.getAllProduct();
+  }
+
+  getProductId(id: number) {
+    this.id = id;
+  }
+
+  deleteProduct() {
+    this.productService.deleteProduct(this.id).subscribe(() => {
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'success',
+          title: 'Xóa thành công'
+        });
+      });
+    }, () => {
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'error',
+          title: 'Tạo mới thất bại'
+        });
+      });
+    })
   }
 
   getAllProduct() {
