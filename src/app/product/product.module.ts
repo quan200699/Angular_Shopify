@@ -4,6 +4,7 @@ import {ProductRoutingModule} from "./product-routing.module";
 import {ListProductComponent} from "./list-product/list-product.component";
 import {CreateProductComponent} from "./create-product/create-product.component";
 import {ReactiveFormsModule} from "@angular/forms";
+import {EditProductComponent} from "./edit-product/edit-product.component";
 
 
 
@@ -11,6 +12,7 @@ import {ReactiveFormsModule} from "@angular/forms";
   declarations: [
     ListProductComponent,
     CreateProductComponent,
+    EditProductComponent,
   ],
   imports: [
     CommonModule,

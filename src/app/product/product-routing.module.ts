@@ -4,6 +4,7 @@ import {ListProductComponent} from "./list-product/list-product.component";
 import {AuthGuard} from "../helper/auth-guard";
 import {CreateProductComponent} from "./create-product/create-product.component";
 import {AdminAuthGuard} from "../helper/admin-auth-guard";
+import {EditProductComponent} from "./edit-product/edit-product.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,11 @@ const routes: Routes = [
     component: CreateProductComponent,
     canActivate: [AdminAuthGuard]
   },
+  {
+    path: 'edit/:id',
+    component: EditProductComponent,
+    canActivate: [AdminAuthGuard]
+  }
 ];
 
 @NgModule({
