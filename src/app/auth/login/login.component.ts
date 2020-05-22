@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {first} from "rxjs/operators";
-import {AuthenticationService} from "../../service/authentication.service";
+import {AuthenticationService} from "../../service/auth/authentication.service";
 
 declare var $: any;
 declare var Swal: any;

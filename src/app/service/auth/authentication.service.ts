@@ -2,8 +2,8 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {UserToken} from "../model/user-token";
-import {environment} from "../../environments/environment";
+import {UserToken} from "../../model/user-token";
+import {environment} from "../../../environments/environment";
 
 const API_URL = environment.apiUrl;
 

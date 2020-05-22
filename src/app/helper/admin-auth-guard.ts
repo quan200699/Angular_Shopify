@@ -10,7 +10,7 @@ import {
 } from '@angular/router';
 import {Injectable} from '@angular/core';
 import {UserToken} from '../model/user-token';
-import {AuthenticationService} from "../service/authentication.service";
+import {AuthenticationService} from "../service/auth/authentication.service";
 
 @Injectable({
   providedIn: 'root'

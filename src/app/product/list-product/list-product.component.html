@@ -1,0 +1,47 @@
+<section class="content">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Danh sách sản phẩm</h3>
+      <div class="card-tools">
+        <a routerLink="create" *ngIf="hasRoleAdmin" class="btn btn-xs btn-primary float-lg-right">
+          Tạo mới
+        </a>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered" id="table-product">
+        <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>Tên sản phẩm</th>
+          <th>Giá bán</th>
+          <th style="width: 160px" *ngIf="hasRoleAdmin"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of listProduct; index as i">
+          <td>{{i + 1}}</td>
+          <td>
+            <a [routerLink]="['info',product.id]">{{product.name}}</a>
+          </td>
+          <td>{{product.price}}</td>
+          <td *ngIf="hasRoleAdmin">
+            <div class="row">
+              <div class="col-6">
+                <a [routerLink]="['edit',product.id]" class="btn btn-block btn-primary" style="color: white">
+                  <i class="fas fa-edit"></i>
+                </a>
+              </div>
+              <div class="col-6">
+                <a [routerLink]="['delete',product.id]" class="btn btn-block btn-danger" style="color: white">
+                  <i class="fas fa-remove-format"></i>
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

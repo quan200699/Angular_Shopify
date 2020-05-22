@@ -20,7 +20,7 @@ import { RegisterComponent } from './auth/register/register.component';
     LayoutWithSharedComponent,
     SidebarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
