@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {LayoutWithSharedComponent} from "./layout/layout-with-shared/layout-with-shared.component";
 import {LoginComponent} from "./login/login.component";
 
@@ -7,7 +7,13 @@ import {LoginComponent} from "./login/login.component";
 const routes: Routes = [
   {
     path: '',
-    component: LayoutWithSharedComponent
+    component: LayoutWithSharedComponent,
+    children: [
+      {
+        path: 'product',
+        loadChildren: () => import('./product/product.module').then(module => module.ProductModule)
+      }
+    ]
   },
   {
     path: 'login',
@@ -23,4 +29,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
