@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AuthenticationService} from "../service/authentication.service";
 import {first} from "rxjs/operators";
+import {AuthenticationService} from "../../service/authentication.service";
 
 declare var $: any;
 declare var Swal: any;
@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
     password: new FormControl('')
   });
   returnUrl: string;
-  error = '';
   loading = false;
   submitted = false;
 
@@ -59,7 +58,6 @@ export class LoginComponent implements OnInit {
           });
         },
         () => {
-          this.error = 'Sai tên đăng nhập hoặc mật khẩu';
           this.loading = false;
           $(function () {
             const Toast = Swal.mixin({
