@@ -1,3 +1,5 @@
+import {Image} from "./image";
+
 export interface Product {
   id?: number;
   name?: string;
@@ -8,4 +10,5 @@ export interface Product {
   instructional?: string;
   mass?: number;
   description?: string;
+  image?: [Image];
 }
