@@ -112,7 +112,7 @@ export class CreateProductComponent implements OnInit {
     if (product != null) {
       if (this.selectedImages.length !== 0) {
         for (let selectedImage of this.selectedImages) {
-          const filePath = `${selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+          const filePath = `${product.name}/${selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
           const fileRef = this.storage.ref(filePath);
           this.storage.upload(filePath, selectedImage).snapshotChanges().pipe(
             finalize(() => {
