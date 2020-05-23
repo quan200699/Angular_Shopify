@@ -26,7 +26,6 @@ export class CreateProductComponent implements OnInit {
     description: new FormControl(''),
   });
   selectedImages: any[] = [];
-  imgSrc = '../../../assets/img/Placeholder.jpg';
 
   constructor(private productService: ProductService,
               private imageService: ImageService,
@@ -179,11 +178,9 @@ export class CreateProductComponent implements OnInit {
   showPreview(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = (e: any) => this.imgSrc = e.target.result;
       reader.readAsDataURL(event.target.files[0]);
       this.selectedImages = event.target.files;
     } else {
-      this.imgSrc = '../../../assets/img/Placeholder.jpg';
       this.selectedImages = [];
     }
   }
