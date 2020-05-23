@@ -41,7 +41,9 @@ export class ListProductComponent implements OnInit {
 
   deleteProduct() {
     this.productService.deleteProduct(this.id).subscribe(() => {
-      this.getAllProduct();
+      this.productService.getAllProduct().subscribe(listProduct => {
+        this.listProduct = listProduct;
+      })
       $(function () {
         const Toast = Swal.mixin({
           toast: true,
