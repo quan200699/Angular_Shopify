@@ -2,6 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {ProductService} from "../../service/product/product.service";
 import {Product} from "../../model/product";
+import {ImageService} from "../../service/image/image.service";
+import {AngularFireStorage} from "@angular/fire/storage";
+import {finalize} from "rxjs/operators";
+import {Image} from "../../model/image";
 
 declare var $: any;
 declare var Swal: any;
@@ -22,8 +26,11 @@ export class CreateProductComponent implements OnInit {
     description: new FormControl(''),
   });
   selectedImages: any[] = [];
+  imgSrc = '../../../assets/img/Placeholder.jpg';
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService,
+              private imageService: ImageService,
+              private storage: AngularFireStorage) {
   }
 
   ngOnInit() {
@@ -54,6 +61,9 @@ export class CreateProductComponent implements OnInit {
           description: {
             required: true
           },
+          image: {
+            required: true
+          }
         },
         messages: {
           name: {
@@ -77,6 +87,9 @@ export class CreateProductComponent implements OnInit {
           description: {
             required: 'Hãy nhập mô tả chi tiết cho sản phẩm'
           },
+          image: {
+            required: 'Chọn ảnh cho sản phẩm'
+          }
         },
         errorElement: 'span',
         errorPlacement: function (error, element) {
@@ -93,6 +106,60 @@ export class CreateProductComponent implements OnInit {
     });
   }
 
+  async createImage() {
+    const product = await this.createProduct();
+    if (product != null) {
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'success',
+          title: 'Tạo mới thành công'
+        });
+      });
+      if (this.selectedImages.length !== 0) {
+        for (let selectedImage of this.selectedImages) {
+          const filePath = `${selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+          const fileRef = this.storage.ref(filePath);
+          this.storage.upload(filePath, selectedImage).snapshotChanges().pipe(
+            finalize(() => {
+              fileRef.getDownloadURL().subscribe(url => {
+                const image: Image = {
+                  url: url,
+                  product: {
+                    id: product.id
+                  }
+                };
+                this.imageService.createImage(image).subscribe(() => {
+                }, () => {
+                });
+              });
+            })
+          ).subscribe();
+        }
+      }
+    } else {
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'error',
+          title: 'Tạo mới thất bại'
+        });
+      });
+    }
+  }
+
   createProduct() {
     const product: Product = {
       name: this.productForm.value.name,
@@ -105,36 +172,19 @@ export class CreateProductComponent implements OnInit {
       description: $('.textarea').val()
     };
     if (product.name !== "" && product.preservation !== "" && product.instructional !== "") {
-      this.productService.createProduct(product).subscribe(() => {
-        $(function () {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-          });
+      return this.productService.createProduct(product).toPromise();
+    }
+  }
 
-          Toast.fire({
-            type: 'success',
-            title: 'Tạo mới thành công'
-          });
-        });
-        this.productForm.reset();
-      }, () => {
-        $(function () {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-          });
-
-          Toast.fire({
-            type: 'error',
-            title: 'Tạo mới thất bại'
-          });
-        });
-      });
+  showPreview(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.imgSrc = e.target.result;
+      reader.readAsDataURL(event.target.files[0]);
+      this.selectedImages = event.target.files;
+    } else {
+      this.imgSrc = '../../../assets/img/Placeholder.jpg';
+      this.selectedImages = [];
     }
   }
 }
