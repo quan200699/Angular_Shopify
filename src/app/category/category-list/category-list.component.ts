@@ -3,22 +3,24 @@ import {Product} from "../../model/product";
 import {UserToken} from "../../model/user-token";
 import {ProductService} from "../../service/product/product.service";
 import {AuthenticationService} from "../../service/auth/authentication.service";
+import {Category} from "../../model/category";
+import {CategoryService} from "../../service/category/category.service";
 
 declare var $: any;
 declare var Swal: any;
 
 @Component({
-  selector: 'app-list-product',
-  templateUrl: './list-product.component.html',
-  styleUrls: ['./list-product.component.css']
+  selector: 'app-category-list',
+  templateUrl: './category-list.component.html',
+  styleUrls: ['./category-list.component.css']
 })
-export class ListProductComponent implements OnInit {
-  listProduct: Product[];
+export class CategoryListComponent implements OnInit {
+  listCategory: Category[];
   currentUser: UserToken;
   hasRoleAdmin = false;
   id: number;
 
-  constructor(private productService: ProductService,
+  constructor(private categoryService: CategoryService,
               private authenticationService: AuthenticationService) {
     this.authenticationService.currentUser.subscribe(value => this.currentUser = value);
     if (this.currentUser) {
@@ -32,16 +34,16 @@ export class ListProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllProduct();
+    this.getAllCategory();
   }
 
-  getProductId(id: number) {
+  getCategoryId(id: number) {
     this.id = id;
   }
 
-  deleteProduct() {
-    this.productService.deleteProduct(this.id).subscribe(() => {
-      this.getAllProduct();
+  deleteCategory() {
+    this.categoryService.deleteCategory(this.id).subscribe(() => {
+      this.getAllCategory();
       $(function () {
         const Toast = Swal.mixin({
           toast: true,
@@ -49,6 +51,7 @@ export class ListProductComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
         });
+
         Toast.fire({
           type: 'success',
           title: 'Xóa thành công'
@@ -71,11 +74,11 @@ export class ListProductComponent implements OnInit {
     })
   }
 
-  getAllProduct() {
-    this.productService.getAllProduct().subscribe(listProduct => {
-      this.listProduct = listProduct;
+  getAllCategory() {
+    this.categoryService.getAllCategory().subscribe(listCategory => {
+      this.listCategory = listCategory;
       $(function () {
-        $('#table-product').DataTable({
+        $('#table-category').DataTable({
           "paging": true,
           "lengthChange": false,
           "searching": false,
