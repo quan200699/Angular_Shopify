@@ -126,6 +126,13 @@
                 </div>
               </div>
             </div>
+            <div class="row" *ngFor="let image of selectedImages; index as i">
+              <span class="col-11">{{image.name.split('.').slice(0, -1)}}</span>
+              <button type="button" class="btn btn-sm btn-danger col-1" style="color: white"
+                      (click)="removeImageFromPreview(i)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
           </div>
           <!-- /.card-body -->
         </div>

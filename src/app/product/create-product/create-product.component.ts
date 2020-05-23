@@ -187,4 +187,15 @@ export class CreateProductComponent implements OnInit {
       this.selectedImages = [];
     }
   }
+
+  removeImageFromPreview(index: number) {
+    let images = [];
+    for (let i = 0; i < index; i++) {
+      images[i] = this.selectedImages[i];
+    }
+    for (let i = index; i < this.selectedImages.length - 1; i++) {
+      images[i] = this.selectedImages[i + 1];
+    }
+    this.selectedImages = images;
+  }
 }
