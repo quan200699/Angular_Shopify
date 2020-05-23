@@ -21,6 +21,7 @@ export class CreateProductComponent implements OnInit {
     mass: new FormControl(''),
     description: new FormControl(''),
   });
+  selectedImages: any[] = [];
 
   constructor(private productService: ProductService) {
   }
