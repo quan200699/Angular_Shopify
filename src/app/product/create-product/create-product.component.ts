@@ -9,6 +9,7 @@ import {Image} from "../../model/image";
 
 declare var $: any;
 declare var Swal: any;
+let isValidated = true;
 
 @Component({
   selector: 'app-create-product',
@@ -92,6 +93,7 @@ export class CreateProductComponent implements OnInit {
         },
         errorElement: 'span',
         errorPlacement: function (error, element) {
+          isValidated = false;
           error.addClass('invalid-feedback');
           element.closest('.form-group').append(error);
         },
@@ -108,19 +110,6 @@ export class CreateProductComponent implements OnInit {
   async createImage() {
     const product = await this.createProduct();
     if (product != null) {
-      $(function () {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000
-        });
-
-        Toast.fire({
-          type: 'success',
-          title: 'Tạo mới thành công'
-        });
-      });
       if (this.selectedImages.length !== 0) {
         for (let selectedImage of this.selectedImages) {
           const filePath = `${selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
@@ -141,6 +130,19 @@ export class CreateProductComponent implements OnInit {
             })
           ).subscribe();
         }
+        $(function () {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          });
+
+          Toast.fire({
+            type: 'success',
+            title: 'Tạo mới thành công'
+          });
+        });
       }
     } else {
       $(function () {
@@ -170,7 +172,7 @@ export class CreateProductComponent implements OnInit {
       preservation: this.productForm.value.preservation,
       description: $('.textarea').val()
     };
-    if (product.name !== "" && product.preservation !== "" && product.instructional !== "") {
+    if (isValidated) {
       return this.productService.createProduct(product).toPromise();
     }
   }
