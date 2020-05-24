@@ -6,10 +6,13 @@ import {ImageService} from "../../service/image/image.service";
 import {AngularFireStorage} from "@angular/fire/storage";
 import {finalize} from "rxjs/operators";
 import {Image} from "../../model/image";
+import {Category} from "../../model/category";
+import {CategoryService} from "../../service/category/category.service";
 
 declare var $: any;
 declare var Swal: any;
 let isValidated = true;
+let categoryId: number = null;
 
 @Component({
   selector: 'app-create-product',
@@ -25,16 +28,24 @@ export class CreateProductComponent implements OnInit {
     instructional: new FormControl(''),
     mass: new FormControl(''),
     description: new FormControl(''),
+    category: new FormControl()
   });
   selectedImages: any[] = [];
+  categoryList: Category[] = [];
 
   constructor(private productService: ProductService,
               private imageService: ImageService,
-              private storage: AngularFireStorage) {
+              private storage: AngularFireStorage,
+              private categoryService: CategoryService) {
+    this.getAllCategory();
   }
 
   ngOnInit() {
     $(document).ready(function () {
+      $('.select2').select2();
+      $('#category').on('select2:select', function (e, source) {
+        categoryId = $(e.currentTarget).val();
+      });
       $(function () {
         $('.textarea').summernote();
       })
@@ -171,7 +182,10 @@ export class CreateProductComponent implements OnInit {
       ingredient: this.productForm.value.ingredient,
       instructional: this.productForm.value.instructional,
       preservation: this.productForm.value.preservation,
-      description: $('.textarea').val()
+      description: $('.textarea').val(),
+      category: {
+        id: categoryId
+      }
     };
     if (isValidated) {
       return this.productService.createProduct(product).toPromise();
@@ -197,5 +211,12 @@ export class CreateProductComponent implements OnInit {
       images[i] = this.selectedImages[i + 1];
     }
     this.selectedImages = images;
+  }
+
+  getAllCategory() {
+    this.categoryService.getAllCategory().subscribe(categoryList => {
+      this.categoryList = categoryList;
+    })
+
   }
 }
