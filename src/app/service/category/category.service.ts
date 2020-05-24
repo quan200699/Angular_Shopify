@@ -3,6 +3,7 @@ import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Category} from "../../model/category";
+import {Product} from "../../model/product";
 
 const API_URL = `${environment.apiUrl}`
 
@@ -32,5 +33,9 @@ export class CategoryService {
 
   deleteCategory(id: number): Observable<Category> {
     return this.http.delete<Category>(API_URL + `/categories/${id}`);
+  }
+
+  getAllProductByCategory(id: number): Observable<Product[]> {
+    return this.http.get<Product[]>(API_URL + `/categories/${id}/products`)
   }
 }
