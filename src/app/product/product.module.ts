@@ -5,6 +5,7 @@ import {ListProductComponent} from "./list-product/list-product.component";
 import {CreateProductComponent} from "./create-product/create-product.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {EditProductComponent} from "./edit-product/edit-product.component";
+import {InfoProductComponent} from "./info-product/info-product.component";
 
 
 
@@ -13,6 +14,7 @@ import {EditProductComponent} from "./edit-product/edit-product.component";
     ListProductComponent,
     CreateProductComponent,
     EditProductComponent,
+    InfoProductComponent,
   ],
   imports: [
     CommonModule,

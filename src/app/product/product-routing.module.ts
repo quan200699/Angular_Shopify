@@ -5,6 +5,7 @@ import {AuthGuard} from "../helper/auth-guard";
 import {CreateProductComponent} from "./create-product/create-product.component";
 import {AdminAuthGuard} from "../helper/admin-auth-guard";
 import {EditProductComponent} from "./edit-product/edit-product.component";
+import {InfoProductComponent} from "./info-product/info-product.component";
 
 
 const routes: Routes = [
@@ -22,6 +23,11 @@ const routes: Routes = [
     path: 'edit/:id',
     component: EditProductComponent,
     canActivate: [AdminAuthGuard]
+  },
+  {
+    path: 'info/:id',
+    component: InfoProductComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

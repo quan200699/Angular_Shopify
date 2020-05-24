@@ -3,6 +3,7 @@ import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Product} from "../../model/product";
+import {Image} from "../../model/image";
 
 const API_URL = `${environment.apiUrl}`
 
@@ -32,5 +33,9 @@ export class ProductService {
 
   deleteProduct(id: number): Observable<Product> {
     return this.http.delete<Product>(API_URL + `/products/${id}`);
+  }
+
+  getAllImageByProduct(id: number): Observable<Image[]> {
+    return this.http.get<Image[]>(API_URL + `/products/${id}/images`);
   }
 }
