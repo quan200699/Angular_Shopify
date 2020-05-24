@@ -56,6 +56,16 @@
             </div>
           </div>
         </div>
+        <div class="form-group">
+          <label for="category">Danh mục sản phẩm</label>
+          <select class="form-control select2 select2-primary" id="category" name="category"
+                  formControlName="category" data-dropdown-css-class="select2-primary"
+                  style="width: 100%;">
+            <option [ngValue]="null" disabled>Chọn danh mục</option>
+            <option *ngFor="let category of categoryList" [value]="category.id"
+                    [selected]="category.id === categoryId">{{category.name}}</option>
+          </select>
+        </div>
       </div>
       <!-- /.card-body -->
     </div>
