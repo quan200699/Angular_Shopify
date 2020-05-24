@@ -4,6 +4,7 @@ import {CategoryRoutingModule} from "./category-routing.module";
 import {CategoryListComponent} from "./category-list/category-list.component";
 import {CreateCategoryComponent} from "./create-category/create-category.component";
 import {ReactiveFormsModule} from "@angular/forms";
+import {EditCategoryComponent} from "./edit-category/edit-category.component";
 
 
 
@@ -11,6 +12,7 @@ import {ReactiveFormsModule} from "@angular/forms";
   declarations: [
     CategoryListComponent,
     CreateCategoryComponent,
+    EditCategoryComponent,
   ],
   imports: [
     CommonModule,

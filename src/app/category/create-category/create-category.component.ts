@@ -53,6 +53,7 @@ export class CreateCategoryComponent implements OnInit {
     };
     if (category.name !== "") {
       return this.categoryService.createCategory(category).subscribe(() => {
+        this.categoryForm.reset();
         $(function () {
           const Toast = Swal.mixin({
             toast: true,

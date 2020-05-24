@@ -4,6 +4,7 @@ import {AuthGuard} from "../helper/auth-guard";
 import {CategoryListComponent} from "./category-list/category-list.component";
 import {AdminAuthGuard} from "../helper/admin-auth-guard";
 import {CreateCategoryComponent} from "./create-category/create-category.component";
+import {EditCategoryComponent} from "./edit-category/edit-category.component";
 
 
 const routes: Routes = [
@@ -16,6 +17,11 @@ const routes: Routes = [
     path: 'create',
     canActivate: [AdminAuthGuard],
     component: CreateCategoryComponent
+  },
+  {
+    path: 'edit/:id',
+    canActivate: [AdminAuthGuard],
+    component: EditCategoryComponent
   },
 ];
 
