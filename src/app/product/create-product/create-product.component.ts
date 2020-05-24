@@ -111,6 +111,7 @@ export class CreateProductComponent implements OnInit {
     const product = await this.createProduct();
     if (product != null) {
       if (this.selectedImages.length !== 0) {
+        this.productForm.reset();
         for (let selectedImage of this.selectedImages) {
           const filePath = `${product.name}/${selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
           const fileRef = this.storage.ref(filePath);
