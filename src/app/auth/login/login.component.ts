@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {first} from "rxjs/operators";
 import {AuthenticationService} from "../../service/auth/authentication.service";
+import {UserToken} from "../../model/user-token";
 
 declare var $: any;
 declare var Swal: any;
@@ -20,12 +21,27 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   loading = false;
   submitted = false;
+  currentUser: UserToken;
+  hasRoleAdmin = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private authenticationService: AuthenticationService) {
+    this.authenticationService.currentUser.subscribe(value => this.currentUser = value);
+    if (this.currentUser) {
+      const roleList = this.currentUser.roles;
+      for (const role of roleList) {
+        if (role.authority === 'ROLE_ADMIN') {
+          this.hasRoleAdmin = true;
+        }
+      }
+    }
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
+      if (this.hasRoleAdmin) {
+        this.router.navigate(['/admin']);
+      } else {
+        this.router.navigate(['/']);
+      }
     }
   }
 
@@ -41,6 +57,12 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           localStorage.setItem('ACCESS_TOKEN', data.accessToken);
+          const roleList = data.roles;
+          for (const role of roleList) {
+            if (role.authority === 'ROLE_ADMIN') {
+              this.returnUrl = "/admin";
+            }
+          }
           this.router.navigate([this.returnUrl]).finally(() => {
           });
           $(function () {

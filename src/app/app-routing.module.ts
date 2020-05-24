@@ -8,7 +8,7 @@ import {HomepageComponent} from "./layout/homepage/homepage.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'admin',
     component: LayoutWithSharedComponent,
     children: [
       {
@@ -22,7 +22,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'homepage',
+    path: '',
     component: HomepageComponent
   },
   {
