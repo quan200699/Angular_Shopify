@@ -5,6 +5,7 @@ import {ListCategoryComponent} from "./list-category/list-category.component";
 import {AdminAuthGuard} from "../helper/admin-auth-guard";
 import {CreateCategoryComponent} from "./create-category/create-category.component";
 import {EditCategoryComponent} from "./edit-category/edit-category.component";
+import {InfoCategoryComponent} from "./info-category/info-category.component";
 
 
 const routes: Routes = [
@@ -22,6 +23,11 @@ const routes: Routes = [
     path: 'edit/:id',
     canActivate: [AdminAuthGuard],
     component: EditCategoryComponent
+  },
+  {
+    path: 'info/:id',
+    canActivate: [AdminAuthGuard],
+    component: InfoCategoryComponent
   },
 ];
 
