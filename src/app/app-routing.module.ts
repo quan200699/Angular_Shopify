@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {LayoutWithSharedComponent} from "./layout/layout-with-shared/layout-with-shared.component";
 import {LoginComponent} from "./auth/login/login.component";
 import {RegisterComponent} from "./auth/register/register.component";
+import {HomepageComponent} from "./layout/homepage/homepage.component";
 
 
 const routes: Routes = [
@@ -19,6 +20,10 @@ const routes: Routes = [
         loadChildren: () => import('./category/category.module').then(module => module.CategoryModule)
       },
     ]
+  },
+  {
+    path: 'homepage',
+    component: HomepageComponent
   },
   {
     path: 'login',

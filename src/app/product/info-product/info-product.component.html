@@ -47,7 +47,14 @@
         </div>
         <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
           <h3 class="text-primary"><i class="fas fa-image"></i> Hình ảnh sản phẩm</h3>
-          <img [src]="listImage[0].url">
+          <div class="col-12">
+            <img [src]="listImage[0].url" class="product-image" alt="Product Image">
+          </div>
+          <div class="col-12 product-image-thumbs">
+            <div class="product-image-thumb" *ngFor="let image of listImage">
+              <img [src]="image.url" alt="Product Image">
+            </div>
+          </div>
         </div>
       </div>
     </div>
