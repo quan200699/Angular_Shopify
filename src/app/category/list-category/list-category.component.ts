@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Product} from "../../model/product";
 import {UserToken} from "../../model/user-token";
-import {ProductService} from "../../service/product/product.service";
 import {AuthenticationService} from "../../service/auth/authentication.service";
 import {Category} from "../../model/category";
 import {CategoryService} from "../../service/category/category.service";
@@ -11,10 +9,10 @@ declare var Swal: any;
 
 @Component({
   selector: 'app-category-list',
-  templateUrl: './category-list.component.html',
-  styleUrls: ['./category-list.component.css']
+  templateUrl: './list-category.component.html',
+  styleUrls: ['./list-category.component.css']
 })
-export class CategoryListComponent implements OnInit {
+export class ListCategoryComponent implements OnInit {
   listCategory: Category[];
   currentUser: UserToken;
   hasRoleAdmin = false;

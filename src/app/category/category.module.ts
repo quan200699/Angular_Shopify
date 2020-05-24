@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {CategoryRoutingModule} from "./category-routing.module";
-import {CategoryListComponent} from "./category-list/category-list.component";
+import {ListCategoryComponent} from "./list-category/list-category.component";
 import {CreateCategoryComponent} from "./create-category/create-category.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {EditCategoryComponent} from "./edit-category/edit-category.component";
@@ -10,7 +10,7 @@ import {EditCategoryComponent} from "./edit-category/edit-category.component";
 
 @NgModule({
   declarations: [
-    CategoryListComponent,
+    ListCategoryComponent,
     CreateCategoryComponent,
     EditCategoryComponent,
   ],
