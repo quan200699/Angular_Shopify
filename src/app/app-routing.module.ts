@@ -4,12 +4,14 @@ import {LayoutWithSharedComponent} from "./layout/layout-with-shared/layout-with
 import {LoginComponent} from "./auth/login/login.component";
 import {RegisterComponent} from "./auth/register/register.component";
 import {HomepageComponent} from "./layout/homepage/homepage.component";
+import {AdminAuthGuard} from "./helper/admin-auth-guard";
 
 
 const routes: Routes = [
   {
     path: 'admin',
     component: LayoutWithSharedComponent,
+    canActivate: [AdminAuthGuard],
     children: [
       {
         path: 'product',
