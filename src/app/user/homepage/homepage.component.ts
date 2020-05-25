@@ -48,6 +48,9 @@ export class HomepageComponent implements OnInit {
         autoHeight: false,
         autoplay: true
       });
+      $('.hero__categories__all').on('click', function(){
+        $('.hero__categories ul').slideToggle(400);
+      });
       $(".categories__slider").owlCarousel({
         loop: true,
         margin: 0,
