@@ -6,6 +6,7 @@ import {Category} from "../../model/category";
 import {UserToken} from "../../model/user-token";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../service/auth/authentication.service";
+import {FormControl, FormGroup} from "@angular/forms";
 
 declare var $: any;
 
@@ -19,6 +20,9 @@ export class HomepageComponent implements OnInit {
   listCategory: Category[] = [];
   currentUser: UserToken;
   hasRoleAdmin = false;
+  searchForm: FormGroup = new FormGroup({
+    name: new FormControl('')
+  })
 
   constructor(private productService: ProductService,
               private categoryService: CategoryService,
@@ -36,7 +40,7 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit() {
-    $(document).ready(function(){
+    $(document).ready(function () {
       $(".latest-product__slider").owlCarousel({
         loop: true,
         margin: 0,
@@ -48,7 +52,7 @@ export class HomepageComponent implements OnInit {
         autoHeight: false,
         autoplay: true
       });
-      $('.hero__categories__all').on('click', function(){
+      $('.hero__categories__all').on('click', function () {
         $('.hero__categories ul').slideToggle(400);
       });
       $(".categories__slider").owlCarousel({

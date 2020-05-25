@@ -143,14 +143,14 @@
       <div class="col-lg-9">
         <div class="hero__search">
           <div class="hero__search__form">
-            <!--            <form action="#">-->
-            <!--              <div class="hero__search__categories">-->
-            <!--                All Categories-->
-            <!--                <span class="arrow_carrot-down"></span>-->
-            <!--              </div>-->
-            <!--              <input type="text" placeholder="What do yo u need?">-->
-            <!--              <button type="submit" class="site-btn">SEARCH</button>-->
-            <!--            </form>-->
+            <form [formGroup]="searchForm">
+              <div class="hero__search__categories">
+               Tất cả
+                <span class="arrow_carrot-down"></span>
+              </div>
+              <input type="text" placeholder="Bạn cần tìm gì?">
+              <button type="submit" class="site-btn">TÌM KIẾM</button>
+            </form>
           </div>
           <div class="hero__search__phone">
             <div class="hero__search__phone__icon">
@@ -185,22 +185,22 @@
         </div>
         <div class="col-lg-3">
           <div class="categories__item set-bg" [style.background]="'url(../../../assets/static/img/categories/cat-2.jpg)'">
-            <h5><a href="#">Dried Fruit</a></h5>
+            <h5><a href="#">Thực phẩm dinh dưỡng</a></h5>
           </div>
         </div>
         <div class="col-lg-3">
           <div class="categories__item set-bg" [style.background]="'url(../../../assets/static/img/categories/cat-3.jpg)'">
-            <h5><a href="#">Vegetables</a></h5>
+            <h5><a href="#">Rau củ</a></h5>
           </div>
         </div>
         <div class="col-lg-3">
           <div class="categories__item set-bg" [style.background]="'url(../../../assets/static/img/categories/cat-4.jpg)'">
-            <h5><a href="#">drink fruits</a></h5>
+            <h5><a href="#">Nước hoa quả</a></h5>
           </div>
         </div>
         <div class="col-lg-3">
           <div class="categories__item set-bg" [style.background]="'url(../../../assets/static/img/categories/cat-5.jpg)'">
-            <h5><a href="#">drink fruits</a></h5>
+            <h5><a href="#">Nước hoa quả</a></h5>
           </div>
         </div>
       </div>
@@ -250,7 +250,7 @@
     <div class="row">
       <div class="col-lg-4 col-md-6">
         <div class="latest-product__text">
-          <h4>Latest Products</h4>
+          <h4>Sản phẩm mới nhất</h4>
           <div class="latest-product__slider owl-carousel">
             <div class="latest-prdouct__slider__item">
               <a href="#" class="latest-product__item">
@@ -315,7 +315,7 @@
       </div>
       <div class="col-lg-4 col-md-6">
         <div class="latest-product__text">
-          <h4>Top Rated Products</h4>
+          <h4>Sản phẩm mua nhiều</h4>
           <div class="latest-product__slider owl-carousel">
             <div class="latest-prdouct__slider__item">
               <a href="#" class="latest-product__item">
@@ -380,7 +380,7 @@
       </div>
       <div class="col-lg-4 col-md-6">
         <div class="latest-product__text">
-          <h4>Review Products</h4>
+          <h4>Đánh giá sản phẩm</h4>
           <div class="latest-product__slider owl-carousel">
             <div class="latest-prdouct__slider__item">
               <a href="#" class="latest-product__item">
@@ -455,9 +455,9 @@
             <a routerLink="/"><img src="../../../assets/static/img/logo.png" alt=""></a>
           </div>
           <ul>
-            <li>Address: 60-49 Road 11378 New York</li>
-            <li>Phone: +65 11.188.888</li>
-            <li>Email: hello@colorlib.com</li>
+            <li>Địa chỉ: Xã Đàn, Đống Đa, Hà Nội</li>
+            <li>Điện thoại: 84382546945</li>
+            <li>Email: help@gmail.com</li>
           </ul>
         </div>
       </div>

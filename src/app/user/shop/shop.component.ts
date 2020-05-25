@@ -6,6 +6,7 @@ import {AuthenticationService} from "../../service/auth/authentication.service";
 import {Router} from "@angular/router";
 import {Product} from "../../model/product";
 import {ProductService} from "../../service/product/product.service";
+import {FormControl, FormGroup} from "@angular/forms";
 
 declare var $: any;
 
@@ -19,6 +20,9 @@ export class ShopComponent implements OnInit {
   currentUser: UserToken;
   hasRoleAdmin = false;
   listProduct: Product[] = [];
+  searchForm: FormGroup = new FormGroup({
+    name: new FormControl('')
+  })
 
   constructor(private categoryService: CategoryService,
               private authenticationService: AuthenticationService,
@@ -37,8 +41,32 @@ export class ShopComponent implements OnInit {
 
   ngOnInit() {
     $(document).ready(function(){
-      $('.hero__categories__all').on('click', function(){
-        $('.hero__categories ul').slideToggle(400);
+      $(".product__discount__slider").owlCarousel({
+        loop: true,
+        margin: 0,
+        items: 3,
+        dots: true,
+        smartSpeed: 1200,
+        autoHeight: false,
+        autoplay: true,
+        responsive: {
+
+          320: {
+            items: 1,
+          },
+
+          480: {
+            items: 2,
+          },
+
+          768: {
+            items: 2,
+          },
+
+          992: {
+            items: 3,
+          }
+        }
       });
       $(".latest-product__slider").owlCarousel({
         loop: true,
@@ -51,6 +79,26 @@ export class ShopComponent implements OnInit {
         autoHeight: false,
         autoplay: true
       });
+      $('.hero__categories__all').on('click', function(){
+        $('.hero__categories ul').slideToggle(400);
+      });
+      var rangeSlider = $(".price-range"),
+        minamount = $("#minamount"),
+        maxamount = $("#maxamount"),
+        minPrice = rangeSlider.data('min'),
+        maxPrice = rangeSlider.data('max');
+      rangeSlider.slider({
+        range: true,
+        min: minPrice,
+        max: maxPrice,
+        values: [minPrice, maxPrice],
+        slide: function (event, ui) {
+          minamount.val('$' + ui.values[0]);
+          maxamount.val('$' + ui.values[1]);
+        }
+      });
+      minamount.val('$' + rangeSlider.slider("values", 0));
+      maxamount.val('$' + rangeSlider.slider("values", 1));
     });
     this.getAllCategories();
     this.getAllProduct();
