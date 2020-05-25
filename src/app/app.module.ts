@@ -18,6 +18,7 @@ import {AngularFireStorageModule} from "@angular/fire/storage";
 import {AngularFireDatabaseModule} from "@angular/fire/database";
 import { HomepageComponent } from './user/homepage/homepage.component';
 import { ShopComponent } from './user/shop/shop.component';
+import { HeaderComponent } from './shared/header/header.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ShopComponent } from './user/shop/shop.component';
     RegisterComponent,
     HomepageComponent,
     ShopComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
