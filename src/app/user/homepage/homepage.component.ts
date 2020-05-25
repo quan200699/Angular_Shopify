@@ -7,6 +7,8 @@ import {UserToken} from "../../model/user-token";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../service/auth/authentication.service";
 
+declare var $: any;
+
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -34,6 +36,9 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit() {
+    $(document).ready(function(){
+      $('.owl-carousel').owlCarousel();
+    });
     this.getAllProduct();
     this.getAllCategories();
   }

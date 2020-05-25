@@ -7,6 +7,8 @@ import {Router} from "@angular/router";
 import {Product} from "../../model/product";
 import {ProductService} from "../../service/product/product.service";
 
+declare var $: any;
+
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
@@ -34,6 +36,9 @@ export class ShopComponent implements OnInit {
   }
 
   ngOnInit() {
+    $(document).ready(function(){
+      $('.owl-carousel').owlCarousel();
+    });
     this.getAllCategories();
     this.getAllProduct();
   }
