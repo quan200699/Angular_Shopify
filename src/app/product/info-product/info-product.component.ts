@@ -5,8 +5,6 @@ import {Subscription} from "rxjs";
 import {ProductService} from "../../service/product/product.service";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 
-declare var $: any;
-
 @Component({
   selector: 'app-info-product',
   templateUrl: './info-product.component.html',
@@ -17,6 +15,7 @@ export class InfoProductComponent implements OnInit {
   listImage: Image[];
   sub: Subscription;
   id: number;
+  imgUrl: string = "";
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute) {
@@ -37,6 +36,11 @@ export class InfoProductComponent implements OnInit {
   getAllImageByProduct(product: Product) {
     this.productService.getAllImageByProduct(product.id).subscribe(listImage => {
       this.listImage = listImage;
+      this.imgUrl = listImage[0].url;
     })
+  }
+
+  changeImage(index: number) {
+    this.imgUrl = this.listImage[index].url;
   }
 }

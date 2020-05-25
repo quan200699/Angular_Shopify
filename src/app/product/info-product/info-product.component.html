@@ -48,11 +48,11 @@
         <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
           <h3 class="text-primary"><i class="fas fa-image"></i> Hình ảnh sản phẩm</h3>
           <div class="col-12">
-            <img [src]="listImage[0].url" class="product-image" alt="Product Image">
+            <img [src]="imgUrl" class="product-image" alt="Product Image">
           </div>
           <div class="col-12 product-image-thumbs">
-            <div class="product-image-thumb" *ngFor="let image of listImage">
-              <img [src]="image.url" alt="Product Image">
+            <div class="product-image-thumb" *ngFor="let image of listImage; index as i">
+              <img [src]="image.url" alt="Product Image" (click)="changeImage(i)">
             </div>
           </div>
         </div>
