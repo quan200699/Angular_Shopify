@@ -15,9 +15,8 @@ export class NavbarComponent {
   hasRoleUser = false;
   user: User;
 
-  constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService) {
+  constructor(private router: Router,
+              private authenticationService: AuthenticationService) {
     this.authenticationService.currentUser.subscribe(value => this.currentUser = value);
     if (this.currentUser) {
       const roleList = this.currentUser.roles;
