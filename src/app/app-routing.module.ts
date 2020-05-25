@@ -3,8 +3,9 @@ import {Routes, RouterModule} from '@angular/router';
 import {LayoutWithSharedComponent} from "./layout/layout-with-shared/layout-with-shared.component";
 import {LoginComponent} from "./auth/login/login.component";
 import {RegisterComponent} from "./auth/register/register.component";
-import {HomepageComponent} from "./layout/homepage/homepage.component";
+import {HomepageComponent} from "./user/homepage/homepage.component";
 import {AdminAuthGuard} from "./helper/admin-auth-guard";
+import {ShopComponent} from "./user/shop/shop.component";
 
 
 const routes: Routes = [
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: '',
     component: HomepageComponent
+  },
+  {
+    path: 'shop',
+    component: ShopComponent
   },
   {
     path: 'login',
