@@ -19,6 +19,7 @@ import {AngularFireDatabaseModule} from "@angular/fire/database";
 import { HomepageComponent } from './user/homepage/homepage.component';
 import { ShopComponent } from './user/shop/shop.component';
 import { HeaderComponent } from './shared/header/header.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HeaderComponent } from './shared/header/header.component';
     RegisterComponent,
     HomepageComponent,
     ShopComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
