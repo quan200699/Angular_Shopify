@@ -37,7 +37,20 @@ export class ShopComponent implements OnInit {
 
   ngOnInit() {
     $(document).ready(function(){
-      $('.owl-carousel').owlCarousel();
+      $('.hero__categories__all').on('click', function(){
+        $('.hero__categories ul').slideToggle(400);
+      });
+      $(".latest-product__slider").owlCarousel({
+        loop: true,
+        margin: 0,
+        items: 1,
+        dots: false,
+        nav: true,
+        navText: ["<span class='fa fa-angle-left'><span/>", "<span class='fa fa-angle-right'><span/>"],
+        smartSpeed: 1200,
+        autoHeight: false,
+        autoplay: true
+      });
     });
     this.getAllCategories();
     this.getAllProduct();
