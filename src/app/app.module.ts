@@ -20,6 +20,7 @@ import { HomepageComponent } from './user/homepage/homepage.component';
 import { ShopComponent } from './user/shop/shop.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { ContactComponent } from './user/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FooterComponent } from './shared/footer/footer.component';
     HomepageComponent,
     ShopComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
