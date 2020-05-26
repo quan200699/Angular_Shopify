@@ -7,6 +7,7 @@ import {HomepageComponent} from "./user/homepage/homepage.component";
 import {AdminAuthGuard} from "./helper/admin-auth-guard";
 import {ShopComponent} from "./user/shop/shop.component";
 import {ContactComponent} from "./user/contact/contact.component";
+import {ProductDetailComponent} from "./user/product-detail/product-detail.component";
 
 
 const routes: Routes = [
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent
+  },
+  {
+    path: 'product/:id',
+    component: ProductDetailComponent
   },
   {
     path: 'login',

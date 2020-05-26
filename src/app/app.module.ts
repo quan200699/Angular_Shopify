@@ -21,6 +21,7 @@ import { ShopComponent } from './user/shop/shop.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ContactComponent } from './user/contact/contact.component';
+import { ProductDetailComponent } from './user/product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ContactComponent } from './user/contact/contact.component';
     ShopComponent,
     HeaderComponent,
     FooterComponent,
-    ContactComponent
+    ContactComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
