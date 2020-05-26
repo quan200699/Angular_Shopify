@@ -70,7 +70,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of items">
+            <tr *ngFor="let item of items; index as i">
               <td class="shoping__cart__item">
                 <img *ngIf="item.product.image != null" [src]="item.product.image[0].url" alt="">
                 <h5 style="font-size: 16px">{{item.product.name}}</h5>
@@ -81,7 +81,9 @@
               <td class="shoping__cart__quantity">
                 <div class="quantity">
                   <div class="pro-qty">
+                    <span class="dec qtybtn" (click)="decreaseProduct(item.product.id, i)">-</span>
                     <input type="text" value="{{item.quantity}}">
+                    <span class="inc qtybtn" (click)="addProductToCart(item.product.id, item)">+</span>
                   </div>
                 </div>
               </td>
@@ -101,7 +103,7 @@
       <div class="col-lg-12">
         <div class="shoping__cart__btns">
           <a routerLink="/" class="primary-btn cart-btn">Tiếp tục mua sắm</a>
-          <a routerLink="/cart" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+          <a href="/cart" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
             Cập nhật giở hàng</a>
         </div>
       </div>

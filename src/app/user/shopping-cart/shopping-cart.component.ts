@@ -34,8 +34,6 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit() {
     $(document).ready(function () {
       var proQty = $('.pro-qty');
-      proQty.prepend('<span class="dec qtybtn">-</span>');
-      proQty.append('<span class="inc qtybtn">+</span>');
       proQty.on('click', '.qtybtn', function () {
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
@@ -68,30 +66,46 @@ export class ShoppingCartComponent implements OnInit {
           cart.push(JSON.stringify(item));
           localStorage.setItem('cart', JSON.stringify(cart));
         } else {
-          let cart: any = JSON.parse(localStorage.getItem('cart'));
-          let index: number = -1;
-          for (var i = 0; i < cart.length; i++) {
-            let item: Item = JSON.parse(cart[i]);
-            if (item.product.id == id) {
-              index = i;
-              break;
-            }
-          }
-          if (index == -1) {
-            cart.push(JSON.stringify(item));
-            localStorage.setItem('cart', JSON.stringify(cart));
-          } else {
-            let item: Item = JSON.parse(cart[index]);
-            item.quantity += 1;
-            cart[index] = JSON.stringify(item);
-            localStorage.setItem("cart", JSON.stringify(cart));
-          }
+          this.addProductToCart(id, item);
         }
         this.loadCart();
       } else {
         this.loadCart();
       }
     });
+  }
+
+  addProductToCart(id: number, item: Item) {
+    let cart: any = JSON.parse(localStorage.getItem('cart'));
+    let index: number = -1;
+    for (var i = 0; i < cart.length; i++) {
+      let item: Item = JSON.parse(cart[i]);
+      if (item.product.id == id) {
+        index = i;
+        break;
+      }
+    }
+    if (index == -1) {
+      cart.push(JSON.stringify(item));
+      localStorage.setItem('cart', JSON.stringify(cart));
+    } else {
+      let item: Item = JSON.parse(cart[index]);
+      item.quantity += 1;
+      cart[index] = JSON.stringify(item);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }
+
+  decreaseProduct(id: number, index: number) {
+    let cart: any = JSON.parse(localStorage.getItem('cart'));
+    let item: Item = JSON.parse(cart[index]);
+    item.quantity -= 1;
+    if (item.quantity == 0) {
+      this.remove(id);
+    } else {
+      cart[index] = JSON.stringify(item);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
   }
 
   getProduct(id: number) {
