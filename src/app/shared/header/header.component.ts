@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   hasRoleAdmin = false;
   items: Item[] = [];
   amount: number = 0;
+
   constructor(private categoryService: CategoryService,
               private authenticationService: AuthenticationService,
               private router: Router) {
@@ -52,13 +53,15 @@ export class HeaderComponent implements OnInit {
     this.amount = 0;
     this.items = [];
     let cart = JSON.parse(localStorage.getItem('cart'));
-    for (var i = 0; i < cart.length; i++) {
-      let item = JSON.parse(cart[i]);
-      this.items.push({
-        product: item.product,
-        quantity: item.quantity
-      });
-      this.amount += item.quantity;
+    if (cart != null) {
+      for (var i = 0; i < cart.length; i++) {
+        let item = JSON.parse(cart[i]);
+        this.items.push({
+          product: item.product,
+          quantity: item.quantity
+        });
+        this.amount += item.quantity;
+      }
     }
   }
 }
