@@ -73,7 +73,7 @@
             <tr *ngFor="let item of items">
               <td class="shoping__cart__item">
                 <img *ngIf="item.product.image != null" [src]="item.product.image[0].url" alt="">
-                <h5>{{item.product.name}}</h5>
+                <h5 style="font-size: 16px">{{item.product.name}}</h5>
               </td>
               <td class="shoping__cart__price">
                 {{item.product.price}}đ
