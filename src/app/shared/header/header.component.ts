@@ -4,6 +4,7 @@ import {AuthenticationService} from "../../service/auth/authentication.service";
 import {Router} from "@angular/router";
 import {Category} from "../../model/category";
 import {UserToken} from "../../model/user-token";
+import {Item} from "../../product/item";
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,8 @@ export class HeaderComponent implements OnInit {
   listCategory: Category[] = [];
   currentUser: UserToken;
   hasRoleAdmin = false;
-
+  items: Item[] = [];
+  amount: number = 0;
   constructor(private categoryService: CategoryService,
               private authenticationService: AuthenticationService,
               private router: Router) {
@@ -27,6 +29,7 @@ export class HeaderComponent implements OnInit {
         }
       }
     }
+    this.loadCart();
   }
 
   ngOnInit() {
@@ -43,5 +46,19 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
+  }
+
+  loadCart(): void {
+    this.amount = 0;
+    this.items = [];
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    for (var i = 0; i < cart.length; i++) {
+      let item = JSON.parse(cart[i]);
+      this.items.push({
+        product: item.product,
+        quantity: item.quantity
+      });
+      this.amount += item.quantity;
+    }
   }
 }
