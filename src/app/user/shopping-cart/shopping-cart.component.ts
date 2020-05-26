@@ -33,6 +33,9 @@ export class ShoppingCartComponent implements OnInit {
 
   ngOnInit() {
     $(document).ready(function () {
+      $('.hero__categories__all').on('click', function(){
+        $('.hero__categories ul').slideToggle(400);
+      });
       var proQty = $('.pro-qty');
       proQty.on('click', '.qtybtn', function () {
         var $button = $(this);

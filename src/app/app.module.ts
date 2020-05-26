@@ -23,6 +23,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { ContactComponent } from './user/contact/contact.component';
 import { ProductDetailComponent } from './user/product-detail/product-detail.component';
 import { ShoppingCartComponent } from './user/shopping-cart/shopping-cart.component';
+import { CheckoutComponent } from './user/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ShoppingCartComponent } from './user/shopping-cart/shopping-cart.compon
     FooterComponent,
     ContactComponent,
     ProductDetailComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
