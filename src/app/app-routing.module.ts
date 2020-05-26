@@ -8,6 +8,7 @@ import {AdminAuthGuard} from "./helper/admin-auth-guard";
 import {ShopComponent} from "./user/shop/shop.component";
 import {ContactComponent} from "./user/contact/contact.component";
 import {ProductDetailComponent} from "./user/product-detail/product-detail.component";
+import {ShoppingCartComponent} from "./user/shopping-cart/shopping-cart.component";
 
 
 const routes: Routes = [
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'product/:id',
     component: ProductDetailComponent
+  },
+  {
+    path: 'shopping-cart',
+    component: ShoppingCartComponent
   },
   {
     path: 'login',

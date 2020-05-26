@@ -22,6 +22,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ContactComponent } from './user/contact/contact.component';
 import { ProductDetailComponent } from './user/product-detail/product-detail.component';
+import { ShoppingCartComponent } from './user/shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ProductDetailComponent } from './user/product-detail/product-detail.com
     HeaderComponent,
     FooterComponent,
     ContactComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
