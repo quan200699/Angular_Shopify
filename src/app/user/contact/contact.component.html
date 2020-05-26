@@ -8,8 +8,8 @@
             <i class="fa fa-bars"></i>
             <span>Danh mục sản phẩm</span>
           </div>
-          <ul *ngFor="let category of listCategory">
-            <li><a href="#">{{category.name}}</a></li>
+          <ul>
+            <li *ngFor="let category of listCategory"><a href="#">{{category.name}}</a></li>
           </ul>
         </div>
       </div>
