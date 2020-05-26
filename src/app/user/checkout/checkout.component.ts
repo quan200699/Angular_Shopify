@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Category} from "../../model/category";
 import {FormControl, FormGroup} from "@angular/forms";
 import {CategoryService} from "../../service/category/category.service";
+import {Item} from "../../product/item";
 
 declare var $: any;
 
@@ -15,6 +16,9 @@ export class CheckoutComponent implements OnInit {
   searchForm: FormGroup = new FormGroup({
     name: new FormControl('')
   })
+  billDetailForm: FormGroup = new FormGroup({})
+  items: Item[] = [];
+  total: number = 0;
 
   constructor(private categoryService: CategoryService) {
   }
@@ -26,11 +30,28 @@ export class CheckoutComponent implements OnInit {
       });
     })
     this.getAllCategories();
+    this.loadCart();
   }
 
   getAllCategories() {
     this.categoryService.getAllCategory().subscribe(listCategory => {
       this.listCategory = listCategory;
     })
+  }
+
+  loadCart(): void {
+    this.total = 0;
+    this.items = [];
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    if (cart != null) {
+      for (var i = 0; i < cart.length; i++) {
+        let item = JSON.parse(cart[i]);
+        this.items.push({
+          product: item.product,
+          quantity: item.quantity
+        });
+        this.total += item.product.price * item.quantity;
+      }
+    }
   }
 }

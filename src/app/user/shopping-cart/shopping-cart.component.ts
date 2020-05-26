@@ -25,7 +25,6 @@ export class ShoppingCartComponent implements OnInit {
   items: Item[] = [];
   total: number = 0;
 
-
   constructor(private categoryService: CategoryService,
               private activatedRoute: ActivatedRoute,
               private productService: ProductService) {
