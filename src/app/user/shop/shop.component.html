@@ -303,7 +303,7 @@
                 </ul>
               </div>
               <div class="product__item__text">
-                <h6><a href="#">{{product.name}}</a></h6>
+                <h6><a [routerLink]="['../product',product.id]">{{product.name}}</a></h6>
                 <h5>{{product.price}} đồng</h5>
               </div>
             </div>
