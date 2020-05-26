@@ -22,8 +22,9 @@ export class ShoppingCartComponent implements OnInit {
   discountForm: FormGroup = new FormGroup({
     discount: new FormControl('')
   })
-  private items: Item[] = [];
-  private total: number = 0;
+  items: Item[] = [];
+  total: number = 0;
+
 
   constructor(private categoryService: CategoryService,
               private activatedRoute: ActivatedRoute,
