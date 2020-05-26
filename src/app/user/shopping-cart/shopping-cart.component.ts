@@ -35,9 +35,9 @@ export class ShoppingCartComponent implements OnInit {
     this.getAllCategories();
     this.activatedRoute.params.subscribe(async params => {
       var id = params['id'];
-      const product = await this.getProduct(id);
-      product.image = await this.getAllImageByProduct(product)
       if (id) {
+        const product = await this.getProduct(id);
+        product.image = await this.getAllImageByProduct(product)
         var item: Item = {
           product: product,
           quantity: 1
