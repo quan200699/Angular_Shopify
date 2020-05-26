@@ -10,4 +10,5 @@ export interface Product {
   description?: string;
   image?: any[];
   category?: any;
+  saleOff?: number;
 }

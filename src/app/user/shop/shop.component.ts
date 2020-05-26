@@ -18,13 +18,14 @@ export class ShopComponent implements OnInit {
   searchForm: FormGroup = new FormGroup({
     name: new FormControl('')
   })
+  listProductSaleOff: Product[] = [];
 
   constructor(private categoryService: CategoryService,
               private productService: ProductService) {
   }
 
   ngOnInit() {
-    $(document).ready(function(){
+    $(document).ready(function () {
       $(".product__discount__slider").owlCarousel({
         loop: true,
         margin: 0,
@@ -63,7 +64,7 @@ export class ShopComponent implements OnInit {
         autoHeight: false,
         autoplay: true
       });
-      $('.hero__categories__all').on('click', function(){
+      $('.hero__categories__all').on('click', function () {
         $('.hero__categories ul').slideToggle(400);
       });
       var rangeSlider = $(".price-range"),
@@ -86,6 +87,7 @@ export class ShopComponent implements OnInit {
     });
     this.getAllCategories();
     this.getAllProduct();
+    this.getAllProductSaleOff();
   }
 
   getAllProduct() {
@@ -104,6 +106,15 @@ export class ShopComponent implements OnInit {
   getAllCategories() {
     this.categoryService.getAllCategory().subscribe(listCategory => {
       this.listCategory = listCategory;
+    })
+  }
+
+  getAllProductSaleOff() {
+    this.productService.getAllProductHasSaleOffGreaterThanZero().subscribe(listProduct => {
+      this.listProductSaleOff = listProduct;
+      this.listProductSaleOff.map(async product => {
+        product.image = await this.getAllImageByProduct(product);
+      })
     })
   }
 }
