@@ -38,4 +38,8 @@ export class ProductService {
   getAllImageByProduct(id: number): Observable<Image[]> {
     return this.http.get<Image[]>(API_URL + `/products/${id}/images`);
   }
+
+  getAllProductHasSaleOffGreaterThanZero(): Observable<Product[]> {
+    return this.http.get<Product[]>(API_URL + `/products/sale-off`);
+  }
 }
