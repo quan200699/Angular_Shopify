@@ -76,7 +76,7 @@
                 <h5 style="font-size: 16px">{{item.product.name}}</h5>
               </td>
               <td class="shoping__cart__price">
-                {{item.product.price}}đ
+                {{item.product.price * (1 - item.product.saleOff / 100)}}đ
               </td>
               <td class="shoping__cart__quantity">
                 <div class="quantity">
@@ -88,7 +88,7 @@
                 </div>
               </td>
               <td class="shoping__cart__total">
-                {{item.quantity * item.product.price}}đ
+                {{item.quantity * item.product.price * (1 - item.product.saleOff / 100)}}đ
               </td>
               <td class="shoping__cart__item__close">
                 <span class="icon_close" (click)="remove(item.product.id)"></span>

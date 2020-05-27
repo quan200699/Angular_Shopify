@@ -109,7 +109,8 @@
               <h4>Đơn hàng của bạn</h4>
               <div class="checkout__order__products">Sản phẩm <span>Giá</span></div>
               <ul *ngFor="let item of items">
-                <li>{{item.product.name}} <span>{{item.quantity * item.product.price}}đ</span></li>
+                <li>{{item.product.name}}
+                  <span>{{item.quantity * (item.product.price * (1 - item.product.saleOff / 100))}}đ</span></li>
               </ul>
               <div class="checkout__order__subtotal">Tổng phụ thu <span>{{total}}đ</span></div>
               <div class="checkout__order__total">Tổng tiền <span>{{total}}đ</span></div>

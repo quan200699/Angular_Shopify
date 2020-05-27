@@ -50,7 +50,7 @@ export class CheckoutComponent implements OnInit {
           product: item.product,
           quantity: item.quantity
         });
-        this.total += item.product.price * item.quantity;
+        this.total += (item.product.price * (1 - item.product.saleOff / 100)) * item.quantity;
       }
     }
   }

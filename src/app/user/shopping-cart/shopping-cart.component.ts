@@ -32,7 +32,7 @@ export class ShoppingCartComponent implements OnInit {
 
   ngOnInit() {
     $(document).ready(function () {
-      $('.hero__categories__all').on('click', function(){
+      $('.hero__categories__all').on('click', function () {
         $('.hero__categories ul').slideToggle(400);
       });
       var proQty = $('.pro-qty');
@@ -130,7 +130,7 @@ export class ShoppingCartComponent implements OnInit {
         product: item.product,
         quantity: item.quantity
       });
-      this.total += item.product.price * item.quantity;
+      this.total += (item.product.price * (1 - item.product.saleOff/100)) * item.quantity;
     }
   }
 
