@@ -59,7 +59,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6">
-        <div class="product__details__pic" >
+        <div class="product__details__pic">
           <div class="product__details__pic__item">
             <img class="product__details__pic__item--large" *ngIf="currentProduct.image!=null"
                  [src]="currentProduct.image[0].url" alt="">
@@ -87,7 +87,7 @@
             <i class="fa fa-star-half-o"></i>
             <span>(18 reviews)</span>
           </div>
-          <div class="product__details__price">{{currentProduct.price}} đồng</div>
+          <div class="product__details__price">{{currentProduct.price * (1 - currentProduct.saleOff/100)}} đồng</div>
           <p><b>Hướng dẫn sử dụng:</b> {{currentProduct.instructional}}</p>
           <div class="product__details__quantity">
             <div class="quantity">

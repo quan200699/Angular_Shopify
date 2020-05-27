@@ -171,7 +171,7 @@
                     <span>{{product.category.name}}</span>
                     <h5><a [routerLink]="['../product',product.id]">{{product.name}}</a></h5>
                     <div class="product__item__price">{{product.price * (1 - product.saleOff / 100)}}đ
-                      <span>{{product.price}}đ</span></div>
+                      <span>{{product.price * (1 - product.saleOff/100)}}đ</span></div>
                   </div>
                 </div>
               </div>
@@ -215,7 +215,7 @@
               </div>
               <div class="product__item__text">
                 <h6><a [routerLink]="['../product',product.id]">{{product.name}}</a></h6>
-                <h5>{{product.price}} đồng</h5>
+                <h5>{{product.price * (1 - product.saleOff/100)}}đ</h5>
               </div>
             </div>
           </div>

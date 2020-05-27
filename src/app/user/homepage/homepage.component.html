@@ -111,7 +111,7 @@
           </div>
           <div class="featured__item__text">
             <h6><a [routerLink]="['product',product.id]">{{product.name}}</a></h6>
-            <h5>{{product.price}} đồng</h5>
+            <h5>{{product.price * (1 - product.saleOff/100)}}đ</h5>
           </div>
         </div>
       </div>
