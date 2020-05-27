@@ -87,31 +87,32 @@ export class ShopComponent implements OnInit {
       this.listProductSaleOff = listProduct;
       this.listProductSaleOff.map(async product => {
         product.image = await this.getAllImageByProduct(product);
-      })
-      $(document).ready(function () {
-        $(".product__discount__slider").owlCarousel({
-          // loop: true,
-          margin: 0,
-          items: 3,
-          dots: true,
-          smartSpeed: 1200,
-          autoHeight: false,
-          // autoplay: true,
-          responsive: {
-            320: {
-              items: 1,
-            },
+        $(document).ready(function () {
+          $(".product__discount__slider").owlCarousel({
+            loop: true,
+            margin: 0,
+            items: 3,
+            dots: true,
+            smartSpeed: 1200,
+            autoHeight: false,
+            autoplay: true,
+            responsive: {
+              320: {
+                items: 1,
+              },
 
-            480: {
-              items: 2,
-            },
+              480: {
+                items: 2,
+              },
 
-            768: {
-              items: 3,
+              768: {
+                items: 3,
+              }
             }
-          }
-        });
+          });
+        })
       })
+
     })
   }
 }
