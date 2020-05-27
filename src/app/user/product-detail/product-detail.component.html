@@ -9,7 +9,7 @@
             <span>Danh mục sản phẩm</span>
           </div>
           <ul>
-            <li *ngFor="let category of listCategory"><a href="#">{{category.name}}</a></li>
+            <li *ngFor="let category of listCategory"><a [routerLink]="['../category',category.id]">{{category.name}}</a></li>
           </ul>
         </div>
       </div>
