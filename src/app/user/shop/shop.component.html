@@ -88,7 +88,8 @@
               <h4>Sản phẩm mới</h4>
               <div class="latest-product__slider owl-carousel">
                 <div class="latest-prdouct__slider__item">
-                  <a [routerLink]="['../product',product.id]" class="latest-product__item" *ngFor="let product of listProductLatest">
+                  <a [routerLink]="['../product',product.id]" class="latest-product__item"
+                     *ngFor="let product of listProductLatest">
                     <div class="latest-product__item__pic">
                       <img [src]="product.image[0].url" *ngIf="product.image != null"
                            style="width: 110px; height: 110px" alt="">
@@ -126,7 +127,7 @@
               <div class="col-lg-4" *ngFor="let product of listProductSaleOff">
                 <div class="product__discount__item">
                   <div class="product__discount__item__pic set-bg" *ngIf="product.image != null"
-                       [style.background]="'url('+product.image[0].url+')'">
+                       [style.background]="'url('+product.image[0].url+')'" style="background-size: 270px 270px">
                     <div class="product__discount__percent">-{{product.saleOff}}%</div>
                     <ul class="product__item__pic__hover">
                       <li><a [routerLink]="['/favorite', { id:product.id }]"><i class="fa fa-heart"></i></a></li>
