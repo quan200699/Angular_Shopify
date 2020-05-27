@@ -18,6 +18,7 @@ export class HomepageComponent implements OnInit {
   searchForm: FormGroup = new FormGroup({
     name: new FormControl('')
   })
+  listProductLatest: Product[] = [];
 
   constructor(private productService: ProductService,
               private categoryService: CategoryService) {
@@ -71,7 +72,7 @@ export class HomepageComponent implements OnInit {
         }
       });
     });
-
+    this.getAllProductLatest();
     this.getAllProduct();
     this.getAllCategories();
   }
@@ -92,6 +93,21 @@ export class HomepageComponent implements OnInit {
   getAllCategories() {
     this.categoryService.getAllCategory().subscribe(listCategory => {
       this.listCategory = listCategory;
+    })
+  }
+
+  getAllProductLatest() {
+    this.productService.getAllProductLatest().subscribe(listProduct => {
+      if (listProduct.length > 3) {
+        for (let i = 0; i < 3; i++) {
+          this.listProductLatest.push(listProduct[i]);
+        }
+      } else {
+        this.listProductLatest = listProduct;
+      }
+      this.listProductLatest.map(async product => {
+        product.image = await this.getAllImageByProduct(product);
+      })
     })
   }
 }
