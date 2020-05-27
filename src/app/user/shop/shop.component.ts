@@ -19,6 +19,7 @@ export class ShopComponent implements OnInit {
     name: new FormControl('')
   })
   listProductSaleOff: Product[] = [];
+  listProductLatest: Product[] = [];
 
   constructor(private categoryService: CategoryService,
               private productService: ProductService) {
@@ -61,6 +62,7 @@ export class ShopComponent implements OnInit {
     this.getAllCategories();
     this.getAllProduct();
     this.getAllProductSaleOff();
+    this.getAllProductLatest();
   }
 
   getAllProduct() {
@@ -104,7 +106,6 @@ export class ShopComponent implements OnInit {
               480: {
                 items: 2,
               },
-
               768: {
                 items: 3,
               }
@@ -112,7 +113,21 @@ export class ShopComponent implements OnInit {
           });
         })
       })
+    })
+  }
 
+  getAllProductLatest() {
+    this.productService.getAllProductLatest().subscribe(listProduct => {
+      if (listProduct.length > 3) {
+        for (let i = 0; i < 3; i++) {
+          this.listProductLatest.push(listProduct[i]);
+        }
+      } else {
+        this.listProductLatest = listProduct;
+      }
+      this.listProductLatest.map(async product => {
+        product.image = await this.getAllImageByProduct(product);
+      })
     })
   }
 }

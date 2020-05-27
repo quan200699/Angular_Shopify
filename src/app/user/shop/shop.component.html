@@ -9,7 +9,8 @@
             <span>Danh mục sản phẩm</span>
           </div>
           <ul>
-            <li *ngFor="let category of listCategory"><a [routerLink]="['../category',category.id]">{{category.name}}</a></li>
+            <li *ngFor="let category of listCategory"><a
+              [routerLink]="['../category',category.id]">{{category.name}}</a></li>
           </ul>
         </div>
       </div>
@@ -87,60 +88,26 @@
               <h4>Sản phẩm mới</h4>
               <div class="latest-product__slider owl-carousel">
                 <div class="latest-prdouct__slider__item">
-                  <a href="#" class="latest-product__item">
+                  <a href="#" class="latest-product__item" *ngFor="let product of listProductLatest">
                     <div class="latest-product__item__pic">
-                      <img src="../../../assets/static/img/latest-product/lp-1.jpg" alt="">
+                      <img [src]="product.image[0].url" *ngIf="product.image != null"
+                           style="width: 110px; height: 110px" alt="">
                     </div>
                     <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </a>
-                  <a href="#" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img src="../../../assets/static/img/latest-product/lp-2.jpg" alt="">
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </a>
-                  <a href="#" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img src="../../../assets/static/img/latest-product/lp-3.jpg" alt="">
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
+                      <h6>{{product.name}}</h6>
+                      <span>{{product.price * (1 - product.saleOff / 100)}}đ</span>
                     </div>
                   </a>
                 </div>
                 <div class="latest-prdouct__slider__item">
-                  <a href="#" class="latest-product__item">
+                  <a href="#" class="latest-product__item" *ngFor="let product of listProductLatest">
                     <div class="latest-product__item__pic">
-                      <img src="../../../assets/static/img/latest-product/lp-1.jpg" alt="">
+                      <img [src]="product.image[0].url" *ngIf="product.image != null"
+                           style="width: 110px; height: 110px" alt="">
                     </div>
                     <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </a>
-                  <a href="#" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img src="../../../assets/static/img/latest-product/lp-2.jpg" alt="">
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </a>
-                  <a href="#" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img src="../../../assets/static/img/latest-product/lp-3.jpg" alt="">
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
+                      <h6>{{product.name}}</h6>
+                      <span>{{product.price * (1 - product.saleOff / 100)}}đ</span>
                     </div>
                   </a>
                 </div>
@@ -157,7 +124,7 @@
           <div class="row">
             <div class="product__discount__slider owl-carousel">
               <div class="col-lg-4" *ngFor="let product of listProductSaleOff">
-                <div class="product__discount__item" >
+                <div class="product__discount__item">
                   <div class="product__discount__item__pic set-bg" *ngIf="product.image != null"
                        [style.background]="'url('+product.image[0].url+')'">
                     <div class="product__discount__percent">-{{product.saleOff}}%</div>
@@ -171,7 +138,7 @@
                     <span>{{product.category.name}}</span>
                     <h5><a [routerLink]="['../product',product.id]">{{product.name}}</a></h5>
                     <div class="product__item__price">{{product.price * (1 - product.saleOff / 100)}}đ
-                      <span>{{product.price * (1 - product.saleOff/100)}}đ</span></div>
+                      <span>{{product.price * (1 - product.saleOff / 100)}}đ</span></div>
                   </div>
                 </div>
               </div>
@@ -215,7 +182,7 @@
               </div>
               <div class="product__item__text">
                 <h6><a [routerLink]="['../product',product.id]">{{product.name}}</a></h6>
-                <h5>{{product.price * (1 - product.saleOff/100)}}đ</h5>
+                <h5>{{product.price * (1 - product.saleOff / 100)}}đ</h5>
               </div>
             </div>
           </div>

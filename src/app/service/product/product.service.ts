@@ -42,4 +42,7 @@ export class ProductService {
   getAllProductHasSaleOffGreaterThanZero(): Observable<Product[]> {
     return this.http.get<Product[]>(API_URL + `/products/sale-off`);
   }
+  getAllProductLatest(): Observable<Product[]> {
+    return this.http.get<Product[]>(API_URL + `/products/latest`);
+  }
 }
