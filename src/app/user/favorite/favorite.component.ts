@@ -49,6 +49,7 @@ export class FavoriteComponent implements OnInit {
       });
     })
     this.getAllCategories();
+    this.loadFavorite();
     this.activatedRoute.params.subscribe(async params => {
       var id = params['id'];
       if (id) {
@@ -99,6 +100,7 @@ export class FavoriteComponent implements OnInit {
     if (index == -1) {
       heart.push(JSON.stringify(item));
       localStorage.setItem('heart', JSON.stringify(heart));
+      this.loadFavorite();
     }
   }
 

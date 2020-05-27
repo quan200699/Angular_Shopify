@@ -53,6 +53,7 @@ export class ShoppingCartComponent implements OnInit {
       });
     })
     this.getAllCategories();
+    this.loadCart();
     this.activatedRoute.params.subscribe(async params => {
       var id = params['id'];
       if (id) {
@@ -95,6 +96,7 @@ export class ShoppingCartComponent implements OnInit {
       cart[index] = JSON.stringify(item);
       localStorage.setItem("cart", JSON.stringify(cart));
     }
+    this.loadCart();
   }
 
   decreaseProduct(id: number, index: number) {
@@ -107,6 +109,7 @@ export class ShoppingCartComponent implements OnInit {
       cart[index] = JSON.stringify(item);
       localStorage.setItem("cart", JSON.stringify(cart));
     }
+    this.loadCart();
   }
 
   getProduct(id: number) {
