@@ -51,7 +51,6 @@ export class ShoppingCartComponent implements OnInit {
         }
         $button.parent().find('input').val(newVal);
       });
-
     })
     this.getAllCategories();
     this.activatedRoute.params.subscribe(async params => {
