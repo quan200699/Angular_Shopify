@@ -18,7 +18,7 @@
       </ul>
     </div>
     <div class="header__top__right__auth">
-      <a href="#"><i class="fa fa-user" ></i> Login</a>
+      <a href="#"><i class="fa fa-user"></i> Login</a>
     </div>
   </div>
   <nav class="humberger__menu__nav mobile-menu">
@@ -71,7 +71,7 @@
               </ul>
             </div>
             <div class="header__top__right__auth" *ngIf="!currentUser">
-              <a routerLink="../login"><i class="fa fa-user" ></i> Đăng nhập</a>
+              <a routerLink="../login"><i class="fa fa-user"></i> Đăng nhập</a>
             </div>
             <div class="header__top__right__auth" *ngIf="currentUser">
               <a routerLink="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
@@ -100,7 +100,8 @@
       <div class="col-lg-3">
         <div class="header__cart">
           <ul>
-            <li><a routerLink="/favorite"><i class="fa fa-heart"></i> <span>1</span></a></li>
+            <li><a routerLink="/favorite"><i class="fa fa-heart"></i> <span>{{this.favoriteProduct.length}}</span></a>
+            </li>
             <li><a routerLink="/cart"><i class="fa fa-shopping-bag"></i> <span>{{this.amount}}</span></a></li>
           </ul>
         </div>

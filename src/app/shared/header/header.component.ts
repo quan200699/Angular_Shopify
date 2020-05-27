@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   currentUser: UserToken;
   hasRoleAdmin = false;
   items: Item[] = [];
+  favoriteProduct: Item[] = [];
   amount: number = 0;
 
   constructor(private categoryService: CategoryService,
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit {
       }
     }
     this.loadCart();
+    this.loadFavorite()
   }
 
   ngOnInit() {
@@ -61,6 +63,21 @@ export class HeaderComponent implements OnInit {
           quantity: item.quantity
         });
         this.amount += item.quantity;
+      }
+    }
+  }
+
+
+  loadFavorite(): void {
+    this.favoriteProduct = [];
+    let heart = JSON.parse(localStorage.getItem('heart'));
+    if (heart != null) {
+      for (var i = 0; i < heart.length; i++) {
+        let item = JSON.parse(heart[i]);
+        this.favoriteProduct.push({
+          product: item.product,
+          quantity: item.quantity
+        });
       }
     }
   }
