@@ -21,6 +21,7 @@ export class ProductDetailComponent implements OnInit {
   })
   currentProduct: Product;
   sub: Subscription
+  relatedProducts: Product[] = [];
 
   constructor(private categoryService: CategoryService,
               private productService: ProductService,
@@ -29,6 +30,7 @@ export class ProductDetailComponent implements OnInit {
       const id = +paramMap.get('id');
       this.currentProduct = await this.getProduct(id);
       this.currentProduct.image = await this.getAllImageByProduct(this.currentProduct);
+      this.getAllProductRelated(this.currentProduct.category);
     })
   }
 
@@ -86,5 +88,20 @@ export class ProductDetailComponent implements OnInit {
 
   getAllImageByProduct(product: Product) {
     return this.productService.getAllImageByProduct(product.id).toPromise()
+  }
+
+  getAllProductRelated(category: Category) {
+    this.categoryService.getAllProductByCategory(category.id).subscribe(listProduct => {
+      if (listProduct.length > 4) {
+        for (let i = 0; i < 4; i++) {
+          this.relatedProducts.push(listProduct[i]);
+        }
+      } else {
+        this.relatedProducts = listProduct;
+      }
+      this.relatedProducts.map(async product => {
+        product.image = await this.getAllImageByProduct(product);
+      })
+    })
   }
 }
