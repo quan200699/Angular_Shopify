@@ -26,33 +26,6 @@ export class ShopComponent implements OnInit {
 
   ngOnInit() {
     $(document).ready(function () {
-      $(".product__discount__slider").owlCarousel({
-        loop: true,
-        margin: 0,
-        items: 3,
-        dots: true,
-        smartSpeed: 1200,
-        autoHeight: false,
-        autoplay: true,
-        responsive: {
-
-          320: {
-            items: 1,
-          },
-
-          480: {
-            items: 2,
-          },
-
-          768: {
-            items: 2,
-          },
-
-          992: {
-            items: 3,
-          }
-        }
-      });
       $(".latest-product__slider").owlCarousel({
         loop: true,
         margin: 0,
@@ -114,6 +87,30 @@ export class ShopComponent implements OnInit {
       this.listProductSaleOff = listProduct;
       this.listProductSaleOff.map(async product => {
         product.image = await this.getAllImageByProduct(product);
+      })
+      $(document).ready(function () {
+        $(".product__discount__slider").owlCarousel({
+          // loop: true,
+          margin: 0,
+          items: 3,
+          dots: true,
+          smartSpeed: 1200,
+          autoHeight: false,
+          // autoplay: true,
+          responsive: {
+            320: {
+              items: 1,
+            },
+
+            480: {
+              items: 2,
+            },
+
+            768: {
+              items: 3,
+            }
+          }
+        });
       })
     })
   }
