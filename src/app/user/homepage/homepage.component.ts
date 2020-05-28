@@ -80,9 +80,13 @@ export class HomepageComponent implements OnInit {
   getAllProduct() {
     this.productService.getAllProduct().subscribe(listProduct => {
       this.listProduct = listProduct;
-      this.listProduct.map(async product => {
-        product.image = await this.getAllImageByProduct(product);
-      })
+      this.addImageToProduct(this.listProduct);
+    })
+  }
+
+  addImageToProduct(listProduct: Product[]) {
+    listProduct.map(async product => {
+      product.image = await this.getAllImageByProduct(product);
     })
   }
 
@@ -105,9 +109,17 @@ export class HomepageComponent implements OnInit {
       } else {
         this.listProductLatest = listProduct;
       }
-      this.listProductLatest.map(async product => {
-        product.image = await this.getAllImageByProduct(product);
-      })
+      this.addImageToProduct(this.listProductLatest);
     })
+  }
+
+  search() {
+    const name = this.searchForm.value.name;
+    if (name != null) {
+      this.productService.getAllProductByName(name).subscribe(listProduct => {
+        this.listProduct = listProduct;
+        this.addImageToProduct(this.listProduct);
+      })
+    }
   }
 }
