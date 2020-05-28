@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Category} from "../../model/category";
 import {FormControl, FormGroup} from "@angular/forms";
 import {CategoryService} from "../../service/category/category.service";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {Product} from "../../model/product";
 import {ProductService} from "../../service/product/product.service";
@@ -26,7 +26,8 @@ export class CategoryDetailComponent implements OnInit {
 
   constructor(private categoryService: CategoryService,
               private productService: ProductService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
     this.sub = this.activatedRoute.paramMap.subscribe(async (paramMap: ParamMap) => {
       const id = +paramMap.get('id');
       this.currentCategory = await this.getCategory(id);
@@ -124,5 +125,10 @@ export class CategoryDetailComponent implements OnInit {
         });
       })
     })
+  }
+
+  search() {
+    const name = this.searchForm.value.name;
+    this.router.navigate(['../shop'], {queryParams: {name: name}});
   }
 }

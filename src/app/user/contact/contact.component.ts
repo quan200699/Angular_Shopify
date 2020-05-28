@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Category} from "../../model/category";
 import {CategoryService} from "../../service/category/category.service";
 import {FormControl, FormGroup} from "@angular/forms";
+import {Router} from "@angular/router";
 
 declare var $: any;
 
@@ -20,7 +21,8 @@ export class ContactComponent implements OnInit {
     email: new FormControl('')
   })
 
-  constructor(private categoryService: CategoryService) {
+  constructor(private categoryService: CategoryService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -34,5 +36,10 @@ export class ContactComponent implements OnInit {
     this.categoryService.getAllCategory().subscribe(listCategory => {
       this.listCategory = listCategory;
     })
+  }
+
+  search() {
+    const name = this.searchForm.value.name;
+    this.router.navigate(['../shop'], {queryParams: {name: name}});
   }
 }

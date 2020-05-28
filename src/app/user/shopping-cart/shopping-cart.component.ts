@@ -4,7 +4,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {CategoryService} from "../../service/category/category.service";
 import {Item} from "../../product/item";
 import {ProductService} from "../../service/product/product.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Product} from "../../model/product";
 
 declare var $: any;
@@ -27,7 +27,8 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(private categoryService: CategoryService,
               private activatedRoute: ActivatedRoute,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -152,5 +153,10 @@ export class ShoppingCartComponent implements OnInit {
 
   getAllImageByProduct(product: Product) {
     return this.productService.getAllImageByProduct(product.id).toPromise()
+  }
+
+  search() {
+    const name = this.searchForm.value.name;
+    this.router.navigate(['../shop'], {queryParams: {name: name}});
   }
 }

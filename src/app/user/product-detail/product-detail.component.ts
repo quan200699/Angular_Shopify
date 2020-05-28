@@ -5,7 +5,7 @@ import {CategoryService} from "../../service/category/category.service";
 import {Product} from "../../model/product";
 import {ProductService} from "../../service/product/product.service";
 import {Subscription} from "rxjs";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 
 declare var $: any;
 
@@ -25,7 +25,8 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(private categoryService: CategoryService,
               private productService: ProductService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
     this.sub = this.activatedRoute.paramMap.subscribe(async (paramMap: ParamMap) => {
       const id = +paramMap.get('id');
       this.currentProduct = await this.getProduct(id);
@@ -103,5 +104,10 @@ export class ProductDetailComponent implements OnInit {
         product.image = await this.getAllImageByProduct(product);
       })
     })
+  }
+
+  search() {
+    const name = this.searchForm.value.name;
+    this.router.navigate(['../shop'], {queryParams: {name: name}});
   }
 }

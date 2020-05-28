@@ -3,6 +3,7 @@ import {Category} from "../../model/category";
 import {FormControl, FormGroup} from "@angular/forms";
 import {CategoryService} from "../../service/category/category.service";
 import {Item} from "../../product/item";
+import {Router} from "@angular/router";
 
 declare var $: any;
 
@@ -20,7 +21,8 @@ export class CheckoutComponent implements OnInit {
   items: Item[] = [];
   total: number = 0;
 
-  constructor(private categoryService: CategoryService) {
+  constructor(private categoryService: CategoryService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -53,5 +55,10 @@ export class CheckoutComponent implements OnInit {
         this.total += (item.product.price * (1 - item.product.saleOff / 100)) * item.quantity;
       }
     }
+  }
+
+  search() {
+    const name = this.searchForm.value.name;
+    this.router.navigate(['../shop'], {queryParams: {name: name}});
   }
 }

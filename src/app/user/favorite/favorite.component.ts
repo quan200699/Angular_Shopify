@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CategoryService} from "../../service/category/category.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ProductService} from "../../service/product/product.service";
 import {Category} from "../../model/category";
 import {FormControl, FormGroup} from "@angular/forms";
@@ -23,7 +23,8 @@ export class FavoriteComponent implements OnInit {
 
   constructor(private categoryService: CategoryService,
               private activatedRoute: ActivatedRoute,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -128,5 +129,10 @@ export class FavoriteComponent implements OnInit {
         quantity: item.quantity
       });
     }
+  }
+
+  search() {
+    const name = this.searchForm.value.name;
+    this.router.navigate(['../shop'], {queryParams: {name: name}});
   }
 }
