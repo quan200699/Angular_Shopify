@@ -4,6 +4,7 @@ import {Product} from "../../model/product";
 import {CategoryService} from "../../service/category/category.service";
 import {Category} from "../../model/category";
 import {FormControl, FormGroup} from "@angular/forms";
+import {Router} from "@angular/router";
 
 declare var $: any;
 
@@ -21,7 +22,8 @@ export class HomepageComponent implements OnInit {
   listProductLatest: Product[] = [];
 
   constructor(private productService: ProductService,
-              private categoryService: CategoryService) {
+              private categoryService: CategoryService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -115,11 +117,6 @@ export class HomepageComponent implements OnInit {
 
   search() {
     const name = this.searchForm.value.name;
-    if (name != null) {
-      this.productService.getAllProductByName(name).subscribe(listProduct => {
-        this.listProduct = listProduct;
-        this.addImageToProduct(this.listProduct);
-      })
-    }
+    this.router.navigate(['../shop'], {queryParams: {name: name}});
   }
 }
