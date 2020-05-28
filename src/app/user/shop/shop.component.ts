@@ -107,7 +107,7 @@ export class ShopComponent implements OnInit {
             margin: 0,
             items: 3,
             dots: true,
-            smartSpeed: 1200,
+            smartSpeed: 1500,
             autoHeight: false,
             autoplay: true,
             responsive: {
