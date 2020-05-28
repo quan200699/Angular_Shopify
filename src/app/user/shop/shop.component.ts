@@ -4,6 +4,8 @@ import {CategoryService} from "../../service/category/category.service";
 import {Product} from "../../model/product";
 import {ProductService} from "../../service/product/product.service";
 import {FormControl, FormGroup} from "@angular/forms";
+import {Subscription} from "rxjs";
+import {ActivatedRoute, Router} from "@angular/router";
 
 declare var $: any;
 
@@ -20,9 +22,22 @@ export class ShopComponent implements OnInit {
   })
   listProductSaleOff: Product[] = [];
   listProductLatest: Product[] = [];
+  sub: Subscription;
+  query: string = "";
 
   constructor(private categoryService: CategoryService,
-              private productService: ProductService) {
+              private activatedRoute: ActivatedRoute,
+              private productService: ProductService,
+              private router: Router) {
+    this.sub = this.activatedRoute.queryParams.subscribe(params => {
+      this.query = params.name;
+      if (this.query != null) {
+        this.searchForm.value.name = this.query;
+        this.search();
+      } else {
+        this.getAllProduct();
+      }
+    });
   }
 
   ngOnInit() {
@@ -60,7 +75,6 @@ export class ShopComponent implements OnInit {
       maxamount.val('$' + rangeSlider.slider("values", 1));
     });
     this.getAllCategories();
-    this.getAllProduct();
     this.getAllProductSaleOff();
     this.getAllProductLatest();
   }
@@ -136,10 +150,15 @@ export class ShopComponent implements OnInit {
   search() {
     const name = this.searchForm.value.name;
     if (name != null) {
-      this.productService.getAllProductByName(name).subscribe(listProduct => {
-        this.listProduct = listProduct;
-        this.addImageToProduct(this.listProduct);
-      })
+      if (name == "") {
+        this.router.navigate(['/shop']);
+      } else {
+        this.productService.getAllProductByName(name).subscribe(listProduct => {
+          this.listProduct = listProduct;
+          this.addImageToProduct(this.listProduct);
+          this.router.navigate(['/shop'], {queryParams: {name: name}});
+        })
+      }
     }
   }
 }

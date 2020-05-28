@@ -22,7 +22,7 @@
                 Tất cả
                 <span class="arrow_carrot-down"></span>
               </div>
-              <input type="text" placeholder="Bạn cần tìm gì?" formControlName="name">
+              <input type="text" placeholder="Bạn cần tìm gì?" formControlName="name" [value]="query==null?'':query">
               <button type="submit" class="site-btn">TÌM KIẾM</button>
             </form>
           </div>
