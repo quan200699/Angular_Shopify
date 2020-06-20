@@ -1,24 +1,24 @@
 import {Component, OnInit} from '@angular/core';
 import {UserToken} from "../../model/user-token";
 import {AuthenticationService} from "../../service/auth/authentication.service";
-import {Category} from "../../model/category";
-import {CategoryService} from "../../service/category/category.service";
+import {Warehouse} from "../../model/warehouse";
+import {WarehouseService} from "../../service/warehouse/warehouse.service";
 
 declare var $: any;
 declare var Swal: any;
 
 @Component({
-  selector: 'app-category-list',
-  templateUrl: './list-category.component.html',
-  styleUrls: ['./list-category.component.css']
+  selector: 'app-list-warehouse',
+  templateUrl: './list-warehouse.component.html',
+  styleUrls: ['./list-warehouse.component.scss']
 })
-export class ListCategoryComponent implements OnInit {
-  listCategory: Category[];
+export class ListWarehouseComponent implements OnInit {
+  listWarehouse: Warehouse[];
   currentUser: UserToken;
   hasRoleAdmin = false;
   id: number;
 
-  constructor(private categoryService: CategoryService,
+  constructor(private warehouseService: WarehouseService,
               private authenticationService: AuthenticationService) {
     this.authenticationService.currentUser.subscribe(value => this.currentUser = value);
     if (this.currentUser) {
@@ -32,16 +32,16 @@ export class ListCategoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllCategory();
+    this.getAllWarehouse();
   }
 
-  getCategoryId(id: number) {
+  getWarehouseId(id: number) {
     this.id = id;
   }
 
-  deleteCategory() {
-    this.categoryService.deleteCategory(this.id).subscribe(() => {
-      this.getAllCategory();
+  deleteWarehouse() {
+    this.warehouseService.deleteWarehouse(this.id).subscribe(() => {
+      this.getAllWarehouse();
       $(function () {
         $('#modal-delete').modal('hide');
       })
@@ -75,11 +75,11 @@ export class ListCategoryComponent implements OnInit {
     })
   }
 
-  getAllCategory() {
-    this.categoryService.getAllCategory().subscribe(listCategory => {
-      this.listCategory = listCategory;
+  getAllWarehouse() {
+    this.warehouseService.getAllWarehouse().subscribe(listWarehouse => {
+      this.listWarehouse = listWarehouse;
       $(function () {
-        $('#table-category').DataTable({
+        $('#table-warehouse').DataTable({
           "paging": true,
           "lengthChange": false,
           "searching": false,

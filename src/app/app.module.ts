@@ -44,7 +44,7 @@ import { FavoriteComponent } from './user/favorite/favorite.component';
     ShoppingCartComponent,
     CheckoutComponent,
     CategoryDetailComponent,
-    FavoriteComponent
+    FavoriteComponent,
   ],
   imports: [
     BrowserModule,

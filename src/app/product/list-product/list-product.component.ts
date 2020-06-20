@@ -45,6 +45,9 @@ export class ListProductComponent implements OnInit {
         this.listProduct = listProduct;
       })
       $(function () {
+        $('#modal-delete').modal('hide');
+      })
+      $(function () {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',

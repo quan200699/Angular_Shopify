@@ -35,6 +35,14 @@
             </p>
           </a>
         </li>
+        <li class="nav-item" *ngIf="hasRoleAdmin">
+          <a routerLink="/admin/warehouse" class="nav-link">
+            <i class="nav-icon fas fa-list"></i>
+            <p>
+              Nhà kho
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
