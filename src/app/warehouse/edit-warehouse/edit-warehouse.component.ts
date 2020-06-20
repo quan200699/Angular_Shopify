@@ -1,42 +1,49 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {Subscription} from "rxjs";
-import {Category} from "../../model/category";
 import {ActivatedRoute, ParamMap} from "@angular/router";
-import {CategoryService} from "../../service/category/category.service";
+import {Warehouse} from "../../model/warehouse";
+import {WarehouseService} from "../../service/warehouse/warehouse.service";
 
 declare var $: any;
 declare var Swal: any;
 
 @Component({
-  selector: 'app-edit-category',
-  templateUrl: './edit-category.component.html',
-  styleUrls: ['./edit-category.component.css']
+  selector: 'app-edit-warehouse',
+  templateUrl: './edit-warehouse.component.html',
+  styleUrls: ['./edit-warehouse.component.scss']
 })
-export class EditCategoryComponent implements OnInit {
-  categoryForm: FormGroup = new FormGroup({
+export class EditWarehouseComponent implements OnInit {
+  warehouseForm: FormGroup = new FormGroup({
     name: new FormControl(''),
+    address: new FormControl(''),
   });
-  currentCategory: Category;
+  currentWarehouse: Warehouse;
   id: number;
   sub: Subscription
 
   constructor(private activatedRoute: ActivatedRoute,
-              private categoryService: CategoryService) {
+              private warehouseService: WarehouseService) {
   }
 
   ngOnInit() {
     $(document).ready(function () {
-      $('#category-form').validate({
+      $('#warehouse-form').validate({
         rules: {
           name: {
             required: true
-          }
+          },
+          address: {
+            required: true
+          },
         },
         messages: {
           name: {
-            required: 'Hãy nhập tên danh mục'
-          }
+            required: 'Hãy nhập tên nhà kho'
+          },
+          address: {
+            required: 'Hãy nhập địa chỉ'
+          },
         },
         errorElement: 'span',
         errorPlacement: function (error, element) {
@@ -53,19 +60,20 @@ export class EditCategoryComponent implements OnInit {
     });
     this.sub = this.activatedRoute.paramMap.subscribe(async (paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
-      this.currentCategory = await this.getCategory(this.id);
+      this.currentWarehouse = await this.getWarehouse(this.id);
     })
   }
 
-  getCategory(id: number) {
-    return this.categoryService.getCategory(id).toPromise();
+  getWarehouse(id: number) {
+    return this.warehouseService.getWarehouse(id).toPromise();
   }
 
-  updateCategory(id: number) {
-    const category: Category = {
-      name: this.categoryForm.value.name === "" ? this.currentCategory.name : this.categoryForm.value.name,
+  updateWarehouse(id: number) {
+    const warehouse: Warehouse = {
+      name: this.warehouseForm.value.name === "" ? this.currentWarehouse.name : this.warehouseForm.value.name,
+      address: this.warehouseForm.value.address === "" ? this.currentWarehouse.address : this.warehouseForm.value.address,
     };
-    this.categoryService.updateCategory(id, category).subscribe(() => {
+    this.warehouseService.updateWarehouse(id, warehouse).subscribe(() => {
       $(function () {
         const Toast = Swal.mixin({
           toast: true,
@@ -95,4 +103,5 @@ export class EditCategoryComponent implements OnInit {
       });
     });
   }
+
 }

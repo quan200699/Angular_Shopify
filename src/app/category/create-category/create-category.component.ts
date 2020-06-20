@@ -29,7 +29,7 @@ export class CreateCategoryComponent implements OnInit {
         },
         messages: {
           name: {
-            required: 'Hãy nhập tên sản phẩm'
+            required: 'Hãy nhập tên danh mục'
           }
         },
         errorElement: 'span',
