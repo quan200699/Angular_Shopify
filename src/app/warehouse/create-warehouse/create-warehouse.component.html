@@ -1,0 +1,51 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Thêm mới nhà kho</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Thêm kho hàng</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <form [formGroup]="warehouseForm" (ngSubmit)="createWarehouse()" id="category-form">
+    <div class="card card-secondary">
+      <div class="card-header">
+        <h3 class="card-title">Thông tin kho hàng</h3>
+
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                  title="Collapse">
+            <i class="fas fa-minus"></i></button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="inputName">Tên nhà kho</label>
+          <input type="text" id="inputName" class="form-control" formControlName="name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Địa chỉ</label>
+          <input type="text" id="inputAddress" class="form-control" formControlName="address" name="address">
+        </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <a routerLink="/" class="btn btn-secondary">Hủy</a>
+        <input type="submit" value="Tạo mới" class="btn btn-success float-right">
+      </div>
+    </div>
+  </form>
+</section>
+<!-- /.content -->

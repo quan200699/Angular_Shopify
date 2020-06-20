@@ -41,7 +41,9 @@ export class ListCategoryComponent implements OnInit {
 
   deleteCategory() {
     this.categoryService.deleteCategory(this.id).subscribe(() => {
-      this.getAllCategory();
+      this.categoryService.getAllCategory().subscribe(listCategory => {
+        this.listCategory = listCategory;
+      })
       $(function () {
         $('#modal-delete').modal('hide');
       })

@@ -41,7 +41,9 @@ export class ListWarehouseComponent implements OnInit {
 
   deleteWarehouse() {
     this.warehouseService.deleteWarehouse(this.id).subscribe(() => {
-      this.getAllWarehouse();
+      this.warehouseService.getAllWarehouse().subscribe(listWarehouse => {
+        this.listWarehouse = listWarehouse;
+      })
       $(function () {
         $('#modal-delete').modal('hide');
       })
