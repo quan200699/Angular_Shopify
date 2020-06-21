@@ -3,6 +3,7 @@ import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {WarehouseBill} from "../../model/warehouse-bill";
+import {WarehouseBillDetail} from "../../model/warehouse-bill-detail";
 
 const API_URL = `${environment.apiUrl}`
 
@@ -32,5 +33,9 @@ export class WarehouseBillService {
 
   deleteWarehouseBill(id: number): Observable<WarehouseBill> {
     return this.http.delete<WarehouseBill>(API_URL + `/warehousebills/${id}`);
+  }
+
+  getAllWarehouseBillDetail(id: number): Observable<WarehouseBillDetail[]> {
+    return this.http.get<WarehouseBillDetail[]>(API_URL + `/warehousebills/${id}` + `/warehouse-bill-details`)
   }
 }

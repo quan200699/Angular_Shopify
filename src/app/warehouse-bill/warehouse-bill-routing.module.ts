@@ -4,6 +4,7 @@ import {ListWarehouseBillComponent} from "./list-warehouse-bill/list-warehouse-b
 import {CreateWarehouseBillComponent} from "./create-warehouse-bill/create-warehouse-bill.component";
 import {EditWarehouseBillComponent} from "./edit-warehouse-bill/edit-warehouse-bill.component";
 import {AdminAuthGuard} from "../helper/admin-auth-guard";
+import {InfoWarehouseBillComponent} from "./info-warehouse-bill/info-warehouse-bill.component";
 
 
 const routes: Routes = [
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: EditWarehouseBillComponent,
+    canActivate: [AdminAuthGuard]
+  },
+  {
+    path: 'info/:id',
+    component: InfoWarehouseBillComponent,
     canActivate: [AdminAuthGuard]
   }
 ];
