@@ -1,0 +1,81 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Danh sách phiếu nhập kho</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Danh sách phiếu nhập kho</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title"></h3>
+      <div class="card-tools">
+        <a routerLink="create" *ngIf="hasRoleAdmin" class="btn btn-primary float-lg-right">
+          Tạo mới
+        </a>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered" id="table-warehouse-bill">
+        <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>Ngày tạo</th>
+          <th style="width: 160px" *ngIf="hasRoleAdmin"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let warehouseBill of listWarehouseBill; index as i">
+          <td>{{i + 1}}</td>
+          <td>{{warehouseBill.createDate}}</td>
+          <td *ngIf="hasRoleAdmin">
+            <div class="row">
+              <div class="col-6">
+                <a [routerLink]="['edit',warehouseBill.id]" class="btn btn-block btn-primary" style="color: white">
+                  <i class="fas fa-edit"></i>
+                </a>
+              </div>
+              <div class="col-6">
+                <button type="button" class="btn btn-block btn-danger" style="color: white" data-toggle="modal"
+                        data-target="#modal-delete" (click)="getWarehouseBillId(warehouseBill.id)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal fade" id="modal-delete">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Xóa nhà kho</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Bạn có chắc muốn xóa phiếu nhập kho này</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+          <button type="button" class="btn btn-danger" (click)="deleteWarehouseBill()">Xóa</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+</section>
