@@ -1,1 +1,58 @@
-<p>edit-warehouse-bill-detail works!</p>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Cập nhật chi tiết phiếu nhập kho</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Cập nhật chi tiết phiếu nhập kho</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <form [formGroup]="warehouseBillDetailForm" (ngSubmit)="updateWarehouseBillDetail(detailId)"
+        *ngIf="currentWarehouseBillDetail != null">
+    <div class="card card-secondary">
+      <div class="card-header">
+        <h3 class="card-title">Thông tin chi tiết phiếu nhập kho</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                  title="Collapse">
+            <i class="fas fa-minus"></i></button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="product">Sản phẩm</label>
+          <select class="form-control select2 select2-primary" id="product" name="product"
+                  data-dropdown-css-class="select2-primary" *ngIf="currentWarehouseBillDetail.product!=null"
+                  style="width: 100%;">
+            <option [ngValue]="null">Chọn sản phẩm</option>
+            <option *ngFor="let product of listProduct" [value]="product.id"
+                    [selected]="currentWarehouseBillDetail.product.id == product.id">{{product.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="inputName">Số lượng</label>
+          <input type="number" id="inputName" class="form-control" [value]="currentWarehouseBillDetail.amount"
+                 formControlName="amount" name="amount">
+        </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <a routerLink="/" class="btn btn-secondary">Hủy</a>
+        <input type="submit" value="Cập nhật" class="btn btn-success float-right">
+      </div>
+    </div>
+  </form>
+</section>
+<!-- /.content -->
