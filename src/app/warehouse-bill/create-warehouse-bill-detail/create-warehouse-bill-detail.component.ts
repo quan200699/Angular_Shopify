@@ -81,7 +81,7 @@ export class CreateWarehouseBillDetailComponent implements OnInit {
           id: productId
         },
         amount: this.warehouseBillDetailForm.value.amount,
-        warehouseBill: {
+        wareHouseBill: {
           id: this.id
         }
       };
