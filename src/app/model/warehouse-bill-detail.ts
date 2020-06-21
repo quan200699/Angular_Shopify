@@ -1,6 +1,6 @@
 export interface WarehouseBillDetail {
   id?: number;
   product?: any;
-  warehouseBill?: any;
+  wareHouseBill?: any;
   amount?: number;
 }
