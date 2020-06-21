@@ -30,6 +30,7 @@
         <tr>
           <th style="width: 10px">#</th>
           <th>Ngày tạo</th>
+          <th>Kho</th>
           <th style="width: 160px" *ngIf="hasRoleAdmin"></th>
         </tr>
         </thead>
@@ -37,6 +38,7 @@
         <tr *ngFor="let warehouseBill of listWarehouseBill; index as i">
           <td>{{i + 1}}</td>
           <td>{{warehouseBill.createDate}}</td>
+          <td *ngIf="warehouseBill.warehouse!=null">{{warehouseBill.warehouse.name}}</td>
           <td *ngIf="hasRoleAdmin">
             <div class="row">
               <div class="col-6">
