@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {ListWarehouseBillComponent} from "./list-warehouse-bill/list-warehouse-bill.component";
 import {CreateWarehouseBillComponent} from "./create-warehouse-bill/create-warehouse-bill.component";
+import {EditWarehouseBillComponent} from "./edit-warehouse-bill/edit-warehouse-bill.component";
+import {AdminAuthGuard} from "../helper/admin-auth-guard";
 
 
 const routes: Routes = [
@@ -11,8 +13,14 @@ const routes: Routes = [
   },
   {
     path: 'create',
-    component: CreateWarehouseBillComponent
+    component: CreateWarehouseBillComponent,
+    canActivate: [AdminAuthGuard]
   },
+  {
+    path: 'edit/:id',
+    component: EditWarehouseBillComponent,
+    canActivate: [AdminAuthGuard]
+  }
 ];
 
 @NgModule({
