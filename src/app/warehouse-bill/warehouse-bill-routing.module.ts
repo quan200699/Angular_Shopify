@@ -6,6 +6,7 @@ import {EditWarehouseBillComponent} from "./edit-warehouse-bill/edit-warehouse-b
 import {AdminAuthGuard} from "../helper/admin-auth-guard";
 import {InfoWarehouseBillComponent} from "./info-warehouse-bill/info-warehouse-bill.component";
 import {CreateWarehouseBillDetailComponent} from "./create-warehouse-bill-detail/create-warehouse-bill-detail.component";
+import {EditWarehouseBillDetailComponent} from "./edit-warehouse-bill-detail/edit-warehouse-bill-detail.component";
 
 
 const routes: Routes = [
@@ -32,7 +33,12 @@ const routes: Routes = [
     path: 'info/:id/create',
     component: CreateWarehouseBillDetailComponent,
     canActivate: [AdminAuthGuard]
-  }
+  },
+  {
+    path: 'info/:id/edit/:detailId',
+    component: EditWarehouseBillDetailComponent,
+    canActivate: [AdminAuthGuard]
+  },
 ];
 
 @NgModule({

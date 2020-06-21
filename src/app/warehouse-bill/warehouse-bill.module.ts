@@ -7,6 +7,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {EditWarehouseBillComponent} from "./edit-warehouse-bill/edit-warehouse-bill.component";
 import {InfoWarehouseBillComponent} from "./info-warehouse-bill/info-warehouse-bill.component";
 import {CreateWarehouseBillDetailComponent} from "./create-warehouse-bill-detail/create-warehouse-bill-detail.component";
+import {EditWarehouseBillDetailComponent} from "./edit-warehouse-bill-detail/edit-warehouse-bill-detail.component";
 
 
 
@@ -17,6 +18,7 @@ import {CreateWarehouseBillDetailComponent} from "./create-warehouse-bill-detail
     EditWarehouseBillComponent,
     InfoWarehouseBillComponent,
     CreateWarehouseBillDetailComponent,
+    EditWarehouseBillDetailComponent,
   ],
   imports: [
     CommonModule,
