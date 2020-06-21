@@ -6,8 +6,10 @@ import {Item} from "../../product/item";
 import {ProductService} from "../../service/product/product.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Product} from "../../model/product";
+import {WarehouseBillDetailService} from "../../service/warehouse-bill-detail/warehouse-bill-detail.service";
 
 declare var $: any;
+declare var Swal: any;
 
 @Component({
   selector: 'app-shopping-cart',
@@ -28,6 +30,7 @@ export class ShoppingCartComponent implements OnInit {
   constructor(private categoryService: CategoryService,
               private activatedRoute: ActivatedRoute,
               private productService: ProductService,
+              private warehouseBillDetailService: WarehouseBillDetailService,
               private router: Router) {
   }
 
@@ -64,12 +67,29 @@ export class ShoppingCartComponent implements OnInit {
           product: product,
           quantity: 1
         };
-        if (localStorage.getItem('cart') == null) {
-          let cart: any = [];
-          cart.push(JSON.stringify(item));
-          localStorage.setItem('cart', JSON.stringify(cart));
-        } else {
-          this.addProductToCart(id, item);
+        const sum = await this.sumAmount(product.id);
+        if (sum == null) {
+          $(function () {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000
+            });
+
+            Toast.fire({
+              type: 'error',
+              title: 'Mặt hàng này không còn vui lòng chọn mua sản phẩm khác'
+            });
+          });
+        }else {
+          if (localStorage.getItem('cart') == null) {
+            let cart: any = [];
+            cart.push(JSON.stringify(item));
+            localStorage.setItem('cart', JSON.stringify(cart));
+          } else {
+            this.addProductToCart(id, item);
+          }
         }
         this.loadCart();
       } else {
@@ -78,7 +98,11 @@ export class ShoppingCartComponent implements OnInit {
     });
   }
 
-  addProductToCart(id: number, item: Item) {
+  sumAmount(id: number) {
+    return this.warehouseBillDetailService.sumAmount(id).toPromise();
+  }
+
+  async addProductToCart(id: number, item: Item) {
     let cart: any = JSON.parse(localStorage.getItem('cart'));
     let index: number = -1;
     for (var i = 0; i < cart.length; i++) {
@@ -88,16 +112,33 @@ export class ShoppingCartComponent implements OnInit {
         break;
       }
     }
-    if (index == -1) {
-      cart.push(JSON.stringify(item));
-      localStorage.setItem('cart', JSON.stringify(cart));
+    const sum = await this.sumAmount(item.product.id);
+    if (sum == null) {
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'error',
+          title: 'Mặt hàng này không còn vui lòng chọn mua sản phẩm khác'
+        });
+      });
     } else {
-      let item: Item = JSON.parse(cart[index]);
-      item.quantity += 1;
-      cart[index] = JSON.stringify(item);
-      localStorage.setItem("cart", JSON.stringify(cart));
+      if (index == -1) {
+        cart.push(JSON.stringify(item));
+        localStorage.setItem('cart', JSON.stringify(cart));
+      } else {
+        let item: Item = JSON.parse(cart[index]);
+        item.quantity += 1;
+        cart[index] = JSON.stringify(item);
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+      this.loadCart();
     }
-    this.loadCart();
   }
 
   decreaseProduct(id: number, index: number) {
@@ -133,7 +174,7 @@ export class ShoppingCartComponent implements OnInit {
         product: item.product,
         quantity: item.quantity
       });
-      this.total += (item.product.price * (1 - item.product.saleOff/100)) * item.quantity;
+      this.total += (item.product.price * (1 - item.product.saleOff / 100)) * item.quantity;
     }
   }
 

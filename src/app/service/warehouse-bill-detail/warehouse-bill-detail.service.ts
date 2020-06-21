@@ -32,4 +32,8 @@ export class WarehouseBillDetailService {
   deleteWarehouseBillDetail(id: number): Observable<WarehouseBillDetail> {
     return this.http.delete<WarehouseBillDetail>(API_URL + `/warehouse-bill-details/${id}`);
   }
+
+  sumAmount(id: number): Observable<number>{
+    return this.http.get<number>(API_URL + `/warehouse-bill-details/${id}/sum`)
+  }
 }
