@@ -7,6 +7,7 @@ import {ProductService} from "../../service/product/product.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Product} from "../../model/product";
 import {WarehouseBillDetailService} from "../../service/warehouse-bill-detail/warehouse-bill-detail.service";
+import {OrdersService} from "../../service/order/orders.service";
 
 declare var $: any;
 declare var Swal: any;
@@ -31,6 +32,7 @@ export class ShoppingCartComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private productService: ProductService,
               private warehouseBillDetailService: WarehouseBillDetailService,
+              private ordersService: OrdersService,
               private router: Router) {
   }
 
@@ -67,7 +69,7 @@ export class ShoppingCartComponent implements OnInit {
           product: product,
           quantity: 1
         };
-        const sum = await this.sumAmount(product.id);
+        const sum = await this.sumAmountInput(product.id);
         if (sum == null) {
           $(function () {
             const Toast = Swal.mixin({
@@ -82,7 +84,7 @@ export class ShoppingCartComponent implements OnInit {
               title: 'Mặt hàng này không còn vui lòng chọn mua sản phẩm khác'
             });
           });
-        }else {
+        } else {
           if (localStorage.getItem('cart') == null) {
             let cart: any = [];
             cart.push(JSON.stringify(item));
@@ -98,8 +100,12 @@ export class ShoppingCartComponent implements OnInit {
     });
   }
 
-  sumAmount(id: number) {
+  sumAmountInput(id: number) {
     return this.warehouseBillDetailService.sumAmount(id).toPromise();
+  }
+
+  sumAmountOutput(id: number) {
+    return this.ordersService.sumAmount(id).toPromise();
   }
 
   async addProductToCart(id: number, item: Item) {
@@ -112,8 +118,15 @@ export class ShoppingCartComponent implements OnInit {
         break;
       }
     }
-    const sum = await this.sumAmount(item.product.id);
-    if (sum == null) {
+    let sumInput = await this.sumAmountInput(item.product.id);
+    let sumOutput = await this.sumAmountOutput(item.product.id);
+    if (sumOutput == null) {
+      sumOutput = 0;
+    }
+    if (sumInput == null) {
+      sumInput = 0;
+    }
+    if (sumInput - sumOutput <= 0) {
       $(function () {
         const Toast = Swal.mixin({
           toast: true,
