@@ -17,7 +17,9 @@ export class NavbarComponent {
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService) {
-    this.authenticationService.currentUser.subscribe(value => this.currentUser = value);
+    this.authenticationService.currentUser.subscribe(value => {
+      this.currentUser = value
+    });
     if (this.currentUser) {
       const roleList = this.currentUser.roles;
       for (const role of roleList) {
