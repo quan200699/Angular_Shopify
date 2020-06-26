@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Category} from "../../model/category";
 import {FormControl, FormGroup} from "@angular/forms";
 import {CategoryService} from "../../service/category/category.service";
-import {Item} from "../../product/item";
+import {Item} from "../../model/item";
 import {Router} from "@angular/router";
 
 declare var $: any;

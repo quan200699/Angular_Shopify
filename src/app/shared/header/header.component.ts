@@ -4,7 +4,7 @@ import {AuthenticationService} from "../../service/auth/authentication.service";
 import {Router} from "@angular/router";
 import {Category} from "../../model/category";
 import {UserToken} from "../../model/user-token";
-import {Item} from "../../product/item";
+import {Item} from "../../model/item";
 
 @Component({
   selector: 'app-header',

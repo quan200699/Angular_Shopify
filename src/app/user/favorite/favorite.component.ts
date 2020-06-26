@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ProductService} from "../../service/product/product.service";
 import {Category} from "../../model/category";
 import {FormControl, FormGroup} from "@angular/forms";
-import {Item} from "../../product/item";
+import {Item} from "../../model/item";
 import {Product} from "../../model/product";
 
 declare var $: any;

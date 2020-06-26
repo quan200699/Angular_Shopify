@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Category} from "../../model/category";
 import {FormControl, FormGroup} from "@angular/forms";
 import {CategoryService} from "../../service/category/category.service";
-import {Item} from "../../product/item";
+import {Item} from "../../model/item";
 import {ProductService} from "../../service/product/product.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Product} from "../../model/product";
