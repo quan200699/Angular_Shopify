@@ -158,21 +158,24 @@
           <div class="row">
             <div class="product__discount__slider owl-carousel">
               <div class="col-lg-4" *ngFor="let product of listProductSaleOff">
-                <div class="product__discount__item" >
+                <div class="product__discount__item">
                   <div class="product__discount__item__pic set-bg" *ngIf="product.image != null"
                        [style.background]="'url('+product.image[0].url+')'">
                     <div class="product__discount__percent">-{{product.saleOff}}%</div>
                     <ul class="product__item__pic__hover">
                       <li><a [routerLink]="['/favorite', { id:product.id }]"><i class="fa fa-heart"></i></a></li>
                       <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                      <li><a [routerLink]="['/cart', { id:product.id }]"><i class="fa fa-shopping-cart"></i></a></li>
+                      <li *ngIf="currentUser==null"><a [routerLink]="['/cart', { id:product.id }]"><i
+                        class="fa fa-shopping-cart"></i></a></li>
+                      <li *ngIf="currentUser!=null"><a (click)="addItemToShoppingCart(product.id,shoppingCart.id)"><i
+                        class="fa fa-shopping-cart"></i></a></li>
                     </ul>
                   </div>
                   <div class="product__discount__item__text">
                     <span>{{product.category.name}}</span>
                     <h5><a [routerLink]="['../product',product.id]">{{product.name}}</a></h5>
                     <div class="product__item__price">{{product.price * (1 - product.saleOff / 100)}}đ
-                      <span>{{product.price * (1 - product.saleOff/100)}}đ</span></div>
+                      <span>{{product.price * (1 - product.saleOff / 100)}}đ</span></div>
                   </div>
                 </div>
               </div>
@@ -211,12 +214,15 @@
                 <ul class="product__item__pic__hover">
                   <li><a [routerLink]="['/favorite', { id:product.id }]"><i class="fa fa-heart"></i></a></li>
                   <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                  <li><a [routerLink]="['/cart', { id:product.id }]"><i class="fa fa-shopping-cart"></i></a></li>
+                  <li *ngIf="currentUser==null"><a [routerLink]="['/cart', { id:product.id }]"><i
+                    class="fa fa-shopping-cart"></i></a></li>
+                  <li *ngIf="currentUser!=null"><a (click)="addItemToShoppingCart(product.id, shoppingCart.id)"><i
+                    class="fa fa-shopping-cart"></i></a></li>
                 </ul>
               </div>
               <div class="product__item__text">
                 <h6><a [routerLink]="['../product',product.id]">{{product.name}}</a></h6>
-                <h5>{{product.price * (1 - product.saleOff/100)}}đ</h5>
+                <h5>{{product.price * (1 - product.saleOff / 100)}}đ</h5>
               </div>
             </div>
           </div>

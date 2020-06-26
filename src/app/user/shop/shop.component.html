@@ -132,7 +132,10 @@
                     <ul class="product__item__pic__hover">
                       <li><a [routerLink]="['/favorite', { id:product.id }]"><i class="fa fa-heart"></i></a></li>
                       <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                      <li><a [routerLink]="['/cart', { id:product.id }]"><i class="fa fa-shopping-cart"></i></a></li>
+                      <li *ngIf="currentUser==null"><a [routerLink]="['/cart', { id:product.id }]"><i
+                        class="fa fa-shopping-cart"></i></a></li>
+                      <li *ngIf="currentUser!=null"><a (click)="addItemToShoppingCart(product.id, shoppingCart.id)"><i
+                        class="fa fa-shopping-cart"></i></a></li>
                     </ul>
                   </div>
                   <div class="product__discount__item__text">
@@ -178,7 +181,10 @@
                 <ul class="product__item__pic__hover">
                   <li><a [routerLink]="['/favorite', { id:product.id }]"><i class="fa fa-heart"></i></a></li>
                   <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                  <li><a [routerLink]="['/cart', { id:product.id }]"><i class="fa fa-shopping-cart"></i></a></li>
+                  <li *ngIf="currentUser==null"><a [routerLink]="['/cart', { id:product.id }]"><i
+                    class="fa fa-shopping-cart"></i></a></li>
+                  <li *ngIf="currentUser!=null"><a (click)="addItemToShoppingCart(product.id,shoppingCart.id)"><i
+                    class="fa fa-shopping-cart"></i></a></li>
                 </ul>
               </div>
               <div class="product__item__text">

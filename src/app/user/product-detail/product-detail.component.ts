@@ -6,6 +6,11 @@ import {Product} from "../../model/product";
 import {ProductService} from "../../service/product/product.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {AuthenticationService} from "../../service/auth/authentication.service";
+import {ShoppingCartService} from "../../service/shopping-cart/shopping-cart.service";
+import {ItemService} from "../../service/item/item.service";
+import {UserToken} from "../../model/user-token";
+import {ShoppingCart} from "../../model/shopping-cart";
 
 declare var $: any;
 
@@ -22,10 +27,15 @@ export class ProductDetailComponent implements OnInit {
   currentProduct: Product;
   sub: Subscription
   relatedProducts: Product[] = [];
+  currentUser: UserToken;
+  shoppingCart: ShoppingCart;
 
   constructor(private categoryService: CategoryService,
               private productService: ProductService,
               private activatedRoute: ActivatedRoute,
+              private authenticationService: AuthenticationService,
+              private shoppingCartService: ShoppingCartService,
+              private itemService: ItemService,
               private router: Router) {
     this.sub = this.activatedRoute.paramMap.subscribe(async (paramMap: ParamMap) => {
       const id = +paramMap.get('id');
@@ -33,6 +43,10 @@ export class ProductDetailComponent implements OnInit {
       this.currentProduct.image = await this.getAllImageByProduct(this.currentProduct);
       this.getAllProductRelated(this.currentProduct.category);
     })
+    this.authenticationService.currentUser.subscribe(value => {
+      this.currentUser = value
+      this.getShoppingCartByUser(this.currentUser.id);
+    });
   }
 
   ngOnInit() {
@@ -75,6 +89,22 @@ export class ProductDetailComponent implements OnInit {
       });
     })
     this.getAllCategories();
+  }
+
+
+  getShoppingCartByUser(id: number) {
+    this.shoppingCartService.getCartByUser(id).subscribe(shoppingCart => {
+      this.shoppingCart = shoppingCart;
+    })
+  }
+
+  getAllItemInShoppingCart(id: number) {
+    return this.shoppingCartService.getAllItemByShoppingCart(id).toPromise();
+  }
+
+  async addItemToShoppingCart(productId: number, shoppingCartId: number) {
+    let items = await this.getAllItemInShoppingCart(shoppingCartId);
+    this.itemService.addItemToShoppingCart(items, productId, shoppingCartId);
   }
 
   getAllCategories() {

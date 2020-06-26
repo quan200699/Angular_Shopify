@@ -6,6 +6,11 @@ import {ProductService} from "../../service/product/product.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
+import {UserToken} from "../../model/user-token";
+import {ShoppingCart} from "../../model/shopping-cart";
+import {AuthenticationService} from "../../service/auth/authentication.service";
+import {ShoppingCartService} from "../../service/shopping-cart/shopping-cart.service";
+import {ItemService} from "../../service/item/item.service";
 
 declare var $: any;
 
@@ -24,10 +29,15 @@ export class ShopComponent implements OnInit {
   listProductLatest: Product[] = [];
   sub: Subscription;
   query: string = "";
+  currentUser: UserToken;
+  shoppingCart: ShoppingCart;
 
   constructor(private categoryService: CategoryService,
               private activatedRoute: ActivatedRoute,
               private productService: ProductService,
+              private authenticationService: AuthenticationService,
+              private shoppingCartService: ShoppingCartService,
+              private itemService: ItemService,
               private router: Router) {
     this.sub = this.activatedRoute.queryParams.subscribe(params => {
       this.query = params.name;
@@ -37,6 +47,10 @@ export class ShopComponent implements OnInit {
       } else {
         this.getAllProduct();
       }
+    });
+    this.authenticationService.currentUser.subscribe(value => {
+      this.currentUser = value
+      this.getShoppingCartByUser(this.currentUser.id);
     });
   }
 
@@ -77,6 +91,21 @@ export class ShopComponent implements OnInit {
     this.getAllCategories();
     this.getAllProductSaleOff();
     this.getAllProductLatest();
+  }
+
+  getShoppingCartByUser(id: number) {
+    this.shoppingCartService.getCartByUser(id).subscribe(shoppingCart => {
+      this.shoppingCart = shoppingCart;
+    })
+  }
+
+  getAllItemInShoppingCart(id: number) {
+    return this.shoppingCartService.getAllItemByShoppingCart(id).toPromise();
+  }
+
+  async addItemToShoppingCart(productId: number, shoppingCartId: number) {
+    let items = await this.getAllItemInShoppingCart(shoppingCartId);
+    this.itemService.addItemToShoppingCart(items, productId, shoppingCartId);
   }
 
   getAllProduct() {

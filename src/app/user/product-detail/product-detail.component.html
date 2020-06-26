@@ -97,7 +97,10 @@
               </div>
             </div>
           </div>
-          <a [routerLink]="['/cart', { id:currentProduct.id }]" class="primary-btn">Thêm vào giỏ hàng</a>
+          <a *ngIf="currentUser==null" [routerLink]="['/cart', { id:currentProduct.id }]" class="primary-btn">Thêm vào
+            giỏ hàng</a>
+          <a *ngIf="currentUser!=null" (click)="addItemToShoppingCart(currentProduct.id, shoppingCart.id)"
+             class="primary-btn">Thêm vào giỏ hàng</a>
           <a [routerLink]="['/favorite', { id:currentProduct.id }]" class="heart-icon"><span
             class="icon_heart_alt"></span></a>
           <ul>
