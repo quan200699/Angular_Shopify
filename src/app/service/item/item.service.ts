@@ -49,6 +49,7 @@ export class ItemService {
         }
       }
       this.createItem(item).subscribe(() => {
+
         $(function () {
           const Toast = Swal.mixin({
             toast: true,
@@ -109,6 +110,50 @@ export class ItemService {
             Toast.fire({
               type: 'success',
               title: 'Đã thêm vào giỏ hàng'
+            });
+          });
+        });
+      }
+    }
+  }
+
+  decreaseItemToShoppingCart(items: any, productId: number) {
+    let index = -1;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].product.id == productId) {
+        index = i;
+        break;
+      }
+    }
+    if (index != -1) {
+      if (items[index].quantity == 1) {
+        this.deleteItem(items[index].id).subscribe(() => {
+          $(function () {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            Toast.fire({
+              type: 'success',
+              title: 'Đã xóa 1 sản phẩm trong giỏ hàng'
+            });
+          });
+        })
+      } else {
+        items[index].quantity -= 1;
+        this.updateItem(items[index].id, items[index]).subscribe(() => {
+          $(function () {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            Toast.fire({
+              type: 'success',
+              title: 'Đã giảm số lượng 1 sản phẩm trong giỏ hàng'
             });
           });
         });

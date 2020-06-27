@@ -82,7 +82,10 @@
               <td class="shoping__cart__quantity">
                 <div class="quantity">
                   <div class="pro-qty">
-                    <span class="dec qtybtn" (click)="decreaseProduct(item.product.id, i)">-</span>
+                    <span *ngIf="currentUser==null" class="dec qtybtn"
+                          (click)="decreaseProduct(item.product.id, i)">-</span>
+                    <span *ngIf="currentUser!=null" class="dec qtybtn"
+                          (click)="decreaseItemToShoppingCart(item.product.id, shoppingCart.id)">-</span>
                     <input type="text" value="{{item.quantity}}">
                     <span *ngIf="currentUser==null" class="inc qtybtn"
                           (click)="addProductToCart(item.product.id, item)">+</span>
@@ -95,7 +98,8 @@
                 {{item.quantity * item.product.price * (1 - item.product.saleOff / 100)}}đ
               </td>
               <td class="shoping__cart__item__close">
-                <span class="icon_close" (click)="remove(item.product.id)"></span>
+                <span *ngIf="currentUser==null" class="icon_close" (click)="remove(item.product.id)"></span>
+                <span *ngIf="currentUser!=null" class="icon_close" (click)="removeItemFromCart(item.id)"></span>
               </td>
             </tr>
             </tbody>

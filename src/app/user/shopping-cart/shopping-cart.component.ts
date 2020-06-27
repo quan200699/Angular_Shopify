@@ -125,6 +125,9 @@ export class ShoppingCartComponent implements OnInit {
         this.shoppingCart = shoppingCart;
         this.shoppingCartService.getAllItemByShoppingCart(this.shoppingCart.id).subscribe(items => {
           this.items = items;
+          items.map(async item => {
+            item.product.image = await this.getAllImageByProduct(item.product);
+          })
           this.sumTotalPrice();
         })
       })
@@ -134,6 +137,13 @@ export class ShoppingCartComponent implements OnInit {
   async addItemToShoppingCart(productId: number, shoppingCartId: number) {
     let items = await this.getAllItemInShoppingCart(shoppingCartId);
     this.itemService.addItemToShoppingCart(items, productId, shoppingCartId);
+    this.getShoppingCartByUser(this.currentUser.id);
+  }
+
+  async decreaseItemToShoppingCart(productId: number, shoppingCartId: number) {
+    let items = await this.getAllItemInShoppingCart(shoppingCartId);
+    this.itemService.decreaseItemToShoppingCart(items, productId);
+    this.getShoppingCartByUser(this.currentUser.id);
   }
 
   getAllItemInShoppingCart(id: number) {
@@ -238,18 +248,35 @@ export class ShoppingCartComponent implements OnInit {
     return this.total;
   }
 
-  remove(id: number): void {
+  remove(productId: number): void {
     let cart: any = JSON.parse(localStorage.getItem('cart'));
-    let index: number = -1;
     for (var i = 0; i < cart.length; i++) {
       let item: Item = JSON.parse(cart[i]);
-      if (item.product.id == id) {
+      if (item.product.id == productId) {
         cart.splice(i, 1);
         break;
       }
     }
     localStorage.setItem("cart", JSON.stringify(cart));
     this.loadCart();
+  }
+
+  removeItemFromCart(itemId: number) {
+    this.itemService.deleteItem(itemId).subscribe(() => {
+      this.getShoppingCartByUser(this.currentUser.id);
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+        Toast.fire({
+          type: 'success',
+          title: 'Đã xóa 1 sản phẩm trong giỏ hàng'
+        });
+      });
+    })
   }
 
   getAllImageByProduct(product: Product) {
