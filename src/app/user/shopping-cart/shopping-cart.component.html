@@ -84,7 +84,10 @@
                   <div class="pro-qty">
                     <span class="dec qtybtn" (click)="decreaseProduct(item.product.id, i)">-</span>
                     <input type="text" value="{{item.quantity}}">
-                    <span class="inc qtybtn" (click)="addProductToCart(item.product.id, item)">+</span>
+                    <span *ngIf="currentUser==null" class="inc qtybtn"
+                          (click)="addProductToCart(item.product.id, item)">+</span>
+                    <span *ngIf="currentUser!=null" class="inc qtybtn"
+                          (click)="addItemToShoppingCart(item.product.id, shoppingCart.id)">+</span>
                   </div>
                 </div>
               </td>
