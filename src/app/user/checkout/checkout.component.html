@@ -66,34 +66,37 @@
     </div>
     <div class="checkout__form">
       <h4>Chi tiết hóa đơn</h4>
-      <form [formGroup]="billDetailForm">
+      <form [formGroup]="customerInfoForm">
         <div class="row">
           <div class="col-lg-8 col-md-6">
             <div class="checkout__input">
               <p>Họ và tên:<span>*</span></p>
-              <input type="text">
+              <input type="text" formControlName="name"
+                     placeholder="Họ tên người nhận">
             </div>
             <div class="checkout__input">
               <p>Địa chỉ<span>*</span></p>
-              <input type="text" placeholder="Địa chỉ nhận hàng" class="checkout__input__add">
+              <input type="text" placeholder="Địa chỉ nhận hàng" formControlName="address"
+                     class="checkout__input__add">
             </div>
             <div class="row">
               <div class="col-lg-6">
                 <div class="checkout__input">
                   <p>Số điện thoại<span>*</span></p>
-                  <input type="text">
+                  <input type="text" placeholder="Số điện thoại người nhận"
+                         formControlName="phoneNumber">
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="checkout__input">
                   <p>Email<span>*</span></p>
-                  <input type="text">
+                  <input type="text" placeholder="Địa chỉ email" formControlName="email">
                 </div>
               </div>
             </div>
             <div class="checkout__input">
-              <p>Ghi chúg</p>
-              <input type="text"
+              <p>Ghi chú</p>
+              <input type="text" formControlName="notice"
                      placeholder="Ghi chú về đơn hàng của bạn">
             </div>
           </div>
@@ -102,7 +105,7 @@
               <h4>Đơn hàng của bạn</h4>
               <div class="checkout__order__products">Sản phẩm <span>Giá</span></div>
               <ul *ngFor="let item of items">
-                <li>{{item.product.name}}
+                <li>{{item.product.name}} x {{item.quantity}}
                   <span>{{item.quantity * (item.product.price * (1 - item.product.saleOff / 100))}}đ</span></li>
               </ul>
               <div class="checkout__order__subtotal">Tổng phụ thu <span>{{total}}đ</span></div>
@@ -114,7 +117,8 @@
                   <span class="checkmark"></span>
                 </label>
               </div>
-              <button type="submit" class="site-btn">Đặt hàng</button>
+              <button type="submit" class="site-btn" (click)="submitCheckoutForm(items,shoppingCart.id)">Đặt hàng
+              </button>
             </div>
           </div>
         </div>
