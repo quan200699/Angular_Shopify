@@ -31,8 +31,7 @@ export class CheckoutComponent implements OnInit {
     name: new FormControl(''),
     address: new FormControl(''),
     phoneNumber: new FormControl(''),
-    email: new FormControl(''),
-    notice: new FormControl('')
+    email: new FormControl('')
   })
   items: Item[] = [];
   total: number = 0;
@@ -171,7 +170,6 @@ export class CheckoutComponent implements OnInit {
       address: this.customerInfoForm.value.address,
       phoneNumber: this.customerInfoForm.value.phoneNumber,
       email: this.customerInfoForm.value.email,
-      notice: this.customerInfoForm.value.notice,
       user: {
         id: this.currentUser.id
       }

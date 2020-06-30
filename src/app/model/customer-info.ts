@@ -4,6 +4,5 @@ export interface CustomerInfo {
   address?: string;
   phoneNumber?: string;
   email?: string;
-  notice?: string;
   user?: any;
 }
