@@ -56,7 +56,11 @@ export class UserOrderComponent implements OnInit {
   }
 
   rate(star: number) {
-    this.star = star;
+    if (this.star == star) {
+      this.star = 0;
+    } else {
+      this.star = star;
+    }
   }
 
   getAllProductUserBought(id: number) {
