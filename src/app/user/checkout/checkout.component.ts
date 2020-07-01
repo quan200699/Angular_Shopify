@@ -101,7 +101,8 @@ export class CheckoutComponent implements OnInit {
       },
       user: {
         id: this.currentUser.id
-      }
+      },
+      status: false
     }
     this.ordersService.createOrders(orders).toPromise();
   }
