@@ -3,13 +3,15 @@ import {Category} from "../../model/category";
 import {CategoryService} from "../../service/category/category.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
-import {Item} from "../../model/item";
 import {OrdersService} from "../../service/order/orders.service";
 import {AuthenticationService} from "../../service/auth/authentication.service";
 import {UserToken} from "../../model/user-token";
 import {Product} from "../../model/product";
 import {ProductService} from "../../service/product/product.service";
 import {Orders} from "../../model/orders";
+
+declare var $: any;
+declare var Swal: any;
 
 @Component({
   selector: 'app-user-order',
@@ -25,6 +27,7 @@ export class UserOrderComponent implements OnInit {
   listProduct: Product[] = [];
   listOrders: Orders[] = [];
   status: boolean;
+  id: number;
 
   constructor(private categoryService: CategoryService,
               private router: Router,
@@ -54,6 +57,48 @@ export class UserOrderComponent implements OnInit {
       this.listProduct.map(async product => {
         product.image = await this.getAllImageByProduct(product);
       })
+    })
+  }
+
+  getOrderId(id: number) {
+    this.id = id;
+  }
+
+  deleteOrder(id: number) {
+    this.ordersService.deleteOrders(id).subscribe(() => {
+      this.ordersService.getAllOrder(false).subscribe(listOrder => {
+        this.listOrders = listOrder;
+      })
+      $(function () {
+        $('#modal-delete').modal('hide');
+      })
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'success',
+          title: 'Hủy đơn hàng thành công'
+        });
+      });
+    }, () => {
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'error',
+          title: 'Hủy đơn hàng thất bại'
+        });
+      });
     })
   }
 
