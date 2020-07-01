@@ -65,8 +65,8 @@
             <div class="header__top__right__language">
               <div>Theo dõi đơn hàng</div>
               <ul>
-                <li><a routerLink="#" style="font-size: 12px">Đã mua</a></li>
-                <li><a routerLink="#" style="font-size: 12px">Chờ xác nhận</a></li>
+                <li><a [routerLink]="['/order', { status:true }]" style="font-size: 12px">Đã mua</a></li>
+                <li><a [routerLink]="['/order', { status:false }]" style="font-size: 12px">Chờ xác nhận</a></li>
               </ul>
             </div>
             <div class="header__top__right__auth" *ngIf="!currentUser">

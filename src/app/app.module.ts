@@ -26,6 +26,7 @@ import { ShoppingCartComponent } from './user/shopping-cart/shopping-cart.compon
 import { CheckoutComponent } from './user/checkout/checkout.component';
 import { CategoryDetailComponent } from './user/category-detail/category-detail.component';
 import { FavoriteComponent } from './user/favorite/favorite.component';
+import { UserOrderComponent } from './user/user-order/user-order.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { FavoriteComponent } from './user/favorite/favorite.component';
     CheckoutComponent,
     CategoryDetailComponent,
     FavoriteComponent,
+    UserOrderComponent,
   ],
   imports: [
     BrowserModule,

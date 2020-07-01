@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Orders} from "../../model/orders";
 import {OrdersDetail} from "../../model/orders-detail";
+import {Product} from "../../model/product";
 
 const API_URL = `${environment.apiUrl}`
 
@@ -39,6 +40,10 @@ export class OrdersService {
   }
 
   getAllOrderDetail(id: number): Observable<OrdersDetail[]> {
-    return this.http.get<OrdersDetail[]>(API_URL + `/orders/${id}/order-details`)
+    return this.http.get<OrdersDetail[]>(API_URL + `/orders/${id}/order-details`);
+  }
+
+  getAllProductUserBought(id: number): Observable<Product[]> {
+    return this.http.get<Product[]>(API_URL + `/orders/users/${id}/products`);
   }
 }

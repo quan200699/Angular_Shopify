@@ -12,6 +12,7 @@ import {ShoppingCartComponent} from "./user/shopping-cart/shopping-cart.componen
 import {CheckoutComponent} from "./user/checkout/checkout.component";
 import {CategoryDetailComponent} from "./user/category-detail/category-detail.component";
 import {FavoriteComponent} from "./user/favorite/favorite.component";
+import {UserOrderComponent} from "./user/user-order/user-order.component";
 
 
 const routes: Routes = [
@@ -81,6 +82,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'order',
+    component: UserOrderComponent
   },
   {
     path: '**',
