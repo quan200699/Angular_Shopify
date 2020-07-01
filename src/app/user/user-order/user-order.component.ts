@@ -28,6 +28,7 @@ export class UserOrderComponent implements OnInit {
   listOrders: Orders[] = [];
   status: boolean;
   id: number;
+  star: number = 0;
 
   constructor(private categoryService: CategoryService,
               private router: Router,
@@ -42,13 +43,20 @@ export class UserOrderComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.status = (/true/i).test(params['status']);
       this.getAllOrderByUserAndStatus(this.currentUser.id, this.status);
-      if (this.status) {
+      if (this.status == true) {
         this.getAllProductUserBought(this.currentUser.id);
       }
     });
   }
 
   ngOnInit() {
+    $(function () {
+      $('.textarea').summernote();
+    })
+  }
+
+  rate(star: number) {
+    this.star = star;
   }
 
   getAllProductUserBought(id: number) {
