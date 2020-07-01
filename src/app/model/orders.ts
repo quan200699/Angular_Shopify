@@ -1,7 +1,6 @@
 export interface Orders {
   id?: number;
-  amount?: number;
+  createDate?: Date;
   user?: any;
-  product?: any;
   status?: boolean;
 }
