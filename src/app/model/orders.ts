@@ -3,4 +3,5 @@ export interface Orders {
   amount?: number;
   user?: any;
   product?: any;
+  status?: boolean;
 }

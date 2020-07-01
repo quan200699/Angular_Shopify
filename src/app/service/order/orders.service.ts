@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Orders} from "../../model/orders";
+
 const API_URL = `${environment.apiUrl}`
 
 @Injectable({
@@ -12,8 +13,8 @@ export class OrdersService {
   constructor(private http: HttpClient) {
   }
 
-  getAllOrder(): Observable<Orders[]> {
-    return this.http.get<Orders[]>(API_URL + '/orders');
+  getAllOrder(status: boolean): Observable<Orders[]> {
+    return this.http.get<Orders[]>(API_URL + '/orders?status=' + status);
   }
 
   createOrders(orders: Orders): Observable<Orders> {
@@ -32,7 +33,11 @@ export class OrdersService {
     return this.http.delete<Orders>(API_URL + `/orders/${id}`);
   }
 
-  sumAmount(id: number): Observable<number>{
+  sumAmount(id: number): Observable<number> {
     return this.http.get<number>(API_URL + `/orders/${id}/sum`)
+  }
+
+  getAllOrderByUser(id: number): Observable<Orders[]> {
+    return this.http.get<Orders[]>(API_URL + `/orders/users/${id}`);
   }
 }
