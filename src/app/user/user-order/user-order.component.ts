@@ -40,9 +40,9 @@ export class UserOrderComponent implements OnInit {
       this.currentUser = value
     });
     this.activatedRoute.params.subscribe(params => {
-      this.status = params['status'];
+      this.status = (/true/i).test(params['status']);
       this.getAllOrderByUserAndStatus(this.currentUser.id, this.status);
-      if (this.status == true) {
+      if (this.status) {
         this.getAllProductUserBought(this.currentUser.id);
       }
     });

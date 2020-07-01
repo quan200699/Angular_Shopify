@@ -45,17 +45,17 @@
     <div class="row">
       <div class="col-lg-12 text-center">
         <div class="breadcrumb__text">
-          <h2>{{status == true ? "Sản phẩm đã mua" : "Đơn hàng chờ xác nhận"}}</h2>
+          <h2>{{status ? "Sản phẩm đã mua" : "Đơn hàng chờ xác nhận"}}</h2>
           <div class="breadcrumb__option">
             <a routerLink="/">Trang chủ</a>
-            <span>{{status == true ? "Đã mua" : "Chờ xác nhận"}}</span>
+            <span>{{status ? "Đã mua" : "Chờ xác nhận"}}</span>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<section *ngIf="status==true" class="shoping-cart spad">
+<section *ngIf="status" class="shoping-cart spad">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -90,7 +90,7 @@
     </div>
   </div>
 </section>
-<section *ngIf="!(status==true)" class="shoping-cart spad">
+<section *ngIf="!status" class="shoping-cart spad">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
