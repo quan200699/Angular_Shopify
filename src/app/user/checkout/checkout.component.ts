@@ -13,6 +13,8 @@ import {ItemService} from "../../service/item/item.service";
 import {ShoppingCart} from "../../model/shopping-cart";
 import {OrdersService} from "../../service/order/orders.service";
 import {Orders} from "../../model/orders";
+import {OrderDetail} from "../../model/order-detail";
+import {OrderDetailService} from "../../service/order-detail/order-detail.service";
 
 declare var $: any;
 declare var Swal: any;
@@ -45,6 +47,7 @@ export class CheckoutComponent implements OnInit {
               private shoppingCartService: ShoppingCartService,
               private itemService: ItemService,
               private ordersService: OrdersService,
+              private orderDetailService: OrderDetailService,
               private router: Router) {
     this.authenticationService.currentUser.subscribe(value => {
       this.currentUser = value;
@@ -93,18 +96,27 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  createOrder(item: Item) {
+  createOrder() {
     const orders: Orders = {
-      amount: item.quantity,
-      product: {
-        id: item.product.id
-      },
       user: {
         id: this.currentUser.id
       },
       status: false
     }
-    this.ordersService.createOrders(orders).toPromise();
+    return this.ordersService.createOrders(orders).toPromise();
+  }
+
+  createOrderDetail(item: Item, orders: Orders) {
+    const orderDetail: OrderDetail = {
+      orders: {
+        id: orders.id
+      },
+      amount: item.quantity,
+      product: {
+        id: item.product.id
+      }
+    }
+    return this.orderDetailService.createOrderDetail(orderDetail).toPromise();
   }
 
   async submitCheckoutForm(items: Item[], shoppingCartId: number) {
@@ -115,10 +127,11 @@ export class CheckoutComponent implements OnInit {
     if (this.isSubmitted) {
       this.deleteAllItemInShoppingCart(shoppingCartId);
       this.getAllItemInShoppingCart(shoppingCartId);
-      let listOrder = items.map(item => {
-        this.createOrder(item);
+      const orders = await this.createOrder();
+      let listOrderDetail = items.map(item => {
+        this.createOrderDetail(item, orders);
       });
-      Promise.all(listOrder).then(() => {
+      Promise.all(listOrderDetail).then(() => {
         $(function () {
           const Toast = Swal.mixin({
             toast: true,

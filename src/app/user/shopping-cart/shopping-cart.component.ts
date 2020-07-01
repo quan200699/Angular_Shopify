@@ -7,12 +7,12 @@ import {ProductService} from "../../service/product/product.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Product} from "../../model/product";
 import {WarehouseBillDetailService} from "../../service/warehouse-bill-detail/warehouse-bill-detail.service";
-import {OrdersService} from "../../service/order/orders.service";
 import {AuthenticationService} from "../../service/auth/authentication.service";
 import {ShoppingCartService} from "../../service/shopping-cart/shopping-cart.service";
 import {ShoppingCart} from "../../model/shopping-cart";
 import {UserToken} from "../../model/user-token";
 import {ItemService} from "../../service/item/item.service";
+import {OrderDetailService} from "../../service/order-detail/order-detail.service";
 
 declare var $: any;
 declare var Swal: any;
@@ -39,7 +39,7 @@ export class ShoppingCartComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private productService: ProductService,
               private warehouseBillDetailService: WarehouseBillDetailService,
-              private ordersService: OrdersService,
+              private orderDetailService: OrderDetailService,
               private authenticationService: AuthenticationService,
               private shoppingCartService: ShoppingCartService,
               private itemService: ItemService,
@@ -155,7 +155,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   sumAmountOutput(id: number) {
-    return this.ordersService.sumAmount(id).toPromise();
+    return this.orderDetailService.sumAmount(id).toPromise();
   }
 
   async addProductToCart(id: number, item: Item) {

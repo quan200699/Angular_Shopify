@@ -33,10 +33,6 @@ export class OrdersService {
     return this.http.delete<Orders>(API_URL + `/orders/${id}`);
   }
 
-  sumAmount(id: number): Observable<number> {
-    return this.http.get<number>(API_URL + `/orders/${id}/sum`)
-  }
-
   getAllOrderByUser(id: number): Observable<Orders[]> {
     return this.http.get<Orders[]>(API_URL + `/orders/users/${id}`);
   }

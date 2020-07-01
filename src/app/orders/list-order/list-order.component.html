@@ -27,8 +27,6 @@
         <tr>
           <th style="width: 10px">#</th>
           <th>Mã đơn hàng</th>
-          <th>Tên sản phẩm</th>
-          <th>Số lượng</th>
           <th>Tên người đặt hàng</th>
           <th>Trạng thái</th>
           <th style="width: 160px"></th>
@@ -38,8 +36,6 @@
         <tr *ngFor="let orders of listOrder; index as i">
           <td>{{i + 1}}</td>
           <td>{{orders.id}}</td>
-          <td *ngIf="orders.product!=null">{{orders.product.name}}</td>
-          <td>{{orders.amount}}</td>
           <td *ngIf="orders.user!=null">{{orders.user.email}}</td>
           <td>{{orders.status ? "Đã xác nhận" : "Đang chờ xác nhận"}}</td>
           <td>
