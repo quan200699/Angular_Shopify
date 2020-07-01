@@ -1,0 +1,108 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Danh sách đơn hàng đang chờ</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Danh sách đơn hàng đang chờ</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title"></h3>
+      <div class="card-tools">
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered" id="table-warehouse">
+        <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>Mã đơn hàng</th>
+          <th>Tên sản phẩm</th>
+          <th>Số lượng</th>
+          <th>Tên người đặt hàng</th>
+          <th>Trạng thái</th>
+          <th style="width: 160px"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let orders of listOrder; index as i">
+          <td>{{i + 1}}</td>
+          <td>{{orders.id}}</td>
+          <td *ngIf="orders.product!=null">{{orders.product.name}}</td>
+          <td>{{orders.amount}}</td>
+          <td *ngIf="orders.user!=null">{{orders.user.email}}</td>
+          <td>{{orders.status ? "Đã xác nhận" : "Đang chờ xác nhận"}}</td>
+          <td>
+            <div class="row">
+              <div class="col-6">
+                <button type="button" class="btn btn-block btn-success" style="color: white" data-toggle="modal"
+                        data-target="#modal-confirm" (click)="getOrderId(orders.id)">
+                  <i class="fas fa-check"></i>
+                </button>
+              </div>
+              <div class="col-6">
+                <button type="button" class="btn btn-block btn-danger" style="color: white" data-toggle="modal"
+                        data-target="#modal-delete" (click)="getOrderId(orders.id)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal fade" id="modal-confirm">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Xác nhận đơn hàng</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Bạn có muốn xác nhận đơn hàng này không ?</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+          <button type="button" class="btn btn-primary" (click)="confirmOrder(id)">Đồng ý</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <div class="modal fade" id="modal-delete">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Hủy đơn hàng</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Bạn có muốn hủy đơn hàng này không ?</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+          <button type="button" class="btn btn-danger" (click)="deleteOrder(id)">Xóa</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+</section>

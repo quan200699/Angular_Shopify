@@ -129,7 +129,7 @@ export class CheckoutComponent implements OnInit {
 
           Toast.fire({
             type: 'success',
-            title: 'Thanh toán thành công'
+            title: 'Đơn hàng đã tạo, vui lòng chờ xác nhận'
           });
         });
         this.customerInfoForm.reset();
@@ -144,7 +144,7 @@ export class CheckoutComponent implements OnInit {
 
           Toast.fire({
             type: 'error',
-            title: 'Thanh toán thất bại'
+            title: 'Xảy ra lỗi khi tạo đơn hàng'
           });
         });
       });

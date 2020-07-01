@@ -13,7 +13,7 @@ export class OrdersService {
   constructor(private http: HttpClient) {
   }
 
-  getAllOrder(status: boolean): Observable<Orders[]> {
+  getAllOrder(status?: boolean): Observable<Orders[]> {
     return this.http.get<Orders[]>(API_URL + '/orders?status=' + status);
   }
 
