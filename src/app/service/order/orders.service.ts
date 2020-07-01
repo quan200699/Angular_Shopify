@@ -34,8 +34,8 @@ export class OrdersService {
     return this.http.delete<Orders>(API_URL + `/orders/${id}`);
   }
 
-  getAllOrderByUser(id: number): Observable<Orders[]> {
-    return this.http.get<Orders[]>(API_URL + `/orders/users/${id}`);
+  getAllOrderByUserAndStatus(id: number, status: boolean): Observable<Orders[]> {
+    return this.http.get<Orders[]>(API_URL + `/orders/users/${id}?status=` + status);
   }
 
   getAllOrderDetail(id: number): Observable<OrdersDetail[]> {
