@@ -13,7 +13,7 @@ import {ItemService} from "../../service/item/item.service";
 import {ShoppingCart} from "../../model/shopping-cart";
 import {OrdersService} from "../../service/order/orders.service";
 import {Orders} from "../../model/orders";
-import {OrderDetail} from "../../model/order-detail";
+import {OrdersDetail} from "../../model/orders-detail";
 import {OrderDetailService} from "../../service/order-detail/order-detail.service";
 
 declare var $: any;
@@ -107,7 +107,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   createOrderDetail(item: Item, orders: Orders) {
-    const orderDetail: OrderDetail = {
+    const orderDetail: OrdersDetail = {
       orders: {
         id: orders.id
       },

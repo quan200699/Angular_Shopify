@@ -3,6 +3,7 @@ import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Orders} from "../../model/orders";
+import {OrdersDetail} from "../../model/orders-detail";
 
 const API_URL = `${environment.apiUrl}`
 
@@ -35,5 +36,9 @@ export class OrdersService {
 
   getAllOrderByUser(id: number): Observable<Orders[]> {
     return this.http.get<Orders[]>(API_URL + `/orders/users/${id}`);
+  }
+
+  getAllOrderDetail(id: number): Observable<OrdersDetail[]> {
+    return this.http.get<OrdersDetail[]>(API_URL + `/orders/${id}/order-details`)
   }
 }

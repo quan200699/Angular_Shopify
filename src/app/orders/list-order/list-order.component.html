@@ -36,7 +36,9 @@
         <tbody>
         <tr *ngFor="let orders of listOrder; index as i">
           <td>{{i + 1}}</td>
-          <td>{{orders.id}}</td>
+          <td>
+            <a [routerLink]="['info',orders.id]">{{orders.id}}</a>
+          </td>
           <td>{{orders.createDate}}</td>
           <td *ngIf="orders.user!=null">{{orders.user.email}}</td>
           <td>{{orders.status ? "Đã xác nhận" : "Đang chờ xác nhận"}}</td>

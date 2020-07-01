@@ -15,7 +15,6 @@ declare var Swal: any;
   styleUrls: ['./info-warehouse-bill.component.scss']
 })
 export class InfoWarehouseBillComponent implements OnInit {
-
   currentWarehouseBill: WarehouseBill;
   listWarehouseBillDetail: WarehouseBillDetail[];
   sub: Subscription;

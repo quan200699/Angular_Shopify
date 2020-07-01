@@ -1,4 +1,4 @@
-export interface OrderDetail {
+export interface OrdersDetail {
   id?: number;
   amount?: number;
   orders?: any;
