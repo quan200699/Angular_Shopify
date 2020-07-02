@@ -33,4 +33,8 @@ export class ReviewService {
   getReview(id: number): Observable<Review> {
     return this.http.get<Review>(API_URL + `/reviews/${id}`)
   }
+
+  getReviewByUserAndProduct(userId: number, productId: number): Observable<Review> {
+    return this.http.get<Review>(API_URL + `/reviews/users/${userId}/products/${productId}`);
+  }
 }
