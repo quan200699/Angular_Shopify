@@ -32,6 +32,7 @@ export class UserOrderComponent implements OnInit {
   id: number;
   productId: number;
   star: number = 0;
+  currentReview: Review;
 
   constructor(private categoryService: CategoryService,
               private router: Router,
@@ -80,8 +81,20 @@ export class UserOrderComponent implements OnInit {
     this.id = id;
   }
 
-  getProductId(id: number) {
-    this.productId = id;
+  async getProductId(userId: number, productId: number) {
+    this.productId = productId;
+    this.currentReview = await this.getReview(userId, productId);
+    if (this.currentReview != null) {
+      $('.textarea').summernote('pasteHTML', this.currentReview.comment);
+      $('.textarea').summernote('disable');
+    } else {
+      $('.textarea').summernote('reset');
+      $('.textarea').summernote('enable');
+    }
+  }
+
+  getReview(userId: number, productId: number) {
+    return this.reviewService.getReviewByUserAndProduct(userId, productId).toPromise()
   }
 
   createReview(star: number, productId: number) {

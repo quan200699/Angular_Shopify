@@ -88,7 +88,7 @@
                   </div>
                   <div class="col-6">
                     <button type="button" class="btn btn-block btn-primary" style="color: white" data-toggle="modal"
-                            data-target="#modal-review" (click)="getProductId(product.id)">
+                            data-target="#modal-review" (click)="getProductId(currentUser.id,product.id)">
                       <i class="fas fa-edit"></i>
                     </button>
                   </div>
@@ -153,19 +153,27 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Đánh giá sản phẩm</h4>
+        <h4 class="modal-title">Đánh giá sản phẩm {{currentReview == null ? "" : " (Đã đánh giá)"}}</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <div class="rating text-center">
+        <div class="rating text-center" *ngIf="currentReview== null">
           <span><i class="fas fa-star mr-2 {{star>=1?'rated':'unrated'}}" id="one" (click)="rate(1)"></i></span>
           <span><i class="fas fa-star mr-2 {{star>=2?'rated':'unrated'}}" id="tưo" (click)="rate(2)"></i></span>
           <span><i class="fas fa-star mr-2 {{star>=3?'rated':'unrated'}}" id="three" (click)="rate(3)"></i></span>
           <span><i class="fas fa-star mr-2 {{star>=4?'rated':'unrated'}}" id="four" (click)="rate(4)"></i></span>
           <span><i class="fas fa-star mr-2 {{star==5?'rated':'unrated'}}" id="five" (click)="rate(5)"></i></span>
           <span>({{star}} sao)</span>
+        </div>
+        <div class="rating text-center" *ngIf="currentReview!= null">
+          <span><i class="fas fa-star mr-2 {{currentReview.evaluate>=1?'rated':'unrated'}}"></i></span>
+          <span><i class="fas fa-star mr-2 {{currentReview.evaluate>=2?'rated':'unrated'}}"></i></span>
+          <span><i class="fas fa-star mr-2 {{currentReview.evaluate>=3?'rated':'unrated'}}"></i></span>
+          <span><i class="fas fa-star mr-2 {{currentReview.evaluate>=4?'rated':'unrated'}}"></i></span>
+          <span><i class="fas fa-star mr-2 {{currentReview.evaluate==5?'rated':'unrated'}}"></i></span>
+          <span>({{currentReview.evaluate}} sao)</span>
         </div>
         <br>
         <div class="form-group">
