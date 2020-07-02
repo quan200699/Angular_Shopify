@@ -4,4 +4,5 @@ export interface Review {
   comment?: string;
   user?: any;
   product?: any;
+  createDate?: Date;
 }

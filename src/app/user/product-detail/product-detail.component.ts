@@ -11,6 +11,8 @@ import {ShoppingCartService} from "../../service/shopping-cart/shopping-cart.ser
 import {ItemService} from "../../service/item/item.service";
 import {UserToken} from "../../model/user-token";
 import {ShoppingCart} from "../../model/shopping-cart";
+import {Review} from "../../model/review";
+import {ReviewService} from "../../service/review/review.service";
 
 declare var $: any;
 
@@ -29,9 +31,12 @@ export class ProductDetailComponent implements OnInit {
   relatedProducts: Product[] = [];
   currentUser: UserToken;
   shoppingCart: ShoppingCart;
+  listReview: Review[] = [];
+  starAverage: number = 0;
 
   constructor(private categoryService: CategoryService,
               private productService: ProductService,
+              private reviewService: ReviewService,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private shoppingCartService: ShoppingCartService,
@@ -89,8 +94,19 @@ export class ProductDetailComponent implements OnInit {
       });
     })
     this.getAllCategories();
+    this.getAllReview();
   }
 
+  getAllReview() {
+    this.reviewService.getAllReview().subscribe(listReview => {
+      this.listReview = listReview;
+      this.listReview.map(review => {
+        review.createDate = new Date(review.createDate);
+        this.starAverage += review.evaluate;
+      })
+      this.starAverage /= this.listReview.length;
+    })
+  }
 
   getShoppingCartByUser(id: number) {
     this.shoppingCartService.getCartByUser(id).subscribe(shoppingCart => {

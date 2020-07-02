@@ -81,12 +81,14 @@
         <div class="product__details__text">
           <h3>{{currentProduct.name}}</h3>
           <div class="product__details__rating">
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star-half-o"></i>
-            <span>(18 reviews)</span>
+            <div class="rating">
+              <span><i class="fas fa-star mr-2 {{starAverage>=1?'rated':'unrated'}}"></i></span>
+              <span><i class="fas fa-star mr-2 {{starAverage>=2?'rated':'unrated'}}"></i></span>
+              <span><i class="fas fa-star mr-2 {{starAverage>=3?'rated':'unrated'}}"></i></span>
+              <span><i class="fas fa-star mr-2 {{starAverage>=4?'rated':'unrated'}}"></i></span>
+              <span><i class="fas fa-star mr-2 {{starAverage==5?'rated':'unrated'}}"></i></span>
+              <span>({{listReview.length}} reviews)</span>
+            </div>
           </div>
           <div class="product__details__price">{{currentProduct.price * (1 - currentProduct.saleOff / 100)}} đồng</div>
           <p><b>Hướng dẫn sử dụng:</b> {{currentProduct.instructional}}</p>
@@ -133,7 +135,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                 aria-selected="false">Đánh giá <span>(1)</span></a>
+                 aria-selected="false">Đánh giá <span>({{listReview.length}})</span></a>
             </li>
           </ul>
           <div class="tab-content">
@@ -153,9 +155,28 @@
               </div>
             </div>
             <div class="tab-pane" id="tabs-3" role="tabpanel">
+              <h5>Đánh giá sản phẩm</h5>
               <div class="product__details__tab__desc">
-                <h6>Đánh giá sản phẩm</h6>
-                <p>Sản phẩm tốt</p>
+                <div class="post" *ngFor="let review of listReview">
+                  <div class="user-block">
+                    <img class="img-circle img-bordered-sm" src="assets/static/img/user.png" alt="user">
+                    <span class="username" *ngIf="review.user != null">
+                          {{review.user.email}}
+                        </span>
+                    <span class="description">{{review.createDate.getDay()}}/ {{review.createDate.getMonth()}}
+                      / {{review.createDate.getFullYear()}}</span>
+                  </div>
+                  <div class="rating">
+                    <span><i class="fas fa-star mr-2 {{review.evaluate>=1?'rated':'unrated'}}"></i></span>
+                    <span><i class="fas fa-star mr-2 {{review.evaluate>=2?'rated':'unrated'}}"></i></span>
+                    <span><i class="fas fa-star mr-2 {{review.evaluate>=3?'rated':'unrated'}}"></i></span>
+                    <span><i class="fas fa-star mr-2 {{review.evaluate>=4?'rated':'unrated'}}"></i></span>
+                    <span><i class="fas fa-star mr-2 {{review.evaluate==5?'rated':'unrated'}}"></i></span>
+                  </div>
+                  <br>
+                  <!-- /.user-block -->
+                  <p [innerHTML]="review.comment"></p>
+                </div>
               </div>
             </div>
           </div>
