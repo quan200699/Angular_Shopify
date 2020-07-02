@@ -9,6 +9,8 @@ import {UserToken} from "../../model/user-token";
 import {Product} from "../../model/product";
 import {ProductService} from "../../service/product/product.service";
 import {Orders} from "../../model/orders";
+import {Review} from "../../model/review";
+import {ReviewService} from "../../service/review/review.service";
 
 declare var $: any;
 declare var Swal: any;
@@ -28,6 +30,7 @@ export class UserOrderComponent implements OnInit {
   listOrders: Orders[] = [];
   status: boolean;
   id: number;
+  productId: number;
   star: number = 0;
 
   constructor(private categoryService: CategoryService,
@@ -35,6 +38,7 @@ export class UserOrderComponent implements OnInit {
               private ordersService: OrdersService,
               private authenticationService: AuthenticationService,
               private productService: ProductService,
+              private reviewService: ReviewService,
               private activatedRoute: ActivatedRoute) {
     this.getAllCategories();
     this.authenticationService.currentUser.subscribe(value => {
@@ -74,6 +78,57 @@ export class UserOrderComponent implements OnInit {
 
   getOrderId(id: number) {
     this.id = id;
+  }
+
+  getProductId(id: number) {
+    this.productId = id;
+  }
+
+  createReview(star: number, productId: number) {
+    const review: Review = {
+      comment: $('.textarea').val(),
+      user: {
+        id: this.currentUser.id
+      },
+      evaluate: star,
+      product: {
+        id: productId
+      }
+    }
+    this.reviewService.createReview(review).subscribe(() => {
+      $(function () {
+        $('#modal-review').modal('hide');
+      })
+      this.star = 0;
+      $('.textarea').summernote('reset');
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'success',
+          title: 'Đánh giá thành công'
+        });
+      });
+    }, () => {
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'error',
+          title: 'Xảy ra lỗi khi đánh giá'
+        });
+      });
+    })
   }
 
   deleteOrder(id: number) {
