@@ -55,8 +55,13 @@ export class UserOrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    let self = this;
     $(function () {
       $('.textarea').summernote();
+      $('#modal-review').on('hidden.bs.modal', function () {
+        $('.textarea').summernote('reset');
+        self.star = 0;
+      })
     })
   }
 
@@ -85,10 +90,10 @@ export class UserOrderComponent implements OnInit {
     this.productId = productId;
     this.currentReview = await this.getReview(userId, productId);
     if (this.currentReview != null) {
-      $('.textarea').summernote('pasteHTML', this.currentReview.comment);
+      $('#comment').summernote('pasteHTML', this.currentReview.comment);
       $('.textarea').summernote('disable');
     } else {
-      $('.textarea').summernote('reset');
+      $('#comment').summernote('reset');
       $('.textarea').summernote('enable');
     }
   }
