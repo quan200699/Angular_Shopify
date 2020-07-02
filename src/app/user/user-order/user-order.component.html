@@ -77,7 +77,7 @@
                 <img *ngIf="product.image != null" [src]="product.image[0].url" alt="">
               </td>
               <td class="shoping__cart__item">
-                <h5 style="font-size: 16px">{{product.name}}</h5>
+                <a [routerLink]="['../product',product.id]" style="font-size: 16px"><h5>{{product.name}}  </h5></a>
               </td>
               <td class="shoping__cart__price">
                 {{product.price * (1 - product.saleOff / 100)}}đ
