@@ -55,6 +55,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllReview();
     $(document).ready(function () {
       $(".product__details__pic__slider").owlCarousel({
         loop: true,
@@ -94,17 +95,17 @@ export class ProductDetailComponent implements OnInit {
       });
     })
     this.getAllCategories();
-    this.getAllReview();
   }
 
   getAllReview() {
     this.reviewService.getAllReview().subscribe(listReview => {
+      let sum = 0;
       this.listReview = listReview;
       this.listReview.map(review => {
         review.createDate = new Date(review.createDate);
-        this.starAverage += review.evaluate;
+        sum += review.evaluate;
       })
-      this.starAverage /= this.listReview.length;
+      this.starAverage = sum / this.listReview.length;
     })
   }
 
