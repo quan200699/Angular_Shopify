@@ -46,4 +46,8 @@ export class OrdersService {
   getAllProductUserBought(id: number): Observable<Product[]> {
     return this.http.get<Product[]>(API_URL + `/orders/users/${id}/products`);
   }
+
+  sumTotalPriceGet(month: number, year: number): Observable<number> {
+    return this.http.get<number>(API_URL + `/orders/total-price?month=` + month + '&year=' + year);
+  }
 }
