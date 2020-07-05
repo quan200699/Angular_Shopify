@@ -38,4 +38,8 @@ export class WarehouseBillService {
   getAllWarehouseBillDetail(id: number): Observable<WarehouseBillDetail[]> {
     return this.http.get<WarehouseBillDetail[]>(API_URL + `/warehousebills/${id}` + `/warehouse-bill-details`)
   }
+
+  sumTotalPriceHaveBought(month: number, year: number): Observable<number> {
+    return this.http.get<number>(API_URL + `/warehousebills/total-price?month=` + month + '&year=' + year);
+  }
 }
