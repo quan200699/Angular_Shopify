@@ -13,6 +13,7 @@ import {CheckoutComponent} from "./user/checkout/checkout.component";
 import {CategoryDetailComponent} from "./user/category-detail/category-detail.component";
 import {FavoriteComponent} from "./user/favorite/favorite.component";
 import {UserOrderComponent} from "./user/user-order/user-order.component";
+import {AdminComponent} from "./admin/admin.component";
 
 
 const routes: Routes = [
@@ -21,6 +22,10 @@ const routes: Routes = [
     component: LayoutWithSharedComponent,
     canActivate: [AdminAuthGuard],
     children: [
+      {
+        path:'',
+        component: AdminComponent
+      },
       {
         path: 'product',
         loadChildren: () => import('./product/product.module').then(module => module.ProductModule)
