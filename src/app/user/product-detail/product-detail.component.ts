@@ -46,6 +46,7 @@ export class ProductDetailComponent implements OnInit {
       const id = +paramMap.get('id');
       this.currentProduct = await this.getProduct(id);
       this.currentProduct.image = await this.getAllImageByProduct(this.currentProduct);
+      this.getAllReview(id);
       this.getAllProductRelated(this.currentProduct.category);
     })
     this.authenticationService.currentUser.subscribe(value => {
@@ -55,7 +56,6 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllReview();
     $(document).ready(function () {
       $(".product__details__pic__slider").owlCarousel({
         loop: true,
@@ -97,8 +97,8 @@ export class ProductDetailComponent implements OnInit {
     this.getAllCategories();
   }
 
-  getAllReview() {
-    this.reviewService.getAllReview().subscribe(listReview => {
+  getAllReview(productId: number) {
+    this.productService.getAllReviewByProduct(productId).subscribe(listReview => {
       let sum = 0;
       this.listReview = listReview;
       this.listReview.map(review => {

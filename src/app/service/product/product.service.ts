@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Product} from "../../model/product";
 import {Image} from "../../model/image";
+import {Review} from "../../model/review";
 
 const API_URL = `${environment.apiUrl}`
 
@@ -49,5 +50,9 @@ export class ProductService {
 
   getAllProductByName(name: string): Observable<Product[]> {
     return this.http.get<Product[]>(API_URL + '/products/search?name=' + name);
+  }
+
+  getAllReviewByProduct(id: number): Observable<Review[]> {
+    return this.http.get<Review[]>(API_URL + `/products/${id}/reviews` + id);
   }
 }
