@@ -53,6 +53,6 @@ export class ProductService {
   }
 
   getAllReviewByProduct(id: number): Observable<Review[]> {
-    return this.http.get<Review[]>(API_URL + `/products/${id}/reviews` + id);
+    return this.http.get<Review[]>(API_URL + `/products/${id}/reviews`);
   }
 }
