@@ -154,7 +154,7 @@
             </div>
             <div class="tab-pane" id="tabs-3" role="tabpanel">
               <h5>Đánh giá sản phẩm</h5>
-              <div class="product__details__tab__desc">
+              <div class="product__details__tab__desc" *ngIf="listReview.length!=0">
                 <div class="post" *ngFor="let review of listReview">
                   <div class="user-block">
                     <img class="img-circle img-bordered-sm" src="assets/static/img/user.png" alt="user">
@@ -175,6 +175,9 @@
                   <!-- /.user-block -->
                   <p [innerHTML]="review.comment"></p>
                 </div>
+              </div>
+              <div class="product__details__tab__desc" *ngIf="listReview.length==0">
+                <p>Chưa có đánh giá nào</p>
               </div>
             </div>
           </div>
