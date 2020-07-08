@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Orders} from "../../model/orders";
 import {OrdersService} from "../../service/order/orders.service";
+import {NotificationService} from "../../service/notification/notification.service";
+import {Notification} from "../../model/notification";
 
 declare var $: any;
 declare var Swal: any;
@@ -14,7 +16,8 @@ export class ListOrderComponent implements OnInit {
   listOrder: Orders[] = [];
   id: number;
 
-  constructor(private ordersService: OrdersService) {
+  constructor(private ordersService: OrdersService,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -29,8 +32,16 @@ export class ListOrderComponent implements OnInit {
     return this.ordersService.getOrders(id).toPromise();
   }
 
-  deleteOrder(id: number) {
+  async deleteOrder(id: number) {
+    let orders = await this.getOrder(id);
+    const notification: Notification = {
+      message: "Đơn hàng " + orders.id + " của bạn đã bị hủy",
+      user: {
+        id: orders.user.id
+      }
+    }
     this.ordersService.deleteOrders(id).subscribe(() => {
+      this.createNotification(notification);
       this.ordersService.getAllOrder(false).subscribe(listOrder => {
         this.listOrder = listOrder;
       })
@@ -69,42 +80,53 @@ export class ListOrderComponent implements OnInit {
 
   async confirmOrder(id: number) {
     let orders = await this.getOrder(id);
+    const notification: Notification = {
+      message: "Đơn hàng " + orders.id + " của bạn đã được xác nhận",
+      user: {
+        id: orders.user.id
+      }
+    }
     orders.status = true;
-      this.ordersService.updateOrders(id, orders).subscribe(() => {
-        this.ordersService.getAllOrder(false).subscribe(listOrder => {
-          this.listOrder = listOrder;
-        })
-        $(function () {
-          $('#modal-confirm').modal('hide');
-        })
-        $(function () {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-          });
-
-          Toast.fire({
-            type: 'success',
-            title: 'Đơn hàng đã được xác nhận'
-          });
-        });
-      }, () => {
-        $(function () {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-          });
-
-          Toast.fire({
-            type: 'error',
-            title: 'Xác nhận đơn hàng thất bại'
-          });
-        });
+    this.ordersService.updateOrders(id, orders).subscribe(() => {
+      this.createNotification(notification);
+      this.ordersService.getAllOrder(false).subscribe(listOrder => {
+        this.listOrder = listOrder;
       })
+      $(function () {
+        $('#modal-confirm').modal('hide');
+      })
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'success',
+          title: 'Đơn hàng đã được xác nhận'
+        });
+      });
+    }, () => {
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'error',
+          title: 'Xác nhận đơn hàng thất bại'
+        });
+      });
+    })
+  }
+
+  createNotification(notification: Notification) {
+    this.notificationService.createNotification(notification).subscribe();
   }
 
   getAllOrders() {
