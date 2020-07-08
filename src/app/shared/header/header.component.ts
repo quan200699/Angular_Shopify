@@ -7,6 +7,9 @@ import {UserToken} from "../../model/user-token";
 import {Item} from "../../model/item";
 import {ShoppingCart} from "../../model/shopping-cart";
 import {ShoppingCartService} from "../../service/shopping-cart/shopping-cart.service";
+import {UserService} from "../../service/user/user.service";
+import {Notification} from "../../model/notification";
+import {NotificationService} from "../../service/notification/notification.service";
 
 @Component({
   selector: 'app-header',
@@ -21,14 +24,19 @@ export class HeaderComponent implements OnInit {
   favoriteProduct: Item[] = [];
   amount: number = 0;
   shoppingCart: ShoppingCart;
+  listNotification: Notification[] = [];
+  listNotificationUnRead: Notification[] = [];
 
   constructor(private categoryService: CategoryService,
               private authenticationService: AuthenticationService,
               private shoppingCartService: ShoppingCartService,
+              private userService: UserService,
+              private notificationService: NotificationService,
               private router: Router) {
     this.authenticationService.currentUser.subscribe(value => {
       this.currentUser = value
       this.getShoppingCartByUser(this.currentUser.id);
+      this.getAllNotificationUnRead(this.currentUser.id);
     });
     if (this.currentUser) {
       const roleList = this.currentUser.roles;
@@ -43,6 +51,19 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.getAllCategories();
+    this.getAllNotification();
+  }
+
+  getAllNotification() {
+    this.notificationService.getAllNotification().subscribe(listNotification => {
+      this.listNotification = listNotification;
+    })
+  }
+
+  getAllNotificationUnRead(id: number) {
+    this.userService.findAllNotification(id).subscribe(listNotificationUnRead => {
+      this.listNotificationUnRead = listNotificationUnRead;
+    })
   }
 
   getShoppingCartByUser(id: number) {
@@ -91,7 +112,7 @@ export class HeaderComponent implements OnInit {
 
   sumTotalItem(): number {
     this.amount = 0;
-    for(let item of this.items){
+    for (let item of this.items) {
       this.amount += item.quantity;
     }
     return this.amount;
