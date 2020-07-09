@@ -80,6 +80,7 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" *ngIf="currentUser==null">
                 <div class="dropdown-item disabled">
                   <h5>Thông báo</h5>
+                  <p></p>
                 </div>
                 <div class="dropdown-item disabled">
                   <p>Bạn chưa đăng nhập</p>
@@ -89,6 +90,7 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" *ngIf="currentUser!=null">
                 <div class="dropdown-item disabled">
                   <h5>Thông báo</h5>
+                  <p></p>
                 </div>
                 <div class="dropdown-item disabled" *ngIf="listNotification.length==0">
                   <p>Chưa có thông báo</p>
@@ -101,15 +103,18 @@
                     <p style="font-size: 12px">
                       {{notification.createDate.getHours()}}:{{notification.createDate.getMinutes()}}
                       {{notification.createDate.getDay()}}-{{notification.createDate.getMonth()}}
-                      -{{notification.createDate.getFullYear()}}</p>
+                      -{{notification.createDate.getFullYear()}}
+                    </p>
                   </div>
-                  <div *ngIf="notification.status == false" style="background: #2F96B4"
+                  <div *ngIf="notification.status == false" style="background: #5ba6fc"
                        (click)="updateStatus(notification.id, currentUser.id)">
                     {{notification.message}}
                     <p style="font-size: 12px">{{notification.createDate.getHours()}}
                       :{{notification.createDate.getMinutes()}}
                       {{notification.createDate.getDay()}}-{{notification.createDate.getMonth()}}
-                      -{{notification.createDate.getFullYear()}}</p>
+                      -{{notification.createDate.getFullYear()}}
+                      <span class="fas fa-circle float-right" style="color: #011882"></span>
+                    </p>
                   </div>
                 </div>
               </div>
