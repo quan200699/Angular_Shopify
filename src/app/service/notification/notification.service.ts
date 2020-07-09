@@ -22,7 +22,7 @@ export class NotificationService {
     return this.http.post<Notification>(API_URL + '/notifications', notification);
   }
 
-  updateCustomerInfo(id: number, notification: Notification): Observable<Notification> {
+  updateNotification(id: number, notification: Notification): Observable<Notification> {
     return this.http.put<Notification>(API_URL + `/notifications/${id}`, notification)
   }
 

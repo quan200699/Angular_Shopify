@@ -132,4 +132,16 @@ export class HeaderComponent implements OnInit {
       }
     }
   }
+
+  getNotification(id: number) {
+    return this.notificationService.getNotification(id).toPromise();
+  }
+
+  async updateStatus(notificationId: number, userId: number) {
+    let notification = await this.getNotification(notificationId);
+    notification.status = true;
+    this.notificationService.updateNotification(notificationId, notification).subscribe(() => {
+      this.getAllNotificationUnRead(userId);
+    })
+  }
 }
