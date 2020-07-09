@@ -57,6 +57,9 @@ export class HeaderComponent implements OnInit {
   getAllNotification() {
     this.notificationService.getAllNotification().subscribe(listNotification => {
       this.listNotification = listNotification;
+      this.listNotification.map(notification => {
+        notification.createDate = new Date(notification.createDate);
+      })
     })
   }
 

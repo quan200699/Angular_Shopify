@@ -75,8 +75,10 @@
                 <i class="fa fa-bell"></i><span>{{this.listNotificationUnRead.length}}</span>
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" (click)="updateStatus(notification.id, currentUser.id)"
-                   *ngFor="let notification of listNotification">{{notification.message}}</a>
+                <div class="dropdown-item" (click)="updateStatus(notification.id, currentUser.id)"
+                     *ngFor="let notification of listNotification">{{notification.message}}
+                  <p style="font-size: 12px">{{notification.createDate.getHours()}}:{{notification.createDate.getMinutes()}}
+                    {{notification.createDate.getDay()}}-{{notification.createDate.getMonth()}}-{{notification.createDate.getFullYear()}}</p></div>
               </div>
             </div>
             <div class="header__top__right__auth" *ngIf="!currentUser">
