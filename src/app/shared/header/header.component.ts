@@ -145,6 +145,7 @@ export class HeaderComponent implements OnInit {
     notification.status = true;
     this.notificationService.updateNotification(notificationId, notification).subscribe(() => {
       this.getAllNotificationUnRead(userId);
+      this.getAllNotification();
     })
   }
 }
