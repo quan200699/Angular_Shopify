@@ -69,6 +69,15 @@
                 <li><a [routerLink]="['/order', { status:false }]" style="font-size: 12px">Chờ xác nhận</a></li>
               </ul>
             </div>
+            <div class="dropdown header__top__right__auth">
+              <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                 aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-bell"></i><span>{{this.listNotificationUnRead.length}}</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" *ngFor="let notification of listNotification">{{notification.message}}</a>
+              </div>
+            </div>
             <div class="header__top__right__auth" *ngIf="!currentUser">
               <a routerLink="../login"><i class="fa fa-user"></i> Đăng nhập</a>
             </div>
@@ -99,9 +108,9 @@
       <div class="col-lg-3">
         <div class="header__cart">
           <ul>
-            <li><a routerLink="/favorite"><i class="fa fa-heart"></i> <span>{{this.favoriteProduct.length}}</span></a></li>
+            <li><a routerLink="/favorite"><i class="fa fa-heart"></i> <span>{{this.favoriteProduct.length}}</span></a>
+            </li>
             <li><a routerLink="/cart"><i class="fa fa-shopping-bag"></i> <span>{{this.amount}}</span></a></li>
-            <li><a routerLink="/cart"><i class="fa fa-bell"></i> <span>{{this.listNotificationUnRead.length}}</span></a></li>
           </ul>
         </div>
       </div>

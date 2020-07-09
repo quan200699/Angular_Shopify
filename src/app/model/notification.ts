@@ -3,4 +3,5 @@ export interface Notification {
   message?: string;
   user?: any;
   status?: boolean;
+  createDate?: Date;
 }
