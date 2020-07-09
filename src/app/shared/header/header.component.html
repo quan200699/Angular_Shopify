@@ -70,12 +70,30 @@
               </ul>
             </div>
             <div class="dropdown header__top__right__auth">
-              <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                 aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-bell"></i><span *ngIf="listNotificationUnRead.length==0">{{this.listNotificationUnRead.length}}</span>
-                <span *ngIf="listNotificationUnRead.length>0" style="color: red">{{this.listNotificationUnRead.length}}</span>
+              <a class="btn dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                 aria-haspopup="false" aria-expanded="false">
+                <i class="fa fa-bell"></i><span
+                *ngIf="listNotificationUnRead.length==0">{{this.listNotificationUnRead.length}}</span>
+                <span *ngIf="listNotificationUnRead.length>0"
+                      style="color: red">{{this.listNotificationUnRead.length}}</span>
               </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" *ngIf="currentUser==null">
+                <div class="dropdown-item disabled">
+                  <h5>Thông báo</h5>
+                </div>
+                <div class="dropdown-item disabled">
+                  <p>Bạn chưa đăng nhập</p>
+                  <p></p>
+                </div>
+              </div>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" *ngIf="currentUser!=null">
+                <div class="dropdown-item disabled">
+                  <h5>Thông báo</h5>
+                </div>
+                <div class="dropdown-item disabled" *ngIf="listNotification.length==0">
+                  <p>Chưa có thông báo</p>
+                  <p></p>
+                </div>
                 <div class="dropdown-item"
                      *ngFor="let notification of listNotification">
                   <div *ngIf="notification.status == true" (click)="updateStatus(notification.id, currentUser.id)">
@@ -85,7 +103,8 @@
                       {{notification.createDate.getDay()}}-{{notification.createDate.getMonth()}}
                       -{{notification.createDate.getFullYear()}}</p>
                   </div>
-                  <div *ngIf="notification.status == false" style="background: #2F96B4"  (click)="updateStatus(notification.id, currentUser.id)">
+                  <div *ngIf="notification.status == false" style="background: #2F96B4"
+                       (click)="updateStatus(notification.id, currentUser.id)">
                     {{notification.message}}
                     <p style="font-size: 12px">{{notification.createDate.getHours()}}
                       :{{notification.createDate.getMinutes()}}

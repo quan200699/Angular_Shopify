@@ -22,4 +22,8 @@ export class UserService {
   findAllNotification(id: number): Observable<Notification[]> {
     return this.http.get<Notification[]>(API_URL + `/users/${id}/notifications`);
   }
+
+  findAllNotificationDateDesc(id: number): Observable<Notification[]> {
+    return this.http.get<Notification[]>(API_URL + `/users/${id}/notifications-desc`);
+  }
 }

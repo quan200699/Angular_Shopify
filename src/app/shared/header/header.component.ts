@@ -11,6 +11,8 @@ import {UserService} from "../../service/user/user.service";
 import {Notification} from "../../model/notification";
 import {NotificationService} from "../../service/notification/notification.service";
 
+declare var $: any
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -37,6 +39,7 @@ export class HeaderComponent implements OnInit {
       this.currentUser = value
       this.getShoppingCartByUser(this.currentUser.id);
       this.getAllNotificationUnRead(this.currentUser.id);
+      this.getAllNotification(this.currentUser.id);
     });
     if (this.currentUser) {
       const roleList = this.currentUser.roles;
@@ -50,12 +53,16 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    $(function () {
+      $(".dropdown-menu").click(function(event){
+        event.stopPropagation();
+      });
+    })
     this.getAllCategories();
-    this.getAllNotification();
   }
 
-  getAllNotification() {
-    this.notificationService.getAllNotification().subscribe(listNotification => {
+  getAllNotification(id: number) {
+    this.userService.findAllNotificationDateDesc(id).subscribe(listNotification => {
       this.listNotification = listNotification;
       this.listNotification.map(notification => {
         notification.createDate = new Date(notification.createDate);
@@ -145,7 +152,7 @@ export class HeaderComponent implements OnInit {
     notification.status = true;
     this.notificationService.updateNotification(notificationId, notification).subscribe(() => {
       this.getAllNotificationUnRead(userId);
-      this.getAllNotification();
+      this.getAllNotification(userId);
     })
   }
 }
