@@ -108,8 +108,8 @@
                   <div *ngIf="notification.status == false"
                        (click)="updateStatus(notification.id, currentUser.id)">
                     {{notification.message}}
-                    <p style="font-size: 12px; color: #4b93f7">{{notification.createDate.getHours()}}
-                      :{{notification.createDate.getMinutes()}}
+                    <p style="font-size: 12px; color: #4b93f7">
+                      {{notification.createDate.getHours()}}:{{notification.createDate.getMinutes()}}
                       {{notification.createDate.getDay() < 10 ? "0" + notification.createDate.getDay() : notification.createDate.getDay()}}-{{notification.createDate.getMonth() < 10 ? "0" + notification.createDate.getMonth() : notification.createDate.getMonth()}}-{{notification.createDate.getFullYear()}}
                       <span class="fas fa-circle float-right" style="color: #4b93f7"></span>
                     </p>
