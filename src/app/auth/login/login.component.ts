@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     if (this.currentUser) {
       const roleList = this.currentUser.roles;
       for (const role of roleList) {
-        if (role.authority === 'ROLE_ADMIN') {
+        if (role.name === 'ROLE_ADMIN') {
           this.hasRoleAdmin = true;
         }
       }
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('ACCESS_TOKEN', data.accessToken);
           const roleList = data.roles;
           for (const role of roleList) {
-            if (role.authority === 'ROLE_ADMIN') {
+            if (role.name === 'ROLE_ADMIN') {
               this.returnUrl = "/admin";
             }
           }
