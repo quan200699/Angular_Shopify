@@ -132,9 +132,7 @@ export class CreateProductComponent implements OnInit {
               fileRef.getDownloadURL().subscribe(url => {
                 const image: Image = {
                   url: url,
-                  product: {
-                    id: product.id
-                  }
+                  product_id: product.id
                 };
                 this.imageService.createImage(image).subscribe(() => {
                 }, () => {
