@@ -77,13 +77,9 @@ export class CreateWarehouseBillDetailComponent implements OnInit {
     this.sub = this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
       const warehouseBillDetail: WarehouseBillDetail = {
-        product: {
-          id: productId
-        },
+        product_id: productId,
         amount: this.warehouseBillDetailForm.value.amount,
-        wareHouseBill: {
-          id: this.id
-        }
+        ware_house_bill_id: this.id
       };
       if (warehouseBillDetail.amount !== 0) {
         return this.warehouseBillDetailService.createWarehouseBillDetail(warehouseBillDetail).subscribe(() => {
