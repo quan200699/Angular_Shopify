@@ -9,6 +9,7 @@ export interface Product {
   mass?: number;
   description?: string;
   image?: any[];
+  category?: any;
   category_id?: any;
   saleOff?: number;
 }
