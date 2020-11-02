@@ -31,10 +31,10 @@
         <div class="form-group">
           <label for="warehouse">Nhà kho</label>
           <select class="form-control" id="warehouse" name="warehouse" formControlName="warehouse"
-                  *ngIf="currentWarehouseBill.warehouse!=null">
+                  *ngIf="currentWarehouseBill.warehouse_id!=null">
             <option [ngValue]="null">Nhà kho</option>
             <option *ngFor="let warehouse of listWarehouse" [value]="warehouse.id"
-                    [selected]="warehouse.id == currentWarehouseBill.warehouse.id">{{warehouse.name}}</option>
+                    [selected]="warehouse.id == currentWarehouseBill.warehouse_id.id">{{warehouse.name}}</option>
           </select>
         </div>
       </div>

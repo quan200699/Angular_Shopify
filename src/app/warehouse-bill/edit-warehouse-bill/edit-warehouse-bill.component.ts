@@ -74,9 +74,9 @@ export class EditWarehouseBillComponent implements OnInit {
 
   updateWarehouseBill(id: number) {
     const warehouseBill: WarehouseBill = {
-      createDate: this.currentWarehouseBill.createDate,
-      warehouse: {
-        id: this.warehouseBillForm.value.warehouse === "" ? this.currentWarehouseBill.warehouse : this.warehouseBillForm.value.warehouse,
+      create_date: this.currentWarehouseBill.create_date,
+      warehouse_id: {
+        id: this.warehouseBillForm.value.warehouse === "" ? this.currentWarehouseBill.warehouse_id : this.warehouseBillForm.value.warehouse,
       }
     };
     this.warehouseBillService.updateWarehouseBill(id, warehouseBill).subscribe(() => {

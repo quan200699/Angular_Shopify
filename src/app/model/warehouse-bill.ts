@@ -1,5 +1,6 @@
 export interface WarehouseBill {
   id?: number;
-  createDate?: Date;
+  create_date?: Date;
+  warehouse_id?: any;
   warehouse?: any;
 }

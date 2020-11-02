@@ -41,7 +41,7 @@
           <td>
             <a [routerLink]="['info',warehouseBill.id]">{{warehouseBill.id}}</a>
           </td>
-          <td>{{warehouseBill.createDate}}</td>
+          <td>{{warehouseBill.create_date}}</td>
           <td *ngIf="warehouseBill.warehouse!=null">{{warehouseBill.warehouse.name}}</td>
           <td *ngIf="hasRoleAdmin">
             <div class="row">

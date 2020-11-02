@@ -60,11 +60,9 @@ export class CreateWarehouseBillComponent implements OnInit {
 
   createWarehouseBill() {
     const warehouseBill: WarehouseBill = {
-      warehouse: {
-        id: this.warehouseBillForm.value.warehouse
-      }
+      warehouse_id: this.warehouseBillForm.value.warehouse
     };
-    if (warehouseBill.warehouse !== null) {
+    if (warehouseBill.warehouse_id !== null) {
       return this.warehouseBillService.createWarehouseBill(warehouseBill).subscribe(() => {
         this.warehouseBillForm.reset();
         $(function () {
