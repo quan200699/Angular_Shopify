@@ -31,7 +31,7 @@ export class AdminAuthGuard implements CanActivate, CanActivateChild, CanLoad {
     if (this.currentUser) {
       const roleList = this.currentUser.roles;
       for (const role of roleList) {
-        if (role.name === 'ROLE_ADMIN') {
+        if (role.authority === 'ROLE_ADMIN') {
           hasRoleAdmin = true;
           break;
         }
@@ -54,7 +54,7 @@ export class AdminAuthGuard implements CanActivate, CanActivateChild, CanLoad {
       const roleList = this.currentUser.roles;
       let hasRoleAdmin = false;
       for (const role of roleList) {
-        if (role.name === 'ROLE_ADMIN') {
+        if (role.authority === 'ROLE_ADMIN') {
           hasRoleAdmin = true;
           break;
         }

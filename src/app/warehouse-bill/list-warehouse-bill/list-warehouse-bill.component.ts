@@ -24,7 +24,7 @@ export class ListWarehouseBillComponent implements OnInit {
     if (this.currentUser) {
       const roleList = this.currentUser.roles;
       for (const role of roleList) {
-        if (role.name === 'ROLE_ADMIN') {
+        if (role.authority === 'ROLE_ADMIN') {
           this.hasRoleAdmin = true;
         }
       }
