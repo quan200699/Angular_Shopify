@@ -182,9 +182,7 @@ export class CreateProductComponent implements OnInit {
       instructional: this.productForm.value.instructional,
       preservation: this.productForm.value.preservation,
       description: $('.textarea').val(),
-      category: {
-        id: categoryId
-      }
+      category_id: categoryId
     };
     if (isValidated) {
       return this.productService.createProduct(product).toPromise();
