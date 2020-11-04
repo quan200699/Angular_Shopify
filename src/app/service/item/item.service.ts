@@ -60,13 +60,9 @@ export class ItemService {
     } else {
       if (items.length == 0) {
         let item: Item = {
-          product: {
-            id: productId
-          },
+          product_id: productId,
           quantity: 1,
-          shoppingCart: {
-            id: shoppingCartId
-          }
+          shopping_cart_id: shoppingCartId
         }
         this.createItem(item).subscribe(() => {
           $(function () {
@@ -93,13 +89,9 @@ export class ItemService {
         }
         if (index == -1) {
           let item1: Item = {
-            product: {
-              id: productId
-            },
+            product_id: productId,
             quantity: 1,
-            shoppingCart: {
-              id: shoppingCartId
-            }
+            shopping_cart_id: shoppingCartId
           }
           this.createItem(item1).subscribe(() => {
             $(function () {

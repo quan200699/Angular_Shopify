@@ -230,14 +230,16 @@ export class ShoppingCartComponent implements OnInit {
   loadCart(): void {
     this.items = [];
     let cart = JSON.parse(localStorage.getItem('cart'));
-    for (var i = 0; i < cart.length; i++) {
-      let item = JSON.parse(cart[i]);
-      this.items.push({
-        product: item.product,
-        quantity: item.quantity
-      });
+    if (cart != null) {
+      for (var i = 0; i < cart.length; i++) {
+        let item = JSON.parse(cart[i]);
+        this.items.push({
+          product: item.product,
+          quantity: item.quantity
+        });
+      }
+      this.sumTotalPrice();
     }
-    this.sumTotalPrice();
   }
 
   sumTotalPrice(): number {

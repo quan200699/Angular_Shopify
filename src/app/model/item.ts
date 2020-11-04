@@ -3,4 +3,6 @@ export interface Item {
   product?: any;
   quantity?: number;
   shoppingCart?: any;
+  product_id?: any;
+  shopping_cart_id?: any;
 }
