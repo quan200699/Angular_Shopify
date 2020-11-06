@@ -23,16 +23,18 @@ export class AdminComponent implements OnInit {
     let monthTotalBought = [];
     let monthTotalGet = [];
     for (let i = 0; i < 12; i++) {
-      let totalSpendByBought = await this.sumTotalPriceHaveBought(i + 1, this.currentYear);
-      let totalGetByMonth = await this.sumTotalPriceHaveGot(i + 1, this.currentYear);
+      let totalSpendByBought: any = await this.sumTotalPriceHaveBought(i + 1, this.currentYear);
+      let totalGetByMonth: any = await this.sumTotalPriceHaveGot(i + 1, this.currentYear);
       if (totalSpendByBought == null) {
         totalSpendByBought = 0;
+      } else {
+        monthTotalBought.push(totalSpendByBought.totalPrice);
       }
       if (totalGetByMonth == null) {
         totalGetByMonth = 0;
+      } else {
+        monthTotalGet.push(totalGetByMonth.totalPrice);
       }
-      monthTotalBought.push(totalSpendByBought);
-      monthTotalGet.push(totalGetByMonth);
     }
     let areaChartData = {
       labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8',
