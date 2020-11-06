@@ -127,7 +127,7 @@
               <div class="col-lg-4" *ngFor="let product of listProductSaleOff">
                 <div class="product__discount__item">
                   <div class="product__discount__item__pic set-bg" *ngIf="product.image != null"
-                       [style.background]="'url('+product.image[0].url+')'"
+                       [ngStyle]="{'background-image':'url('+product.image[0].url+')'}"
                        style="background-size: 100%;background-repeat: no-repeat;">
                     <div class="product__discount__percent">-{{product.saleOff}}%</div>
                     <ul class="product__item__pic__hover">
