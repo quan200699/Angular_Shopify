@@ -98,9 +98,7 @@ export class CheckoutComponent implements OnInit {
 
   createOrder() {
     const orders: Orders = {
-      user: {
-        id: this.currentUser.id
-      },
+      user_id: this.currentUser.id,
       status: false
     }
     return this.ordersService.createOrders(orders).toPromise();
@@ -108,20 +106,16 @@ export class CheckoutComponent implements OnInit {
 
   createOrderDetail(item: Item, orders: Orders) {
     const orderDetail: OrdersDetail = {
-      orders: {
-        id: orders.id
-      },
+      orders_id: orders.id,
       amount: item.quantity,
-      product: {
-        id: item.product.id
-      }
+      product_id: item.product.id
     }
     return this.orderDetailService.createOrderDetail(orderDetail).toPromise();
   }
 
   async submitCheckoutForm(items: Item[], shoppingCartId: number) {
     const customerInfo = await this.createCustomerInfo();
-    if (customerInfo.address != "" && customerInfo.email != "" && customerInfo.name != "" && customerInfo.phoneNumber != "") {
+    if (customerInfo.address != "" && customerInfo.email != "" && customerInfo.name != "" && customerInfo.phone_number != "") {
       this.isSubmitted = true;
     }
     if (this.isSubmitted) {
@@ -182,11 +176,9 @@ export class CheckoutComponent implements OnInit {
     const customerInfo: CustomerInfo = {
       name: this.customerInfoForm.value.name,
       address: this.customerInfoForm.value.address,
-      phoneNumber: this.customerInfoForm.value.phoneNumber,
+      phone_number: this.customerInfoForm.value.phoneNumber,
       email: this.customerInfoForm.value.email,
-      user: {
-        id: this.currentUser.id
-      }
+      user_id: this.currentUser.id
     };
     return this.customerInfoService.createCustomerInfo(customerInfo).toPromise();
   }

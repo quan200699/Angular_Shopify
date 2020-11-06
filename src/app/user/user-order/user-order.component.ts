@@ -109,9 +109,7 @@ export class UserOrderComponent implements OnInit {
         id: this.currentUser.id
       },
       evaluate: star,
-      product: {
-        id: productId
-      }
+      product_id: productId
     }
     this.reviewService.createReview(review).subscribe(() => {
       $(function () {

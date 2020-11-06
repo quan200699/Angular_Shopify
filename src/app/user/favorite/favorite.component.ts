@@ -57,7 +57,7 @@ export class FavoriteComponent implements OnInit {
         const product = await this.getProduct(id);
         product.image = await this.getAllImageByProduct(product)
         var item: Item = {
-          product: product,
+          product_id: product.id,
           quantity: 1
         };
         if (localStorage.getItem('heart') == null) {
@@ -76,7 +76,6 @@ export class FavoriteComponent implements OnInit {
 
   remove(id: number): void {
     let heart: any = JSON.parse(localStorage.getItem('heart'));
-    let index: number = -1;
     for (var i = 0; i < heart.length; i++) {
       let item: Item = JSON.parse(heart[i]);
       if (item.product.id == id) {
