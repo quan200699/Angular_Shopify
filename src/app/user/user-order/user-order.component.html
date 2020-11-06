@@ -74,7 +74,7 @@
             <tr *ngFor="let product of listProduct; index as i">
               <td>{{i + 1}}</td>
               <td>
-                <img *ngIf="product.image != null" [src]="product.image[0].url" alt="">
+                <img *ngIf="product.image != null" [src]="product.image[0].url" alt="" style="width: 20%; height: 20%">
               </td>
               <td class="shoping__cart__item">
                 <a [routerLink]="['../product',product.id]" style="font-size: 16px"><h5>{{product.name}}  </h5></a>
