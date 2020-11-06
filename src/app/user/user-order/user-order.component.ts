@@ -198,7 +198,7 @@ export class UserOrderComponent implements OnInit {
   }
 
   getAllImageByProduct(product: Product) {
-    return this.productService.getAllImageByProduct(product.id).toPromise()
+    return this.productService.getAllImageByProduct(product.product_id).toPromise()
   }
 
   search() {
