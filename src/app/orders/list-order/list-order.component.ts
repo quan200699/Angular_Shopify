@@ -44,6 +44,10 @@ export class ListOrderComponent implements OnInit {
       this.createNotification(notification);
       this.ordersService.getAllOrder(false).subscribe(listOrder => {
         this.listOrder = listOrder;
+        this.listOrder.map(order => {
+            order.create_date = new Date(order.create_date);
+          }
+        )
       })
       $(function () {
         $('#modal-delete').modal('hide');
@@ -132,6 +136,10 @@ export class ListOrderComponent implements OnInit {
   getAllOrders() {
     this.ordersService.getAllOrder(false).subscribe(listOrder => {
       this.listOrder = listOrder;
+      this.listOrder.map(order => {
+          order.create_date = new Date(order.create_date);
+        }
+      )
       $(function () {
         $('#table-orders').DataTable({
           "paging": true,

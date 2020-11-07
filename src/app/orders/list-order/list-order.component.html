@@ -39,7 +39,8 @@
           <td>
             <a [routerLink]="['info',orders.id]">{{orders.id}}</a>
           </td>
-          <td>{{orders.createDate}}</td>
+          <td>{{orders.create_date.getUTCDate()}}/{{orders.create_date.getUTCMonth() + 1}}
+            /{{orders.create_date.getUTCFullYear()}}</td>
           <td *ngIf="orders.user!=null">{{orders.user.email}}</td>
           <td>{{orders.status ? "Đã xác nhận" : "Đang chờ xác nhận"}}</td>
           <td>

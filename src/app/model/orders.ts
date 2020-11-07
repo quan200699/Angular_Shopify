@@ -1,6 +1,6 @@
 export interface Orders {
   id?: number;
-  createDate?: Date;
+  create_date?: Date;
   user?: any;
   user_id?: any;
   status?: boolean;

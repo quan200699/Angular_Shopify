@@ -43,6 +43,10 @@ export class ListWarehouseBillComponent implements OnInit {
     this.warehouseBillService.deleteWarehouseBill(this.id).subscribe(() => {
       this.warehouseBillService.getAllWarehouseBill().subscribe(listWarehouseBill => {
         this.listWarehouseBill = listWarehouseBill;
+        this.listWarehouseBill.map(warehouseBill => {
+            warehouseBill.create_date = new Date(warehouseBill.create_date);
+          }
+        )
       })
       $(function () {
         $('#modal-delete').modal('hide');
@@ -80,6 +84,10 @@ export class ListWarehouseBillComponent implements OnInit {
   getAllWarehouseBill() {
     this.warehouseBillService.getAllWarehouseBill().subscribe(listWarehouseBill => {
       this.listWarehouseBill = listWarehouseBill;
+      this.listWarehouseBill.map(warehouseBill => {
+          warehouseBill.create_date = new Date(warehouseBill.create_date);
+        }
+      )
       $(function () {
         $('#table-warehouse-bill').DataTable({
           "paging": true,
