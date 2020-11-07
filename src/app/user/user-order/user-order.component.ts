@@ -105,9 +105,7 @@ export class UserOrderComponent implements OnInit {
   createReview(star: number, productId: number) {
     const review: Review = {
       comment: $('.textarea').val(),
-      user: {
-        id: this.currentUser.id
-      },
+      user_id: this.currentUser.id,
       evaluate: star,
       product_id: productId
     }

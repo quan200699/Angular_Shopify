@@ -3,6 +3,7 @@ export interface Review {
   evaluate?: number;
   comment?: string;
   user?: any;
+  user_id?: any;
   product?: any;
   product_id?: any;
   createDate?: Date;
