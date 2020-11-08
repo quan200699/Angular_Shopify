@@ -8,6 +8,7 @@ declare var $: any;
 declare var Swal: any;
 declare var FB: any;
 declare const gapi: any;
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -92,7 +93,8 @@ export class RegisterComponent implements OnInit {
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
   }
-  ngAfterViewInit(){
+
+  ngAfterViewInit() {
     this.googleInit();
   }
 
@@ -190,19 +192,18 @@ export class RegisterComponent implements OnInit {
       this.attachSignin(document.getElementById('googleBtn'));
     });
   }
+
   attachSignin(element) {
     this.auth2.attachClickHandler(element, {},
       (googleUser) => {
-
         let profile = googleUser.getBasicProfile();
-        console.log('Token || ' + googleUser.getAuthResponse().id_token);
-        console.log('ID: ' + profile.getId());
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail());
-        //YOUR CODE HERE
-
-
+        const user: User = {
+          google_id: profile.getId(),
+          fullName: profile.getName(),
+          email: profile.getEmail(),
+          password: "123456"
+        }
+        this.createNewUser(user)
       }, (error) => {
         alert(JSON.stringify(error, undefined, 2));
       });
