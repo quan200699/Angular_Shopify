@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {UserService} from "../../service/user/user.service";
 import {Router} from "@angular/router";
@@ -7,7 +7,7 @@ import {User} from "../../model/user";
 declare var $: any;
 declare var Swal: any;
 declare var FB: any;
-
+declare const gapi: any;
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -21,9 +21,11 @@ export class RegisterComponent implements OnInit {
     terms: new FormControl('')
   });
   isSubmitted = false;
+  auth2: any;
 
   constructor(private userService: UserService,
-              private router: Router) {
+              private router: Router,
+              private element: ElementRef) {
   }
 
   ngOnInit() {
@@ -89,6 +91,9 @@ export class RegisterComponent implements OnInit {
       js.src = 'https://connect.facebook.net/en_US/sdk.js';
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+  }
+  ngAfterViewInit(){
+    this.googleInit();
   }
 
   facebookRegister() {
@@ -173,5 +178,33 @@ export class RegisterComponent implements OnInit {
         });
       });
     });
+  }
+
+  googleInit() {
+    gapi.load('auth2', () => {
+      this.auth2 = gapi.auth2.init({
+        client_id: '764592214658-g3r69f9t34ig60o6psnungn8ugk55p94.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        scope: 'profile email'
+      });
+      this.attachSignin(document.getElementById('googleBtn'));
+    });
+  }
+  attachSignin(element) {
+    this.auth2.attachClickHandler(element, {},
+      (googleUser) => {
+
+        let profile = googleUser.getBasicProfile();
+        console.log('Token || ' + googleUser.getAuthResponse().id_token);
+        console.log('ID: ' + profile.getId());
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
+        //YOUR CODE HERE
+
+
+      }, (error) => {
+        alert(JSON.stringify(error, undefined, 2));
+      });
   }
 }
