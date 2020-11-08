@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {first} from "rxjs/operators";
 import {AuthenticationService} from "../../service/auth/authentication.service";
 import {UserToken} from "../../model/user-token";
-import {User} from "../../model/user";
 
 declare var $: any;
 declare var Swal: any;
