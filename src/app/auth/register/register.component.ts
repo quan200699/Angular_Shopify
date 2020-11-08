@@ -6,6 +6,7 @@ import {User} from "../../model/user";
 
 declare var $: any;
 declare var Swal: any;
+declare var FB: any;
 
 @Component({
   selector: 'app-register',
@@ -68,6 +69,49 @@ export class RegisterComponent implements OnInit {
         }
       });
     });
+    (window as any).fbAsyncInit = function () {
+      FB.init({
+        appId: '1006360806546717',
+        cookie: true,
+        xfbml: true,
+        version: 'v8.0',
+      });
+      FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  }
+
+  facebookRegister() {
+    FB.login((response) => {
+      this.createAccount(response.authResponse.userID);
+    }, {scope: 'email'});
+  }
+
+  createAccount(userId) {
+    FB.api(
+      `/${userId}?fields=id,name,email`,
+      (response) => {
+        if (response && !response.error) {
+          const user: User = {
+            facebook_id: response.id,
+            fullName: response.name,
+            email: response.email,
+            password: Math.random().toString(36).substring(8)
+          }
+          this.createNewUser(user)
+        }
+      }
+    );
   }
 
   register() {
@@ -78,38 +122,7 @@ export class RegisterComponent implements OnInit {
       fullName: this.registerForm.value.fullName
     };
     if (user.email !== "" && user.password !== "" && user.fullName !== "") {
-      this.userService.register(user).subscribe(() => {
-        this.registerForm.reset();
-        this.router.navigate(['/login']).finally(() => {
-        });
-        $(function () {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-          });
-
-          Toast.fire({
-            type: 'success',
-            title: 'Đăng ký thành công'
-          });
-        });
-      }, () => {
-        $(function () {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-          });
-
-          Toast.fire({
-            type: 'error',
-            title: 'Đăng ký thất bại'
-          });
-        });
-      });
+      this.createNewUser(user);
     } else {
       $(function () {
         const Toast = Swal.mixin({
@@ -125,5 +138,40 @@ export class RegisterComponent implements OnInit {
         });
       });
     }
+  }
+
+  createNewUser(user: User) {
+    this.userService.register(user).subscribe(() => {
+      this.registerForm.reset();
+      this.router.navigate(['/login']).finally(() => {
+      });
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'success',
+          title: 'Đăng ký thành công'
+        });
+      });
+    }, () => {
+      $(function () {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Toast.fire({
+          type: 'error',
+          title: 'Đăng ký thất bại'
+        });
+      });
+    });
   }
 }

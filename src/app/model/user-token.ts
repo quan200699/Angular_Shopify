@@ -7,4 +7,5 @@ export interface UserToken {
   fullName?: string;
   roles?: [Role];
   accessToken?: string;
+  facebook_id?: number;
 }

@@ -4,6 +4,7 @@ export interface User {
   id?: number;
   email?: string;
   password?: string;
+  facebook_id?: number;
   fullName?: string;
   roles?: [Role];
 }
