@@ -106,7 +106,7 @@ export class RegisterComponent implements OnInit {
             facebook_id: response.id,
             fullName: response.name,
             email: response.email,
-            password: Math.random().toString(36).substring(8)
+            password: "123456"
           }
           this.createNewUser(user)
         }
