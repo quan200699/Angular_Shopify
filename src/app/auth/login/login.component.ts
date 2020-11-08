@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {first} from "rxjs/operators";
@@ -9,6 +9,7 @@ import {User} from "../../model/user";
 declare var $: any;
 declare var Swal: any;
 declare var FB: any;
+declare const gapi: any;
 
 @Component({
   selector: 'app-login',
@@ -25,10 +26,12 @@ export class LoginComponent implements OnInit {
   submitted = false;
   currentUser: UserToken;
   hasRoleAdmin = false;
+  auth2: any;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private element: ElementRef) {
     this.authenticationService.currentUser.subscribe(value => this.currentUser = value);
     if (this.currentUser) {
       const roleList = this.currentUser.roles;
@@ -69,6 +72,75 @@ export class LoginComponent implements OnInit {
       js.src = 'https://connect.facebook.net/en_US/sdk.js';
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+  }
+
+  ngAfterViewInit() {
+    this.googleInit();
+  }
+
+  googleInit() {
+    gapi.load('auth2', () => {
+      this.auth2 = gapi.auth2.init({
+        client_id: '764592214658-g3r69f9t34ig60o6psnungn8ugk55p94.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        scope: 'profile email'
+      });
+      this.attachSignin(document.getElementById('googleBtn'));
+    });
+  }
+
+  attachSignin(element) {
+    this.auth2.attachClickHandler(element, {},
+      (googleUser) => {
+        let profile = googleUser.getBasicProfile();
+        this.submitted = true;
+        this.loading = true;
+        this.authenticationService.login(profile.getEmail(), "123456", profile.getId())
+          .pipe(first())
+          .subscribe(
+            data => {
+              localStorage.setItem('ACCESS_TOKEN', data.accessToken);
+              const roleList = data.roles;
+              for (const role of roleList) {
+                if (role.authority === 'ROLE_ADMIN') {
+                  this.returnUrl = "/admin";
+                }
+              }
+              this.router.navigate([this.returnUrl]).finally(() => {
+              });
+              $(function () {
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000
+                });
+
+                Toast.fire({
+                  type: 'success',
+                  title: 'Đăng nhập thành công'
+                });
+              });
+            },
+            () => {
+              this.loading = false;
+              $(function () {
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000
+                });
+
+                Toast.fire({
+                  type: 'error',
+                  title: 'Đăng nhập thất bại'
+                });
+              });
+            });
+      }, (error) => {
+        alert(JSON.stringify(error, undefined, 2));
+      });
   }
 
   loginFacebook() {
