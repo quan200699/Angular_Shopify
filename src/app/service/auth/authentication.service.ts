@@ -24,8 +24,8 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  login(email: string, password?: string, facebook_id?: number) {
-    return this.http.post<any>(API_URL + '/login', {email, password,facebook_id})
+  login(email: string, password?: string, social_id?: number) {
+    return this.http.post<any>(API_URL + '/login', {email, password,facebook_id: social_id})
       .pipe(map(user => {
         localStorage.setItem('user', JSON.stringify(user));
         this.currentUserSubject.next(user);
