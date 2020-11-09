@@ -30,6 +30,7 @@ export class CategoryDetailComponent implements OnInit {
   sub: Subscription;
   currentUser: UserToken;
   shoppingCart: ShoppingCart;
+  listProductLatest: Product[] = [];
 
   constructor(private categoryService: CategoryService,
               private productService: ProductService,
@@ -88,6 +89,24 @@ export class CategoryDetailComponent implements OnInit {
     });
     this.getAllCategories();
     this.getAllProductSaleOff()
+    this.getAllProductLatest();
+  }
+  getAllProductLatest() {
+    this.productService.getAllProductLatest().subscribe(listProduct => {
+      if (listProduct.length > 3) {
+        for (let i = 0; i < 3; i++) {
+          this.listProductLatest.push(listProduct[i]);
+        }
+      } else {
+        this.listProductLatest = listProduct;
+      }
+      this.addImageToProduct(this.listProductLatest);
+    })
+  }
+  addImageToProduct(listProduct: Product[]) {
+    listProduct.map(async product => {
+      product.image = await this.getAllImageByProduct(product);
+    })
   }
 
   getShoppingCartByUser(id: number) {
