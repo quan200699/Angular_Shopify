@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit {
     this.userService.findAllNotificationDateDesc(id).subscribe(listNotification => {
       this.listNotification = listNotification;
       this.listNotification.map(notification => {
-        notification.createDate = new Date(notification.createDate);
+        notification.create_date = new Date(notification.create_date);
       })
     })
   }
