@@ -84,13 +84,18 @@ export class ListOrderComponent implements OnInit {
     let orders = await this.getOrder(id);
     const notification: Notification = {
       message: "Đơn hàng " + orders.id + " của bạn đã được xác nhận",
-      user_id: orders.user.id
+      user_id: orders.user.id,
+      status: false
     }
     orders.status = true;
     this.ordersService.updateOrders(id, orders).subscribe(() => {
       this.createNotification(notification);
       this.ordersService.getAllOrder(false).subscribe(listOrder => {
         this.listOrder = listOrder;
+        this.listOrder.map(order => {
+            order.create_date = new Date(order.create_date);
+          }
+        )
       })
       $(function () {
         $('#modal-confirm').modal('hide');

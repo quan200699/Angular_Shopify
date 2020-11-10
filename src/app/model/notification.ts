@@ -4,5 +4,5 @@ export interface Notification {
   user?: any;
   user_id?: any;
   status?: boolean;
-  createDate?: Date;
+  create_date?: Date;
 }
