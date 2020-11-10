@@ -102,7 +102,9 @@
                     {{notification.message}}
                     <p style="font-size: 12px">
                       {{notification.create_date.getHours()}}:{{notification.create_date.getMinutes()}}
-                      {{notification.create_date.getDay() < 10 ? "0" + notification.create_date.getDay() : notification.create_date.getDay()}}-{{notification.create_date.getMonth() < 10 ? "0" + notification.create_date.getMonth() : notification.create_date.getMonth()}}-{{notification.create_date.getFullYear()}}
+                      {{notification.create_date.getUTCDate() < 10 ? "0" + notification.create_date.getUTCDate() : notification.create_date.getUTCDate()}}
+                      -{{notification.create_date.getUTCMonth() + 1 < 10 ? "0" + notification.create_date.getUTCMonth() + 1 : notification.create_date.getUTCMonth() + 1}}
+                      -{{notification.create_date.getFullYear()}}
                     </p>
                   </div>
                   <div *ngIf="notification.status == false"
@@ -110,7 +112,9 @@
                     {{notification.message}}
                     <p style="font-size: 12px; color: #4b93f7">
                       {{notification.create_date.getHours()}}:{{notification.create_date.getMinutes()}}
-                      {{notification.create_date.getDay() < 10 ? "0" + notification.create_date.getDay() : notification.create_date.getDay()}}-{{notification.create_date.getMonth() < 10 ? "0" + notification.create_date.getMonth() : notification.create_date.getMonth()}}-{{notification.create_date.getFullYear()}}
+                      {{notification.create_date.getUTCDate() < 10 ? "0" + notification.create_date.getUTCDate() : notification.create_date.getUTCDate()}}
+                      -{{notification.create_date.getUTCMonth() + 1 < 10 ? "0" + notification.create_date.getUTCMonth() + 1 : notification.create_date.getUTCMonth() + 1}}
+                      -{{notification.create_date.getFullYear()}}
                       <span class="fas fa-circle float-right" style="color: #4b93f7"></span>
                     </p>
                   </div>
