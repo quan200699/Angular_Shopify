@@ -36,9 +36,7 @@ export class ListOrderComponent implements OnInit {
     let orders = await this.getOrder(id);
     const notification: Notification = {
       message: "Đơn hàng " + orders.id + " của bạn đã bị hủy",
-      user: {
-        id: orders.user.id
-      }
+      user_id: orders.user.id
     }
     this.ordersService.deleteOrders(id).subscribe(() => {
       this.createNotification(notification);
@@ -86,9 +84,7 @@ export class ListOrderComponent implements OnInit {
     let orders = await this.getOrder(id);
     const notification: Notification = {
       message: "Đơn hàng " + orders.id + " của bạn đã được xác nhận",
-      user: {
-        id: orders.user.id
-      }
+      user_id: orders.user.id
     }
     orders.status = true;
     this.ordersService.updateOrders(id, orders).subscribe(() => {

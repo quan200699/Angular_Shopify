@@ -47,13 +47,13 @@
             <div class="row">
               <div class="col-6">
                 <button type="button" class="btn btn-block btn-success" style="color: white" data-toggle="modal"
-                        data-target="#modal-confirm" (click)="getOrderId(orders.id)">
+                        data-target="#modal-confirm" (click)="getOrderId(orders.id)" [disabled]="orders.status">
                   <i class="fas fa-check"></i>
                 </button>
               </div>
               <div class="col-6">
                 <button type="button" class="btn btn-block btn-danger" style="color: white" data-toggle="modal"
-                        data-target="#modal-delete" (click)="getOrderId(orders.id)">
+                        data-target="#modal-delete" (click)="getOrderId(orders.id)" [disabled]="orders.status">
                   <i class="fas fa-trash"></i>
                 </button>
               </div>

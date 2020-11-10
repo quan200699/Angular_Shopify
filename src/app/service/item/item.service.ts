@@ -44,6 +44,15 @@ export class ItemService {
   async addItemToShoppingCart(items: any, productId: number, shoppingCartId: number) {
     let sumInput = await this.warehouseBillDetailService.sumAmount(productId).toPromise();
     let sumOutput = await this.orderDetailService.sumAmount(productId).toPromise();
+    if(Object.keys(sumInput).length === 0){
+      sumInput = 0;
+    }
+    if(Object.keys(sumOutput).length === 0){
+      sumOutput = 0;
+    }
+
+    console.log(sumInput)
+    console.log(sumOutput)
     if (sumInput - sumOutput <= 0) {
       $(function () {
         const Toast = Swal.mixin({
