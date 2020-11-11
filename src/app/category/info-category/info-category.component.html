@@ -37,32 +37,16 @@
           <th>Tên sản phẩm</th>
           <th>Giá bán</th>
           <th>Khối lượng</th>
-<!--          <th style="width: 160px" *ngIf="hasRoleAdmin"></th>-->
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let product of listProduct; index as i">
           <td>{{i + 1}}</td>
           <td>
-            <a [routerLink]="['info',product.id]">{{product.name}}</a>
+            <a [routerLink]="['../../../product/info',product.id]">{{product.name}}</a>
           </td>
           <td>{{product.price}} đồng</td>
           <td>{{product.mass}} gram</td>
-<!--          <td *ngIf="hasRoleAdmin">-->
-<!--            <div class="row">-->
-<!--              <div class="col-6">-->
-<!--                <a [routerLink]="['edit',product.id]" class="btn btn-block btn-primary" style="color: white">-->
-<!--                  <i class="fas fa-edit"></i>-->
-<!--                </a>-->
-<!--              </div>-->
-<!--              <div class="col-6">-->
-<!--                <button type="button" class="btn btn-block btn-danger" style="color: white" data-toggle="modal"-->
-<!--                        data-target="#modal-delete" (click)="getProductId(product.id)">-->
-<!--                  <i class="fas fa-trash"></i>-->
-<!--                </button>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </td>-->
         </tr>
         </tbody>
       </table>

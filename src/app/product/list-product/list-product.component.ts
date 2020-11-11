@@ -87,6 +87,7 @@ export class ListProductComponent implements OnInit {
           "ordering": true,
           "info": true,
           "autoWidth": false,
+          // "pageLength":5
         });
       });
     });
